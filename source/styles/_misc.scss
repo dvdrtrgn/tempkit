@@ -1,0 +1,40 @@
+// - + - - + - - + - - + - - + - - + - - + - - + - - + - - + - - + - - + - //
+/* _misc.scss */
+
+body {
+  color: $darker;
+}
+div {
+  min-width: 99px;
+}
+
+// COLOR
+.b-burnt {
+  background-color: $a-d-orange;
+}
+.b-orange {
+  background-color: $a-orange;
+}
+.b-plum {
+  background-color: $a-plum;
+}
+.b-green {
+  background-color: $a-d-green;
+}
+
+// POSITION
+.photo {
+  background-position: 50% 50%;
+  background-size: cover;
+  .small & {
+    height: 28rem;
+  }
+  .medium & {
+    height: 26rem;
+  }
+  .large & {
+    height: 30rem;
+  }
+}
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+// non-page1s

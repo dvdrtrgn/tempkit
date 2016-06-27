@@ -1,0 +1,51 @@
+{
+  "name": "web-starter-kit",
+  "title": "Web starter Kit",
+  "description": "Web Starter Kit",
+  "version": "0.0.1",
+  "homepage": "http://www.domain.com",
+  "author": {
+    "name": "David Turgeon",
+    "url": "https://github.com/dvdrtrgn"
+  },
+  "contributors": [
+    {
+      "name": "Name",
+      "email": "david.turgeon@wellsfargo.com"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dvdrtrgn/REPOSITORY.git"
+  },
+  "devDependencies": {
+    "browser-sync": "*",
+    "del": "*",
+    "gulp": "*",
+    "gulp-autoprefixer": "*",
+    "gulp-changed": "*",
+    "gulp-clean-css": "*",
+    "gulp-compass": "^2.1.0",
+    "gulp-copy": "*",
+    "gulp-csscomb": "*",
+    "gulp-header": "*",
+    "gulp-include": "*",
+    "gulp-jscs": "*",
+    "gulp-jshint": "*",
+    "gulp-plumber": "*",
+    "gulp-pug": "^1.2.0",
+    "gulp-replace": "*",
+    "gulp-sass": "*",
+    "gulp-scss-lint": "*",
+    "gulp-util": "*",
+    "gulp-watch": "*",
+    "jshint-stylish": "*",
+    "minimist": "*",
+    "pug": "*",
+    "require-dir": "*",
+    "run-sequence": "*"
+  },
+  "scripts": {
+    "go": "gulp serve"
+  }
+}

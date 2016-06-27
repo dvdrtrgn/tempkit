@@ -1,0 +1,68 @@
+// - + - - + - - + - - + - - + - - + - - + - - + - - + - - + - - + - - + - //
+/* core/_def */
+
+// ANI
+$default-transform: translate3d(0, 0, 0);
+$default-transition-delay:    false;
+$default-transition-duration: 0.5s;
+$default-transition-property: all;
+$default-transition-function: ease-in;
+
+// PALETTES
+$wf-red:        #bb0826;    $wf-yellow:     #fcc60a;   $wf-gray:      #8f8f8f;
+
+// Active Warm red and dark red are to create red gradients, not for text.
+$a-ebony:       #7a6855;    $a-d-ebony:     #574537;   $a-black:      #000;
+$a-l-coolgray:  #d9d9d6;    $a-d-coolgray:  #44464a;   $a-m-coolgray: #bfc0be;
+$a-green:       #46a033;    $a-d-green:     #007337;
+$a-magenta:     #ae2573;    $a-d-magenta:   #821861;
+$a-orange:      #ed8800;    $a-d-orange:    #ce4c00;
+$a-plum:        #702f8a;    $a-d-plum:      #4d3b65;
+$a-warmred:     #ec1c29;    $a-d-red:       #ae1e23;
+$a-teal:        #0095c8;    $a-d-teal:      #00698c;
+
+// Earth
+$e-d-warmgray:  #675b53;    $e-m-warmgray:  #8c8279;
+$e-amber:       #a9431e;    $e-d-amber:     #803b2b;
+$e-aqua:        #0085ad;    $e-d-aqua:      #00617f;
+$e-blue:        #5e8ab4;    $e-d-blue:      #326295;
+$e-brown:       #b06224;    $e-d-brown:     #734626;
+$e-eggplant:    #893b67;    $e-d-eggplant:  #6c2b46;
+$e-purple:      #6f5091;    $e-d-purple:  $a-d-plum;
+$e-spruce:      #507f70;    $e-d-spruce:    #285c4d;
+
+// Neutral
+$n-l-gray:      #e0e3e2;    $n-d-gray:$a-d-coolgray;
+$n-air:         #f2e2bd;
+$n-aquablue:    #c2deea;
+$n-breeze:      #dadbbf;
+$n-khaki:       #bfcec2;
+$n-stone:       #d7d3c7;
+
+@mixin middify() {
+  display: block;
+  margin: auto;
+  position: absolute;
+  text-align: center;
+  top: 0; right: 0; bottom: 0; left: 0;
+}
+
+@mixin clearfix() {
+  &:before, &:after {
+    content: ' ';
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+$sans:  'myriad-pro', sans-serif;
+$serif: 'Archer SSm A', 'Archer SSm B', serif;
+$narrow:  'myriad-pro-condensed', sans-serif;
+
+$lite-e: #eee; $lite-d: #ddd; $lite-c: #ccc;
+$dark-3: #333; $dark-6: #666; $dark-9: #999;
+$link: #5174b8;
+
+// - + - - + - - + - - + - - + - - + - - + - - + - - + - - + - - + - - + - //

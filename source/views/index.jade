@@ -1,0 +1,25 @@
+doctype html
+html
+  head
+    meta(charset='UTF-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+
+    title Template
+
+    link(href='./fonts/archer.ssm.css', rel='stylesheet', media='all')
+    link(href='./fonts/myriad.css', rel='stylesheet', media='all')
+    link(href='./fonts/myriad.con.css', rel='stylesheet', media='all')
+
+    link(href='./styles/main.css', rel='stylesheet', media='all')
+
+    script(data-main='./config', src='./vendors/require.js/require.js')
+
+  body.loading
+
+    .page
+      //
+      include ./_header.jade
+      //
+      include ./_footer.jade
+      //

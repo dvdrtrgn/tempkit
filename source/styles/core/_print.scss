@@ -1,0 +1,25 @@
+// - + - - + - - + - - + - - + - - + - - + - - + - - + - - + - - + - - + - //
+/* core/_print.scss */
+
+// scss-lint:disable ImportantRule
+@media print {
+  * {
+    background: none !important;
+    box-shadow: none !important;
+    color: black !important;
+  }
+  path {
+    fill: black !important;
+    &[fill='none'] {
+      fill: none !important;
+    }
+    &[fill='#FCC60A'] {
+      fill: white !important;
+    }
+  }
+  footer {
+    border-top: 0.5pt solid black;
+  }
+}
+// scss-lint:enable ImportantRule
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */

@@ -1,0 +1,40 @@
+// - + - - + - - + - - + - - + - - + - - + - - + - - + - - + - - + - - + - //
+/* core/_ada.scss */
+
+.ada,
+:focus::after {
+  // scss-lint:disable ImportantRule
+  display: initial !important;
+  height: 1px;
+  left: -5000px;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  visibility: visible !important;
+  width: 1px;
+  // scss-lint:enable ImportantRule
+}
+:focus::after {
+  content: ' selected';
+}
+
+.keyboard :focus,
+.keyboard .focus {
+  outline-color: yellow;
+}
+.msie .keyboard :focus,
+.msie .keyboard .focus {
+  outline: 3px solid yellow; /* force IE */
+}
+.mouse :focus,
+.mouse .focus {
+  outline: none;
+}
+
+::selection,
+.selection {
+  background-color: yellow;
+  text-shadow: 1px 2px 3px #ccc;
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */

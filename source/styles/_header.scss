@@ -1,0 +1,54 @@
+// - + - - + - - + - - + - - + - - + - - + - - + - - + - - + - - + - - + - //
+/* _header.scss */
+
+header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: $margin;
+
+  .logo {
+    vertical-align: middle;
+  }
+
+  &.mobile {
+    display: none;
+    font-size: 133%;
+    padding-top: 1em;
+    text-align: center;
+
+    div { /* grad bar */
+      @include background-image(linear-gradient(top, #d5172f 0%, #8e0114 100%));
+      @include halo;
+      height: 3rem;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      z-index: 9;
+
+      .logo {
+        margin: auto;
+      }
+    }
+  }
+
+  @media (max-width: 799px) {
+    display: none;
+
+    &.mobile {
+      display: block;
+    }
+  }
+}
+
+footer {
+  background-color: #ddd;
+  bottom: 0;
+  font-size: 1.2rem;
+  left: 0;
+  padding: 0 $margin;
+  position: absolute;
+  width: 100%;
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */

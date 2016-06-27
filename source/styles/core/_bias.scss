@@ -1,0 +1,23 @@
+// - + - - + - - + - - + - - + - - + - - + - - + - - + - - + - - + - - + - //
+/* core/_bias.scss */
+
+// scss-lint:disable ImportantRule
+
+// left
+.lt { background-position: 20% 20% !important; }
+.lm { background-position: 20% 50% !important; }
+.lb { background-position: 20% 80% !important; }
+
+// center
+.ct { background-position: 50% 20% !important; }
+.cm { background-position: 50% 50% !important; }
+.cb { background-position: 50% 80% !important; }
+
+// right
+.rt { background-position: 80% 20% !important; }
+.rm { background-position: 80% 50% !important; }
+.rb { background-position: 80% 80% !important; }
+
+// scss-lint:enable ImportantRule
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */

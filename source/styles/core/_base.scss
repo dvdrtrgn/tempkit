@@ -1,0 +1,90 @@
+// - + - - + - - + - - + - - + - - + - - + - - + - - + - - + - - + - - + - //
+/* _base.scss */
+
+* {
+  box-sizing: border-box;
+}
+html {
+  font-family: $sans;
+  font-size: 10px;
+}
+html, body, [data-role='page'] {
+  height: 100%;
+  width: 100%;
+}
+body {
+  -webkit-font-smoothing: antialiased;
+  //-webkit-transition: all 1s ease-out;
+  background-color: $lite-e;
+  font-size: 1.4rem;
+  line-height: 1.4;
+  padding: 1rem;
+  overflow-y: scroll;
+  &.loading {
+    background: url('../images/stock/loader.gif') 50% 40% no-repeat;
+    background-size: 25%;
+    position: fixed;
+    * {
+      opacity: 0.5;
+    }
+  }
+}
+a {
+  color: $link;
+  &:hover {
+    text-decoration: none;
+  }
+}
+article {
+  position: relative;
+}
+div {
+  background-color: white;
+  position: relative;
+}
+
+h1, h2, h3, h4 {
+  margin: 0.5em 0;
+}
+h1 {
+  color: $a-d-red;
+  font-family: $serif;
+  font-size: 1.3em;
+  font-weight: 800;
+}
+h2 {
+  color: $a-d-red;
+  font-family: $serif;
+  font-weight: 600;
+}
+h3 {
+  margin: 0;
+  padding: 0.5rem 1.5rem;
+}
+ol, ul {
+  padding-left: 2em;
+}
+p + ul {
+  margin-top: -1em;
+}
+
+.clearfix {
+  @include clearfix;
+}
+.inline {
+  display: inline-block;
+}
+.right {
+  float: right;
+}
+.sans {
+  font-family: $sans;
+}
+.serif {
+  font-family: $serif;
+}
+.svg {
+  visibility: hidden; // until inlined
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */

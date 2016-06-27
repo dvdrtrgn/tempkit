@@ -1,0 +1,19 @@
+// - + - - + - - + - - + - - + - - + - - + - - + - - + - - + - - + - - + - //
+/* core/_debug.scss */
+
+.debug {
+  *:hover {
+    outline-color: rgba(255, 165, 0, 0.3);
+    outline-offset: 0.5px;
+    outline-style: solid;
+    outline-width: 1px;
+  }
+  .restrict {
+    color: steelblue;
+  }
+  .retire {
+    color: gray;
+  }
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */

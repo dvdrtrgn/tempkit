@@ -1,0 +1,40 @@
+@import 'compass/css3';
+@import 'core/norm';
+@import 'core/def';
+
+@import 'core/ada';
+@import 'core/base';
+@import 'core/bias';
+@import 'core/debug';
+@import 'core/print';
+
+// - + - - + - - + - - + - - + - - + - - + - - + - - + - - + - - + - - + - //
+/* main.scss */
+
+$darker: #3f454f;
+$shadow: rgba(0, 0, 0, 0.2);
+
+$margin: 2rem;
+$mobile: 599px;
+$desktop: 800px;
+
+@mixin halo {
+  background-color: white;
+  box-shadow: $shadow 0 0 1px 2px;
+
+  .orig & {
+    box-shadow: $shadow 0 0 1px 3px;
+  }
+}
+@mixin reflex ($grow: 0, $shrink: 0, $basis: 0%) {
+  flex-grow: $grow;
+  flex-shrink: $shrink;
+  flex-basis: $basis;
+}
+
+@import 'header';
+@import 'pages';
+@import 'Social';
+
+@import 'misc';
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
