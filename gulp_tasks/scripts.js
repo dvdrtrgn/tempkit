@@ -6,13 +6,13 @@
 'use strict';
 
 // Dependencies
+var pkg          = require('../package.json');
 var gulp         = require('gulp');
 var include      = require('gulp-include');
 var jscs         = require('gulp-jscs');
 var jshint       = require('gulp-jshint');
 var stylish      = require('jshint-stylish');
-var jshintConfig = require('../gulp_tasks/_js-lint.json');
-var pkg          = require('../package.json');
+var jshintConfig = require('../gulp_tasks/conf/js-lint.json');
 
 // Task
 gulp.task('scripts', function() {
@@ -25,7 +25,7 @@ gulp.task('scripts', function() {
 
     // Check JSCS
     .pipe(jscs({
-      configPath: './gulp_tasks/_js-guide.json'
+      configPath: './gulp_tasks/conf/js-guide.json'
     }))
 
     // Lint JS
@@ -34,5 +34,4 @@ gulp.task('scripts', function() {
 
     // Save uncompressed JS
     .pipe(gulp.dest('./build/scripts'));
-
 });

@@ -1,17 +1,17 @@
 {
-  "name": "web-starter-kit",
-  "title": "Web starter Kit",
-  "description": "Web Starter Kit",
+  "name": "TempKit",
+  "title": "TempKit",
+  "description": "TempKit",
   "version": "0.0.1",
-  "homepage": "http://www.domain.com",
+  "homepage": "http://www.dvdrtrgn.com",
   "author": {
-    "name": "David Turgeon",
+    "name": "DRT",
     "url": "https://github.com/dvdrtrgn"
   },
   "contributors": [
     {
-      "name": "Name",
-      "email": "david.turgeon@wellsfargo.com"
+      "name": "dvdrtrgn",
+      "email": "dvdrtrgn@gmail.com"
     }
   ],
   "repository": {
@@ -22,23 +22,19 @@
     "browser-sync": "*",
     "del": "*",
     "gulp": "*",
-    "gulp-autoprefixer": "*",
     "gulp-changed": "*",
-    "gulp-clean-css": "*",
-    "gulp-compass": "^2.1.0",
-    "gulp-copy": "*",
-    "gulp-csscomb": "*",
+    "gulp-compass": "*",
     "gulp-header": "*",
     "gulp-include": "*",
     "gulp-jscs": "*",
     "gulp-jshint": "*",
     "gulp-plumber": "*",
-    "gulp-pug": "^1.2.0",
-    "gulp-replace": "*",
+    "gulp-pug": "*",
     "gulp-sass": "*",
     "gulp-scss-lint": "*",
     "gulp-util": "*",
     "gulp-watch": "*",
+    "jshint": "*",
     "jshint-stylish": "*",
     "minimist": "*",
     "pug": "*",
@@ -46,6 +42,7 @@
     "run-sequence": "*"
   },
   "scripts": {
-    "go": "gulp serve"
+    "build": "gulp build && gulp serve",
+    "clean": "gulp clean && gulp build && gulp serve"
   }
 }

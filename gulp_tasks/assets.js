@@ -8,8 +8,6 @@
 // Dependencies
 var gulp        = require('gulp');
 var minimist    = require('minimist');
-var copy        = require('gulp-copy');
-// var imagemin    = require('gulp-imagemin');
 var runSequence = require('run-sequence');
 var changed     = require('gulp-changed');
 
@@ -52,11 +50,6 @@ gulp.task('fonts', function() {
 gulp.task('images', function () {
   return gulp.src('./source/images/**/*')
     .pipe(changed('./build/images'))
-    // .pipe(imagemin({
-    //   optimizationLevel: 3,
-    //   progressive: true,
-    //   svgoPlugins: [{ removeViewBox: false }]
-    // }))
     .pipe(gulp.dest('./build/images'));
 
 });
@@ -71,8 +64,8 @@ gulp.task('media', function() {
 // Misc
 gulp.task('misc', function() {
   return gulp.src([
-      './source/misc/' + options.env + '/**/*',
-      './source/misc/all/**/*'
+      './source/_' + options.env + '/**/*',
+      './source/_all/**/*'
     ], { dot: true })
     .pipe(changed('./build'))
     .pipe(gulp.dest('./build'));

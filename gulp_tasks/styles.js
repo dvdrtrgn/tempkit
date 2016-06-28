@@ -6,15 +6,12 @@
 'use strict';
 
 // Dependencies
+var pkg          = require('../package.json');
 var gulp         = require('gulp');
 var runSequence  = require('run-sequence');
 var header       = require('gulp-header');
 var scsslint     = require('gulp-scss-lint');
 var sass         = require('gulp-sass');
-var autoprefixer = require('gulp-autoprefixer');
-var csscomb      = require('gulp-csscomb');
-var minifyCss    = require('gulp-clean-css');
-var pkg          = require('../package.json');
 var compass      = require('gulp-compass');
 
 // Task
@@ -35,7 +32,7 @@ gulp.task('styles-lint', function() {
 
     // Lint Sass
     .pipe(scsslint({
-      config: './gulp_tasks/_sass-lint.yml'
+      config: './gulp_tasks/conf/sass-lint.yml'
     }));
 
 });
