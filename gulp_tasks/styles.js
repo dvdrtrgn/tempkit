@@ -32,7 +32,7 @@ gulp.task('styles-lint', function() {
 
     // Lint Sass
     .pipe(scsslint({
-      config: './gulp_tasks/_sass-lint.yml'
+      config: './gulp_tasks/conf/sass-lint.yml'
     }));
 
 });
