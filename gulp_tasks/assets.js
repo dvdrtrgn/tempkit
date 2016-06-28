@@ -64,8 +64,8 @@ gulp.task('media', function() {
 // Misc
 gulp.task('misc', function() {
   return gulp.src([
-      './source/misc/' + options.env + '/**/*',
-      './source/misc/all/**/*'
+      './source/_' + options.env + '/**/*',
+      './source/_all/**/*'
     ], { dot: true })
     .pipe(changed('./build'))
     .pipe(gulp.dest('./build'));
