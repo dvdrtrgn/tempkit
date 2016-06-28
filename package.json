@@ -34,6 +34,7 @@
     "gulp-scss-lint": "*",
     "gulp-util": "*",
     "gulp-watch": "*",
+    "jshint": "*",
     "jshint-stylish": "*",
     "minimist": "*",
     "pug": "*",
