@@ -33,5 +33,4 @@ gulp.task('views', function() {
 
     // Save optimized HTML
     .pipe(gulp.dest('./build'));
-
 });

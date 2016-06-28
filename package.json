@@ -22,19 +22,14 @@
     "browser-sync": "*",
     "del": "*",
     "gulp": "*",
-    "gulp-autoprefixer": "*",
     "gulp-changed": "*",
-    "gulp-clean-css": "*",
     "gulp-compass": "^2.1.0",
-    "gulp-copy": "*",
-    "gulp-csscomb": "*",
     "gulp-header": "*",
     "gulp-include": "*",
     "gulp-jscs": "*",
     "gulp-jshint": "*",
     "gulp-plumber": "*",
     "gulp-pug": "^1.2.0",
-    "gulp-replace": "*",
     "gulp-sass": "*",
     "gulp-scss-lint": "*",
     "gulp-util": "*",
@@ -46,6 +41,8 @@
     "run-sequence": "*"
   },
   "scripts": {
-    "go": "gulp serve"
+    "build": "gulp clean && gulp serve",
+    "clean": "gulp clean",
+    "serve": "gulp serve"
   }
 }

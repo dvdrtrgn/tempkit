@@ -11,7 +11,7 @@ var del         = require('del');
 var runSequence = require('run-sequence');
 
 // Task
-gulp.task('rebuild', function(cb) {
+gulp.task('clean', function(cb) {
 
   // Remove build
   del('./build/*');
