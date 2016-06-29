@@ -68,22 +68,22 @@ define(['jquery'], function ($) {
       El.expanded = ele;
     }
   }
-  function setShown(ele, bool) {
-    if (!bool) {
-      ele.shrink(0);
-      El.shown = El.null;
+  function setShown(bool) {
+    if (bool) {
+      El.content.expand(0);
+      El.shown = true;
     } else {
-      ele.expand(0);
-      El.shown = ele;
+      El.content.shrink(0);
+      El.shown = false;
     }
   }
   function toggle(par, con) {
-    if (con.is(El.shown)) {
+    if (El.shown) {
       setExpand(par, 0);
-      setShown(con, false);
+      setShown(false);
     } else {
       setExpand(par, con.targetHeight());
-      setShown(con, true);
+      setShown(true);
     }
   }
 
@@ -92,9 +92,11 @@ define(['jquery'], function ($) {
         con = $('.content').first(),
         par = me.parent();
 
+    Api.load(me.data('targetIndex'));
+
     if (!par.is(El.expanded)) { // any prior expanded?
       setExpand(El.expanded, 0);
-      setShown(con, false);
+      setShown(false);
     }
     par.append(con);
     defer(function () {
@@ -111,7 +113,8 @@ define(['jquery'], function ($) {
     .css({ // fill container and save size
       //width: ele.innerWidth(),
       height: ele.targetHeight(),
-    }).on('click', insertContent);
+    }).on('click', insertContent)
+    .data('targetIndex', i + 1);
 
     div.append(e.innerHTML);
     ele.empty().append(div);
@@ -129,7 +132,6 @@ define(['jquery'], function ($) {
   function bind(choices, sources) {
     El.choices = $(choices);
     El.sources = $(sources);
-    loadIndex(0);
 
     El.content.addClass('content ani')
     .expand().shrink('0');
