@@ -24,9 +24,12 @@ define(['jquery'], function ($) {
   function undef(x) {
     return (typeof x === 'undefined');
   }
+  function defer(fn) {
+    W.setTimeout(fn, 9);
+  }
 
   // - - - - - - - - - - - - - - - - - -
-  // RUNTIME
+  // EXTEND
 
   $.fn.targetHeight = function (init) {
     var me = $(this),
@@ -49,6 +52,9 @@ define(['jquery'], function ($) {
     px = undef(px) ? '' : Number(px);
     return me.setHeight(px);
   };
+
+  // - - - - - - - - - - - - - - - - - -
+  // RUNTIME
 
   function setExpand(ele, amt) {
     if (!amt) {
@@ -83,13 +89,10 @@ define(['jquery'], function ($) {
         con = $('.content').first(),
         par = me.parent();
 
-    if (par.has(con).length === 0) {
-      par.append(con);
-      con.css('height', 0).removeClass('shown');
-    }
-    setTimeout(function () {
+    par.append(con);
+    defer(function () {
       toggle(par, con);
-    }, 9);
+    });
   }
 
   function wrapTargets(i, e) {
