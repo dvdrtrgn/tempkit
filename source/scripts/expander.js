@@ -17,6 +17,7 @@ define(['jquery'], function ($) {
         body: 'body',
         choices: '',
         content: '#content0',
+        closer: '#content0 .closer',
         feature: '',
         shown: '',
         source: '',
@@ -60,6 +61,7 @@ define(['jquery'], function ($) {
   // RUNTIME
 
   function setExpand(ele, amt) {
+    ele = ele || El.expanded;
     if (!amt) {
       ele.shrink().removeClass('expanded');
       El.expanded = El.null;
@@ -138,6 +140,10 @@ define(['jquery'], function ($) {
     El.choices.addClass('choice')
     .each(wrapTargets)
     .first().append(El.content);
+    El.closer.on('click', function () {
+      setShown(false);
+      setExpand(false);
+    });
   }
 
   $.extend(Api, {
