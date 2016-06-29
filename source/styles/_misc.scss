@@ -5,16 +5,18 @@ body {
   color: $darker;
 }
 
-ul {
+#grid-preview {
   margin: 0;
   padding: 1%;
   text-align: center;
-}
-li {
-  display: inline-block;
-  margin: 1%;
-  padding: 0;
-  width: 200px;
+
+  .panel-cell-style > .widget {
+    display: inline-block;
+    margin: 1%;
+    padding: 0;
+    position: static;
+    width: 200px;
+  }
 }
 
 .ani {
@@ -68,6 +70,7 @@ li {
   position: absolute;
   top: 0;
   right: 0;
+  z-index: 1;
   &:hover {
     color: black;
   }
