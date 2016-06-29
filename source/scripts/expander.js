@@ -43,7 +43,7 @@
     $(this).css('height', px);
     return this;
   };
-  $.fn.expand = function (px) { // additional amount
+  $.fn.grow = function (px) { // additional amount
     var me = $(this);
     px = undef(px) ? 100 : Number(px);
     return me.setHeight(me.targetHeight() + px);
@@ -95,13 +95,13 @@
       ele.shrink().removeClass('ex-panded');
       El.expanded = El.null;
     } else {
-      ele.expand(amt).addClass('ex-panded');
+      ele.grow(amt).addClass('ex-panded');
       El.expanded = ele;
     }
   }
   function showContent(bool) {
     if (bool) {
-      El.content.expand(0);
+      El.content.grow(0);
       Api.shown = true;
     } else {
       El.content.shrink(0);
@@ -161,7 +161,7 @@
     El.choices = $(choices || '#grid-preview .widget');
     El.sources = $(sources || '#grid-content .widget');
 
-    El.content.addClass('ex-ani').expand('0').shrink('0');
+    El.content.addClass('ex-ani').grow('0').shrink('0');
     El.choices.addClass('ex-ani').each(wrapTargets);
 
     El.closer.on('click', function () {
