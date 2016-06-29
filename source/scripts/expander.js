@@ -18,6 +18,7 @@ define(['jquery'], function ($) {
         content: '.content',
         choices: '.grid li',
         shown: '',
+        expanded: '',
       });
 
   function undef(x) {
@@ -51,6 +52,15 @@ define(['jquery'], function ($) {
     return this;
   };
 
+  function setExpand(ele, amt) {
+    if (!amt) {
+      ele.shrink();
+      El.expanded = '';
+    } else {
+      ele.expand(amt);
+      El.expanded = ele;
+    }
+  }
   function setShown(ele, bool) {
     if (!bool) {
       ele.shrink(0);
@@ -62,10 +72,10 @@ define(['jquery'], function ($) {
   }
   function toggle(par, con) {
     if (con.is(El.shown)) {
-      par.shrink();
+      setExpand(par, 0);
       setShown(con, false);
     } else {
-      par.expand(con.targetHeight());
+      setExpand(par, con.targetHeight());
       setShown(con, true);
     }
   }
