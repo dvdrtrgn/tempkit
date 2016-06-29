@@ -7,8 +7,9 @@
     console.info('AMD:Expander');
     define(['jquery'], factory);
   } else {
-    console.warn('expander.js shim', window.Expander = factory(jQuery));
-    window.setTimeout(window.Expander.init, 999);
+    console.warn('expander.js shim');
+    window.Expander = factory(jQuery);
+    window.setTimeout(Expander.init, 999);
   }
 }(function ($) {
   'use strict';
@@ -32,11 +33,12 @@
     });
   };
 
-  $.fn.targetHeight = function (init) {
+  $.fn.preserveHeight = function (init) {
     var me = $(this),
         dat = me.data(),
+        str = 'preserveHeight',
         rtn;
-    rtn = Number(dat.targetHeight = dat.targetHeight || me.innerHeight());
+    rtn = Number(dat[str] = dat[str] || me.innerHeight());
     return init ? this : rtn;
   };
   $.fn.setHeight = function (px) {
@@ -46,7 +48,7 @@
   $.fn.grow = function (px) { // additional amount
     var me = $(this);
     px = undef(px) ? 100 : Number(px);
-    return me.setHeight(me.targetHeight() + px);
+    return me.setHeight(me.preserveHeight() + px);
   };
   $.fn.shrink = function (px) { // targeted amount
     var me = $(this);
@@ -70,7 +72,8 @@
         source: '',
         expanded: '',
         null: '#',
-      });
+      }),
+      Idx = Nom + 'Index';
 
   El.content.append(El.closer).appendTo(El.body);
 
@@ -112,7 +115,7 @@
     var me = $(evt.delegateTarget),
         ele = me.parent();
 
-    Api.load(ele.data('targetIndex'));
+    Api.load(ele.data(Idx));
 
     if (ele.is(El.expanded)) {
       defer(restoreFeature); // toggle off
@@ -127,7 +130,7 @@
         setExpanded(ele, 0);
         showContent(false);
       } else {
-        setExpanded(ele, El.content.targetHeight());
+        setExpanded(ele, El.content.preserveHeight());
         showContent(true);
       }
     });
@@ -135,15 +138,20 @@
 
   function wrapTargets(i, e) {
     var ele = $(e),
-        div = $('<div class="ex-target">');
+        div = ele.children();
 
-    div.css({ // fill container and save size
-      height: ele.targetHeight(),
+    ele.data(Idx, i + 1); // remember index
+
+    if (div.length === 1) { // avoid re-wrapping
+    } else {
+      div = $('<div>').append(e.innerHTML);
+      ele.empty().append(div);
+      C.warn(Nom, 'using innerHTML', e);
+    }
+
+    div.addClass('ex-target').css({
+      height: ele.preserveHeight(),
     }).on('click', insertContent);
-
-    div.append(e.innerHTML);
-    ele.empty().append(div)
-    .data('targetIndex', i + 1);
   }
 
   function loadIndex(num) {
@@ -188,7 +196,6 @@
 /*
 
   todo:
-    piggy back off so-widget-sow-hero for ex-target
     allow destruction
     attach a resize event
 
