@@ -30,7 +30,7 @@ function ($, Exp) {
   // INIT
 
   function bind() {
-    Exp.init('#grid1 > *', '#content1');
+    Exp.init('#grid1 > *', '#content0');
   }
 
   $.extend(Api, {

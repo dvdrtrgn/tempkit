@@ -4,9 +4,6 @@
 body {
   color: $darker;
 }
-div {
-  min-width: 99px;
-}
 
 ul {
   margin: 0;
@@ -31,7 +28,8 @@ li {
 }
 
 .target {
-  box-shadow: 0px 1px 1px gray;
+  background-color: white;
+  box-shadow: 0px 0px 1px gray;
   cursor: pointer;
   .expanded & {
     cursor: default;
@@ -39,7 +37,7 @@ li {
     &::after {
       background-color: inherit;
       border-radius: 0 0 1em 1em;
-      box-shadow: inherit;
+      box-shadow: 0px 1px 1px gray;
       content: ' ';
       height: 6%;
       left: 49%;
@@ -53,14 +51,33 @@ li {
 }
 
 .content {
-  box-shadow: 0px 0px 2px black;
+  background-color: white;
+  box-shadow: 0px 0px 2px gray;
   height: 300px;
   left: 0;
-  margin-top: 0.5%;
+  margin-top: 0.3%;
   overflow: hidden;
   position: absolute;
   width: 100%;
   z-index: 1;
+}
+
+.closer {
+  color: gray;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
+  &:hover {
+    color: black;
+  }
+  &::after {
+    content: '×';
+    display: block;
+    font-size: 33px;
+    height: 33px;
+    width: 33px;
+  }
 }
 
 
