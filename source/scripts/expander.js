@@ -1,31 +1,20 @@
 /*jslint  white:false */
 /*global define, window */
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-define(['jquery'], function ($) {
+(function (factory) {
+  'use strict';
+  if (typeof define === 'function' && define.amd && 0) {
+    console.info('AMD:Expander');
+    define(['jquery'], factory);
+  } else {
+    console.warn('expander.js shim', window.Expander = factory(jQuery));
+    window.Expander.init();
+  }
+}(function ($) {
   'use strict';
 
   var W = (W && W.window || window),
       C = (W.C || W.console || {});
-
-  // - - - - - - - - - - - - - - - - - -
-  // ASSIGN
-
-  var Nom = 'Expander',
-      Api = {
-        shown: false,
-      },
-      El = $.reify({
-        body: 'body',
-        choices: '',
-        content: '<div class="ex-content">',
-        closer: '<div class="ex-closer">',
-        feature: '',
-        source: '',
-        expanded: '',
-        null: '#',
-      });
-
-  El.content.append(El.closer).appendTo(El.body);
 
   function undef(x) {
     return (typeof x === 'undefined');
@@ -36,6 +25,12 @@ define(['jquery'], function ($) {
 
   // - - - - - - - - - - - - - - - - - -
   // EXTEND
+
+  $.reify = function (obj) { // replace vals(selectors) with elements
+    return $.each(obj, function (i, sel) {
+      obj[i] = $(sel);
+    });
+  };
 
   $.fn.targetHeight = function (init) {
     var me = $(this),
@@ -58,6 +53,26 @@ define(['jquery'], function ($) {
     px = undef(px) ? '' : Number(px);
     return me.setHeight(px);
   };
+
+  // - - - - - - - - - - - - - - - - - -
+  // ASSIGN
+
+  var Nom = 'Expander',
+      Api = {
+        shown: false,
+      },
+      El = $.reify({
+        body: 'body',
+        choices: '',
+        content: '<div class="ex-content">',
+        closer: '<div class="ex-closer">',
+        feature: '',
+        source: '',
+        expanded: '',
+        null: '#',
+      });
+
+  El.content.append(El.closer).appendTo(El.body);
 
   // - - - - - - - - - - - - - - - - - -
   // RUNTIME
@@ -156,7 +171,7 @@ define(['jquery'], function ($) {
   }
 
   return Api;
-});
+}));
 /*
 
 

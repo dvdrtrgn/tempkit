@@ -1,8 +1,7 @@
 /*jslint  white:false */
 /*global define, window */
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-define(['jqxtn', 'expander'],
-function ($, Exp) {
+define(['jqxtn'], function ($) {
   'use strict';
 
   var W = (W && W.window || window),
@@ -30,7 +29,9 @@ function ($, Exp) {
   // INIT
 
   function bind() {
-    Exp.init('#grid-preview .widget', '#grid-content .widget');
+    W.jQuery = $;
+    //Exp.init('#grid-preview .widget', '#grid-content .widget');
+    $('head').append('<script src="./scripts/expander.js"></script>');
   }
 
   $.extend(Api, {
