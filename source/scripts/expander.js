@@ -15,8 +15,8 @@ define(['jquery'], function ($) {
       },
       El = $.reify({
         body: 'body',
-        content: '.content',
-        choices: '.grid li',
+        choices: '',
+        content: '',
         shown: '',
         expanded: '',
         null: '#',
@@ -115,9 +115,15 @@ define(['jquery'], function ($) {
   // - - - - - - - - - - - - - - - - - -
   // INIT
 
-  function bind() {
-    El.content.expand().shrink('0').addClass('ani');
-    El.choices.each(wrapTargets).first().append(El.content);
+  function bind(choices, content) {
+    El.choices = $(choices);
+    El.content = $(content);
+
+    El.content.addClass('content ani')
+    .expand().shrink('0');
+    El.choices.addClass('choice')
+    .each(wrapTargets)
+    .first().append(El.content);
   }
 
   $.extend(Api, {
