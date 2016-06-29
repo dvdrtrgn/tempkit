@@ -112,13 +112,13 @@
     var me = $(evt.delegateTarget),
         ele = me.parent();
 
-    Api.load(me.data('targetIndex'));
+    Api.load(ele.data('targetIndex'));
 
-    if (!ele.is(El.expanded)) {
-      setExpanded(El.expanded, 0);
-      showContent(false);
+    if (ele.is(El.expanded)) {
+      defer(restoreFeature); // toggle off
     } else {
-      defer(restoreFeature);
+      setExpanded(); //
+      showContent(false);
     }
     ele.append(El.content);
 
@@ -139,12 +139,11 @@
 
     div.css({ // fill container and save size
       height: ele.targetHeight(),
-    })
-    .data('targetIndex', i + 1)
-    .on('click', insertContent);
+    }).on('click', insertContent);
 
     div.append(e.innerHTML);
-    ele.empty().append(div);
+    ele.empty().append(div)
+    .data('targetIndex', i + 1);
   }
 
   function loadIndex(num) {
