@@ -17,7 +17,12 @@ define(['jquery'], function ($) {
         body: 'body',
         content: '.content',
         choices: '.grid li',
+        shown: '',
       });
+
+  function undef(x) {
+    return (typeof x === 'undefined');
+  }
 
   // - - - - - - - - - - - - - - - - - -
   // RUNTIME
@@ -30,27 +35,38 @@ define(['jquery'], function ($) {
     return init ? this : rtn;
   };
   $.fn.expand = function (px) {
+    px = undef(px) ? 100 : Number(px);
     var ele = $(this);
     ele.css({
-      height: ele.targetHeight() + Number(px || 100),
+      height: ele.targetHeight() + px,
     });
     return this;
   };
   $.fn.shrink = function (px) {
+    px = undef(px) ? '' : Number(px);
     var ele = $(this);
     ele.css({
-      height: Number(px || ele.targetHeight()),
+      height: px,
     });
     return this;
   };
 
+  function setShown(ele, bool) {
+    if (!bool) {
+      ele.shrink(0);
+      El.shown = '';
+    } else {
+      ele.expand(0);
+      El.shown = ele;
+    }
+  }
   function toggle(par, con) {
-    if (con.is('.shown')) {
+    if (con.is(El.shown)) {
       par.shrink();
-      con.shrink('0').removeClass('shown');
+      setShown(con, false);
     } else {
       par.expand(con.targetHeight());
-      con.expand('0').addClass('shown');
+      setShown(con, true);
     }
   }
 
@@ -61,8 +77,11 @@ define(['jquery'], function ($) {
 
     if (par.has(con).length === 0) {
       par.append(con);
+      con.css('height', 0).removeClass('shown');
     }
-    toggle(par, con);
+    setTimeout(function () {
+      toggle(par, con);
+    }, 9);
   }
 
   function wrapTargets(i, e) {
@@ -72,7 +91,7 @@ define(['jquery'], function ($) {
     div = $('<div>')
     .addClass('target')
     .css({ // fill container and save size
-      width: ele.innerWidth(),
+      //width: ele.innerWidth(),
       height: ele.targetHeight(),
     }).on('click', insertContent);
 
@@ -85,7 +104,7 @@ define(['jquery'], function ($) {
 
   function bind() {
     El.content.expand().shrink('0').addClass('ani');
-    El.choices.each(wrapTargets);
+    El.choices.each(wrapTargets).first().append(El.content);
   }
 
   $.extend(Api, {
