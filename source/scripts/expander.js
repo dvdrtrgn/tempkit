@@ -8,7 +8,7 @@
     define(['jquery'], factory);
   } else {
     console.warn('expander.js shim', window.Expander = factory(jQuery));
-    window.Expander.init();
+    window.setTimeout(window.Expander.init, 999);
   }
 }(function ($) {
   'use strict';
@@ -20,7 +20,7 @@
     return (typeof x === 'undefined');
   }
   function defer(fn) {
-    W.setTimeout(fn, 9);
+    W.setTimeout(fn, 333);
   }
 
   // - - - - - - - - - - - - - - - - - -
@@ -76,7 +76,18 @@
 
   // - - - - - - - - - - - - - - - - - -
   // RUNTIME
-
+  function restoreFeature() {
+    if (El.feature && El.holder) {
+      El.feature.insertAfter(El.holder);
+      El.feature = El.holder = (El.holder.remove() && '');
+    }
+  }
+  function borrowFeature(num) {
+    restoreFeature(); // try anyway
+    El.feature = El.sources.eq(num);
+    El.holder = $('<placeholder>').insertBefore(El.feature);
+    El.content.append(El.feature);
+  }
   function setExpanded(ele, amt) {
     ele = ele || El.expanded;
 
@@ -106,6 +117,8 @@
     if (!ele.is(El.expanded)) {
       setExpanded(El.expanded, 0);
       showContent(false);
+    } else {
+      defer(restoreFeature);
     }
     ele.append(El.content);
 
@@ -135,11 +148,11 @@
   }
 
   function loadIndex(num) {
+    if (num === false) {
+      return restoreFeature();
+    }
     num = (num - 1) % El.sources.length;
-
-    El.feature.remove();
-    El.feature = El.sources.eq(num).clone();
-    El.content.append(El.feature);
+    borrowFeature(num);
   }
   // - - - - - - - - - - - - - - - - - -
   // INIT
@@ -161,6 +174,7 @@
     _el: El,
     init: bind,
     load: loadIndex,
+    unload: restoreFeature,
   });
 
   if (W.debug > 0) { // Expose
@@ -174,6 +188,9 @@
 }));
 /*
 
-
+  todo:
+    piggy back off so-widget-sow-hero for ex-target
+    allow destruction
+    attach a resize event
 
  */
