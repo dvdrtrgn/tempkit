@@ -106,7 +106,7 @@ define(['jquery'], function ($) {
   }
 
   function wrapTargets(i, e) {
-    var ele = $(e).addClass('ex-ani'),
+    var ele = $(e),
         div = $('<div class="ex-target">');
 
     div.css({ // fill container and save size
@@ -130,11 +130,11 @@ define(['jquery'], function ($) {
   // INIT
 
   function bind(choices, sources) {
-    El.choices = $(choices);
-    El.sources = $(sources);
+    El.choices = $(choices || '#grid-preview .widget');
+    El.sources = $(sources || '#grid-content .widget');
 
-    El.content.addClass('ex-ani').expand().shrink('0');
-    El.choices.each(wrapTargets).first().append(El.content);
+    El.content.addClass('ex-ani').expand('0').shrink('0');
+    El.choices.addClass('ex-ani').each(wrapTargets);
 
     El.closer.on('click', function () {
       showContent(false);
