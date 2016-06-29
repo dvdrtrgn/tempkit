@@ -2,40 +2,42 @@
 /* _expander.scss */
 
 .ex-ani {
-  transition: height 0.25s;
+  transition: height 0.25s; /* or something */
 }
 .ex-content {
-  background-color: white;
-  box-shadow: 0px 0px 2px gray;
-  height: 300px;
+  height: 300px; /* or something */
   left: 0;
-  margin-top: 0.3%;
   overflow: hidden;
   position: absolute;
   width: 100%;
   z-index: 1;
 }
 .ex-closer {
-  color: gray;
+  color: gray; /* or something */
   cursor: pointer;
+  font-size: 3em; /* or something */
   position: absolute;
-  top: 0;
   right: 0;
+  top: 0;
   z-index: 1;
   &:hover {
-    color: black;
+    color: black; /* or something */
   }
   &::after {
     content: '×';
     display: block;
-    font-size: 3em;
     height: 1em;
     width: 1em;
   }
 }
 
-/// OPTIONAL
+/* OPTIONAL */
 
+.ex-content {
+  background-color: white;
+  box-shadow: 0px 0px 2px gray;
+  margin-top: 0.3%;
+}
 .ex-target {
   background-color: white;
   box-shadow: 0px 0px 1px gray;

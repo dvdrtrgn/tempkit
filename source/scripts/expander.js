@@ -48,12 +48,12 @@ define(['jquery'], function ($) {
     $(this).css('height', px);
     return this;
   };
-  $.fn.expand = function (px) {
+  $.fn.expand = function (px) { // additional amount
     var me = $(this);
     px = undef(px) ? 100 : Number(px);
     return me.setHeight(me.targetHeight() + px);
   };
-  $.fn.shrink = function (px) {
+  $.fn.shrink = function (px) { // targeted amount
     var me = $(this);
     px = undef(px) ? '' : Number(px);
     return me.setHeight(px);
@@ -88,12 +88,13 @@ define(['jquery'], function ($) {
 
     Api.load(me.data('targetIndex'));
 
-    if (!ele.is(El.expanded)) { // any prior expanded?
+    if (!ele.is(El.expanded)) {
       setExpanded(El.expanded, 0);
       showContent(false);
     }
     ele.append(El.content);
-    defer(function () {
+
+    defer(function () { // ensure insertion into DOM?
       if (Api.shown) {
         setExpanded(ele, 0);
         showContent(false);
