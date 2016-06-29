@@ -19,6 +19,7 @@ define(['jquery'], function ($) {
         choices: '.grid li',
         shown: '',
         expanded: '',
+        null: '#',
       });
 
   function undef(x) {
@@ -58,17 +59,17 @@ define(['jquery'], function ($) {
 
   function setExpand(ele, amt) {
     if (!amt) {
-      ele.shrink();
-      El.expanded = '';
+      ele.shrink().removeClass('expand');
+      El.expanded = El.null;
     } else {
-      ele.expand(amt);
+      ele.expand(amt).addClass('expand');
       El.expanded = ele;
     }
   }
   function setShown(ele, bool) {
     if (!bool) {
       ele.shrink(0);
-      El.shown = '';
+      El.shown = El.null;
     } else {
       ele.expand(0);
       El.shown = ele;
@@ -89,6 +90,7 @@ define(['jquery'], function ($) {
         con = $('.content').first(),
         par = me.parent();
 
+    setExpand(El.expanded, 0); // any prior expanded?
     par.append(con);
     defer(function () {
       toggle(par, con);
