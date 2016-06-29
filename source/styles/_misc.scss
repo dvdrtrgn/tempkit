@@ -14,12 +14,37 @@ ul {
   text-align: center;
 }
 li {
-  background-color: azure;
   display: inline-block;
-  height: 300px;
+  height: 150px;
   margin: 1%;
   padding: 0;
   text-align: left;
-  width: 300px;
+  vertical-align: top;
+  width: 200px;
 }
+
+.target {
+  background-color: azure;
+}
+
+.content {
+  background-color: steelblue;
+  height: 300px;
+  left: 0;
+  margin-top: 1%;
+  overflow: hidden;
+  position: absolute;
+  width: 100%;
+  z-index: 1;
+}
+.ani {
+  transition: height 1s;
+}
+.shown {
+  display: block;
+}
+
+
+
+
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
