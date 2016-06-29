@@ -59,10 +59,10 @@ define(['jquery'], function ($) {
 
   function setExpand(ele, amt) {
     if (!amt) {
-      ele.shrink().removeClass('expand');
+      ele.shrink().removeClass('expanded');
       El.expanded = El.null;
     } else {
-      ele.expand(amt).addClass('expand');
+      ele.expand(amt).addClass('expanded');
       El.expanded = ele;
     }
   }
@@ -90,7 +90,10 @@ define(['jquery'], function ($) {
         con = $('.content').first(),
         par = me.parent();
 
-    setExpand(El.expanded, 0); // any prior expanded?
+    if (!par.is(El.expanded)) { // any prior expanded?
+      setExpand(El.expanded, 0);
+      setShown(con, false);
+    }
     par.append(con);
     defer(function () {
       toggle(par, con);
