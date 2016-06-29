@@ -16,8 +16,10 @@ define(['jquery'], function ($) {
       El = $.reify({
         body: 'body',
         choices: '',
-        content: '',
+        content: '#content0',
+        feature: '',
         shown: '',
+        source: '',
         expanded: '',
         null: '#',
       });
@@ -115,12 +117,19 @@ define(['jquery'], function ($) {
     ele.empty().append(div);
   }
 
+  function loadIndex(num) {
+    El.feature.remove();
+    num = (num - 1) % El.sources.length;
+    El.feature = El.sources.eq(num).clone();
+    El.content.append(El.feature);
+  }
   // - - - - - - - - - - - - - - - - - -
   // INIT
 
-  function bind(choices, content) {
+  function bind(choices, sources) {
     El.choices = $(choices);
-    El.content = $(content);
+    El.sources = $(sources);
+    loadIndex(0);
 
     El.content.addClass('content ani')
     .expand().shrink('0');
@@ -132,6 +141,7 @@ define(['jquery'], function ($) {
   $.extend(Api, {
     _el: El,
     init: bind,
+    load: loadIndex,
   });
 
   if (W.debug > 0) { // Expose

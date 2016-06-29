@@ -18,6 +18,9 @@ body {
     width: 200px;
   }
 }
+#grid-content {
+  display: none;
+}
 
 .ani {
   transition: height 0.25s;
