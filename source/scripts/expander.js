@@ -29,27 +29,25 @@ define(['jquery'], function ($) {
   // RUNTIME
 
   $.fn.targetHeight = function (init) {
-    var ele = $(this),
-        dat = ele.data(),
+    var me = $(this),
+        dat = me.data(),
         rtn;
-    rtn = Number(dat.targetHeight = dat.targetHeight || ele.innerHeight());
+    rtn = Number(dat.targetHeight = dat.targetHeight || me.innerHeight());
     return init ? this : rtn;
   };
-  $.fn.expand = function (px) {
-    px = undef(px) ? 100 : Number(px);
-    var ele = $(this);
-    ele.css({
-      height: ele.targetHeight() + px,
-    });
+  $.fn.setHeight = function (px) {
+    $(this).css('height', px);
     return this;
   };
+  $.fn.expand = function (px) {
+    var me = $(this);
+    px = undef(px) ? 100 : Number(px);
+    return me.setHeight(me.targetHeight() + px);
+  };
   $.fn.shrink = function (px) {
+    var me = $(this);
     px = undef(px) ? '' : Number(px);
-    var ele = $(this);
-    ele.css({
-      height: px,
-    });
-    return this;
+    return me.setHeight(px);
   };
 
   function setExpand(ele, amt) {
