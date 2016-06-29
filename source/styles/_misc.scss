@@ -12,33 +12,26 @@ body {
 
   .panel-cell-style > .widget {
     display: inline-block;
+    height: 150px;
     margin: 1%;
     padding: 0;
     position: static;
+    text-align: left;
     width: 200px;
+    vertical-align: top;
   }
 }
 #grid-content {
   display: none;
 }
 
-.ani {
-  transition: height 0.25s;
-}
-
-.choice {
-  height: 150px;
-  text-align: left;
-  vertical-align: top;
-}
-
-.target {
+.ex-target {
   background-color: white;
   box-shadow: 0px 0px 1px gray;
   cursor: pointer;
-  .expanded & {
-    cursor: default;
 
+  .ex-panded & {
+    cursor: default;
     &::after {
       background-color: inherit;
       border-radius: 0 0 1em 1em;
@@ -54,8 +47,10 @@ body {
     }
   }
 }
-
-.content {
+.ex-ani {
+  transition: height 0.25s;
+}
+.ex-content {
   background-color: white;
   box-shadow: 0px 0px 2px gray;
   height: 300px;
@@ -66,8 +61,7 @@ body {
   width: 100%;
   z-index: 1;
 }
-
-.closer {
+.ex-closer {
   color: gray;
   cursor: pointer;
   position: absolute;

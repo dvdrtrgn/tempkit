@@ -12,18 +12,20 @@ define(['jquery'], function ($) {
 
   var Nom = 'Expander',
       Api = {
+        shown: false,
       },
       El = $.reify({
         body: 'body',
         choices: '',
-        content: '#content0',
-        closer: '#content0 .closer',
+        content: '<div class="ex-content">',
+        closer: '<div class="ex-closer">',
         feature: '',
-        shown: '',
         source: '',
         expanded: '',
         null: '#',
       });
+
+  El.content.append(El.closer).appendTo(El.body);
 
   function undef(x) {
     return (typeof x === 'undefined');
@@ -60,71 +62,66 @@ define(['jquery'], function ($) {
   // - - - - - - - - - - - - - - - - - -
   // RUNTIME
 
-  function setExpand(ele, amt) {
+  function setExpanded(ele, amt) {
     ele = ele || El.expanded;
+
     if (!amt) {
-      ele.shrink().removeClass('expanded');
+      ele.shrink().removeClass('ex-panded');
       El.expanded = El.null;
     } else {
-      ele.expand(amt).addClass('expanded');
+      ele.expand(amt).addClass('ex-panded');
       El.expanded = ele;
     }
   }
-  function setShown(bool) {
+  function showContent(bool) {
     if (bool) {
       El.content.expand(0);
-      El.shown = true;
+      Api.shown = true;
     } else {
       El.content.shrink(0);
-      El.shown = false;
+      Api.shown = false;
     }
   }
-  function toggle(par, con) {
-    if (El.shown) {
-      setExpand(par, 0);
-      setShown(false);
-    } else {
-      setExpand(par, con.targetHeight());
-      setShown(true);
-    }
-  }
-
   function insertContent(evt) {
     var me = $(evt.delegateTarget),
-        con = $('.content').first(),
-        par = me.parent();
+        ele = me.parent();
 
     Api.load(me.data('targetIndex'));
 
-    if (!par.is(El.expanded)) { // any prior expanded?
-      setExpand(El.expanded, 0);
-      setShown(false);
+    if (!ele.is(El.expanded)) { // any prior expanded?
+      setExpanded(El.expanded, 0);
+      showContent(false);
     }
-    par.append(con);
+    ele.append(El.content);
     defer(function () {
-      toggle(par, con);
+      if (Api.shown) {
+        setExpanded(ele, 0);
+        showContent(false);
+      } else {
+        setExpanded(ele, El.content.targetHeight());
+        showContent(true);
+      }
     });
   }
 
   function wrapTargets(i, e) {
-    var ele = $(e).addClass('ani'),
-        div;
+    var ele = $(e).addClass('ex-ani'),
+        div = $('<div class="ex-target">');
 
-    div = $('<div>')
-    .addClass('target')
-    .css({ // fill container and save size
-      //width: ele.innerWidth(),
+    div.css({ // fill container and save size
       height: ele.targetHeight(),
-    }).on('click', insertContent)
-    .data('targetIndex', i + 1);
+    })
+    .data('targetIndex', i + 1)
+    .on('click', insertContent);
 
     div.append(e.innerHTML);
     ele.empty().append(div);
   }
 
   function loadIndex(num) {
-    El.feature.remove();
     num = (num - 1) % El.sources.length;
+
+    El.feature.remove();
     El.feature = El.sources.eq(num).clone();
     El.content.append(El.feature);
   }
@@ -135,14 +132,12 @@ define(['jquery'], function ($) {
     El.choices = $(choices);
     El.sources = $(sources);
 
-    El.content.addClass('content ani')
-    .expand().shrink('0');
-    El.choices.addClass('choice')
-    .each(wrapTargets)
-    .first().append(El.content);
+    El.content.addClass('ex-ani').expand().shrink('0');
+    El.choices.each(wrapTargets).first().append(El.content);
+
     El.closer.on('click', function () {
-      setShown(false);
-      setExpand(false);
+      showContent(false);
+      setExpanded(false);
     });
   }
 
