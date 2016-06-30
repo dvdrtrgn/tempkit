@@ -20,7 +20,7 @@
     return (typeof x === 'undefined');
   }
   function defer(fn) {
-    W.setTimeout(fn, 333);
+    W.setTimeout(fn, 222);
   }
 
   // - - - - - - - - - - - - - - - - - -
@@ -63,7 +63,7 @@
         shown: false,
         key: Nom + 'Index',
       },
-      El = $.reify({
+      Df = {
         body: 'body',
         choices: '',
         content: '<div class="ex-content ex-ani">',
@@ -72,10 +72,8 @@
         source: '',
         expanded: '',
         null: '#',
-      }),
-      Idx = Nom + 'Index';
-
-  El.content.append(El.closer).appendTo(El.body).grow('0').shrink('0');
+      },
+      El;
 
   // - - - - - - - - - - - - - - - - - -
   // RUNTIME
@@ -193,9 +191,9 @@
       throw new Error(Nom + ' double init?');
     }
     Api.inited = true;
+    El = $.reify($.extend({}, Df));
     El.choices = $(choices || '#grid-preview .widget');
     El.sources = $(sources || '#grid-content .widget');
-
     El.choices.addClass('ex-ani').each(wrapTargets);
     El.closer.on('click', shutDown);
   }
