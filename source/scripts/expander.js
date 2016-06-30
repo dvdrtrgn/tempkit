@@ -31,10 +31,10 @@
       obj[i] = $(sel);
     });
   };
-  $.fn.preserveHeight = function (init) {
+  $.fn.preserveH = function (init) {
     var me = $(this),
         dat = me.data(),
-        str = 'preserveHeight',
+        str = 'preserveH',
         rtn;
     rtn = Number(dat[str] = dat[str] || me.innerHeight());
     return init ? this : rtn;
@@ -43,12 +43,12 @@
     $(this).css('height', px);
     return this;
   };
-  $.fn.grow = function (px) { // additional amount
+  $.fn.growH = function (px) { // additional amount
     var me = $(this);
     px = undef(px) ? 100 : Number(px);
-    return me.setHeight(me.preserveHeight() + px);
+    return me.setHeight(me.preserveH() + px);
   };
-  $.fn.shrink = function (px) { // targeted amount
+  $.fn.shrinkH = function (px) { // targeted amount
     var me = $(this);
     px = undef(px) ? '' : Number(px);
     return me.setHeight(px);
@@ -93,19 +93,19 @@
     ele = ele || El.expanded;
 
     if (!amt) {
-      ele.shrink().removeClass('ex-panded');
+      ele.shrinkH().removeClass('ex-panded');
       El.expanded = El.null;
     } else {
-      ele.grow(amt).addClass('ex-panded');
+      ele.growH(amt).addClass('ex-panded');
       El.expanded = ele;
     }
   }
   function showContent(bool) {
     if (bool) {
-      El.content.grow(0);
+      El.content.growH(0);
       Api.shown = true;
     } else {
-      El.content.shrink(0);
+      El.content.shrinkH(0);
       Api.shown = false;
     }
   }
@@ -133,7 +133,7 @@
         setExpanded(ele, 0);
         showContent(false);
       } else {
-        setExpanded(ele, El.content.preserveHeight());
+        setExpanded(ele, El.content.preserveH());
         showContent(true);
       }
     });
@@ -151,9 +151,7 @@
     }
 
     div.addClass('ex-target').on('click', insertContent);
-    ele.add(div).css({
-      height: ele.preserveHeight(),
-    });
+    ele.add(div).setHeight(ele.preserveH());
   }
 
   function loadIndex(num) {
@@ -196,6 +194,8 @@
     El.sources = $(sources || '#grid-content .widget');
     El.choices.addClass('ex-ani').each(wrapTargets);
     El.closer.on('click', shutDown);
+    El.content.append(El.closer).appendTo(El.body)
+    .preserveH(true).shrinkH('0');
   }
 
   $.extend(Api, {
