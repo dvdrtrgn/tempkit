@@ -80,14 +80,16 @@
   function restoreFeature() {
     if (El.feature && El.holder) {
       El.feature.insertAfter(El.holder);
-      El.feature = El.holder = (El.holder.remove() && '');
+      delete El.feature;
+      El.holder.remove();
+      delete El.holder;
     }
   }
   function borrowFeature(num) {
     restoreFeature(); // try anyway
     El.feature = El.sources.eq(num);
     El.holder = $('<placeholder>').insertBefore(El.feature);
-    El.content.append(El.feature);
+    return El.feature;
   }
   function setExpanded(ele, amt) {
     ele = ele || El.expanded;
@@ -160,8 +162,7 @@
     div.addClass('ex-target').on('click', insertContent);
     ele.add(div).setHeight(ele.preserveH());
   }
-
-  function unbind(i, e) {
+  function zapTargets(i, e) {
     var ele = $(e),
         dat = ele.data();
 
@@ -175,9 +176,10 @@
 
   function destroy() {
     shutDown();
-    El.choices.each(unbind).removeClass('ex-ani');
-    El.closer.off('click');
     El.content.appendTo('body');
+    El.closer.off('click', shutDown);
+    El.choices.removeClass('ex-ani').each(zapTargets);
+    El.choices = El.sources = '';
     Api.inited = false;
   }
 
