@@ -110,8 +110,8 @@
     }
   }
   function shutDown() {
-    showContent(false);
-    setExpanded(false);
+    setExpanded();
+    showContent();
     restoreFeature();
   }
   function insertContent(evt) {
@@ -121,8 +121,7 @@
     if (ele.is(El.expanded)) {
       defer(restoreFeature); // toggle off
     } else {
-      showContent();
-      setExpanded(false);
+      shutDown();
     }
 
     Api.load(ele.data(Api.key));
