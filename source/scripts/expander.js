@@ -138,6 +138,14 @@
       }
     });
   }
+  function loadIndex(num) {
+    if (num === false) {
+      return restoreFeature();
+    }
+    num = (num - 1) % El.sources.length;
+    El.content.append(borrowFeature(num));
+  }
+
   function wrapTargets(i, e) {
     var ele = $(e),
         div = ele.children();
@@ -152,14 +160,6 @@
 
     div.addClass('ex-target').on('click', insertContent);
     ele.add(div).setHeight(ele.preserveH());
-  }
-
-  function loadIndex(num) {
-    if (num === false) {
-      return restoreFeature();
-    }
-    num = (num - 1) % El.sources.length;
-    borrowFeature(num);
   }
 
   function unbind(i, e) {
