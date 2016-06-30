@@ -116,6 +116,15 @@
     showContent();
     restoreFeature();
   }
+  function animateContent() {
+    if (Api.shown) {
+      setExpanded(El.expanded, 0);
+      showContent(false);
+    } else {
+      setExpanded(El.expanded, El.content.preserveH());
+      showContent(true);
+    }
+  }
   function insertContent(evt) {
     var me = $(evt.delegateTarget),
         ele = me.parent();
@@ -125,19 +134,11 @@
     } else {
       shutDown();
     }
-
     Api.load(ele.data(Api.key));
+    El.expanded = ele;
     ele.append(El.content);
 
-    defer(function () { // ensure insertion into DOM?
-      if (Api.shown) {
-        setExpanded(ele, 0);
-        showContent(false);
-      } else {
-        setExpanded(ele, El.content.preserveH());
-        showContent(true);
-      }
-    });
+    defer(animateContent); // ensure insertion into DOM?
   }
   function loadIndex(num) {
     if (num === false) {
