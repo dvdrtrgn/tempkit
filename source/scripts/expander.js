@@ -3,11 +3,12 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
+  var v = '0.2.1';
   if (typeof define === 'function' && define.amd) {
-    console.info('AMD:Expander');
+    console.info('AMD:expander.js', v);
     define(['jquery'], factory);
   } else {
-    console.warn('expander.js shim');
+    console.warn('SHIM:expander.js', v);
     window.Expander = factory(jQuery);
     return window.debug || window.setTimeout(window.Expander.init, 333);
   }
@@ -225,7 +226,7 @@
   return Api;
 }));
 /*
-  v2
+
   todo: dvdrtrgn
     attach a resize event
 
