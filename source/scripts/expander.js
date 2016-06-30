@@ -76,7 +76,8 @@
       El;
 
   // - - - - - - - - - - - - - - - - - -
-  // RUNTIME
+  // FEATURES
+
   function restoreFeature() {
     if (El.feature && El.holder) {
       El.feature.insertAfter(El.holder);
@@ -91,7 +92,18 @@
     El.holder = $('<placeholder>').insertBefore(El.feature);
     return El.feature;
   }
-  function setExpanded(amt) {
+  function loadFeatureIndex(num) {
+    if (num === false) {
+      return restoreFeature();
+    }
+    num = (num - 1) % El.sources.length;
+    El.content.append(borrowFeature(num));
+  }
+
+  // - - - - - - - - - - - - - - - - - -
+  // ACTIONS
+
+  function animateWidget(amt) {
     if (!amt) {
       El.expanded.shrinkH().removeClass('ex-panded');
       El.expanded = El.null;
@@ -99,7 +111,7 @@
       El.expanded.growH(amt).addClass('ex-panded');
     }
   }
-  function showContent(bool) {
+  function animateFeature(bool) {
     if (bool) {
       El.content.growH(0);
       Api.shown = true;
@@ -108,20 +120,23 @@
       Api.shown = false;
     }
   }
-  function shutDown() {
-    setExpanded();
-    showContent();
+  function collapse() {
+    animateWidget();
+    animateFeature();
     restoreFeature();
   }
-  function animateContent() {
+  function expand() {
     if (Api.shown) {
-      setExpanded(0);
-      showContent(false);
+      collapse();
     } else {
-      setExpanded(El.content.preserveH());
-      showContent(true);
+      animateWidget(El.content.preserveH());
+      animateFeature(true);
     }
   }
+
+  // - - - - - - - - - - - - - - - - - -
+  // HANDLERS
+
   function insertContent(evt) {
     var me = $(evt.delegateTarget),
         ele = me.parent();
@@ -129,26 +144,18 @@
     if (ele.is(El.expanded)) {
       defer(restoreFeature); // toggle off
     } else {
-      shutDown();
+      collapse();
+      loadFeatureIndex(ele.data(Api.key));
+      El.expanded = ele.append(El.content);
     }
-    Api.load(ele.data(Api.key));
-    El.expanded = ele;
-    ele.append(El.content);
-
-    defer(animateContent); // ensure insertion into DOM?
+    defer(expand); // ensure insertion into DOM?
   }
-  function loadIndex(num) {
-    if (num === false) {
-      return restoreFeature();
-    }
-    num = (num - 1) % El.sources.length;
-    El.content.append(borrowFeature(num));
-  }
-
   function wrapTargets(i, e) {
     var ele = $(e),
-        div = ele.children();
-    ele.data(Api.key, i + 1); // remember index
+        div = ele.children(),
+        dat = ele.data();
+
+    dat[Api.key] = i + 1; // remember index
 
     if (div.length === 1) { // avoid re-wrapping
     } else {
@@ -162,27 +169,27 @@
   }
   function zapTargets(i, e) {
     var ele = $(e),
+        div = ele.children(),
         dat = ele.data();
 
-    ele.off('click')
-    .children().removeClass('ex-target')
-    .add(ele).css('height', '');
+    div.removeClass('ex-target').off('click');
+    div.add(ele).css('height', '');
 
     delete dat[Api.key];
     delete dat.preserveH;
   }
 
+  // - - - - - - - - - - - - - - - - - -
+  // BINDERS
+
   function destroy() {
-    shutDown();
+    collapse();
     El.content.appendTo('body');
-    El.closer.off('click', shutDown);
+    El.closer.off('click', collapse);
     El.choices.removeClass('ex-ani').each(zapTargets);
     El.choices = El.sources = '';
     Api.inited = false;
   }
-
-  // - - - - - - - - - - - - - - - - - -
-  // INIT
   function bind(choices, sources) {
     if (Api.inited) {
       throw new Error(Nom + ' double init?');
@@ -192,16 +199,19 @@
     El.choices = $(choices || '#grid-preview .widget');
     El.sources = $(sources || '#grid-content .widget');
     El.choices.addClass('ex-ani').each(wrapTargets);
-    El.closer.on('click', shutDown);
+    El.closer.on('click', collapse);
     El.content.append(El.closer).appendTo(El.body)
     .preserveH(true).shrinkH('0');
   }
+
+  // - - - - - - - - - - - - - - - - - -
+  // INIT
 
   $.extend(Api, {
     _el: El,
     init: bind,
     kill: destroy,
-    load: loadIndex,
+    load: loadFeatureIndex,
     unload: restoreFeature,
   });
 
