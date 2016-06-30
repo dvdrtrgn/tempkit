@@ -9,7 +9,7 @@
   } else {
     console.warn('expander.js shim');
     window.Expander = factory(jQuery);
-    //window.setTimeout(window.Expander.init, 999);
+    window.debug || window.setTimeout(window.Expander.init, 333);
   }
 }(function ($) {
   'use strict';
@@ -19,8 +19,8 @@
   function undef(x) {
     return (typeof x === 'undefined');
   }
-  function defer(fn) {
-    W.setTimeout(fn, 222);
+  function defer(fn, ms) {
+    W.setTimeout(fn, ms || 222);
   }
 
   // - - - - - - - - - - - - - - - - - -
@@ -123,7 +123,6 @@
   function collapse() {
     animateWidget();
     animateFeature();
-    restoreFeature();
   }
   function expand() {
     if (Api.shown) {
@@ -148,7 +147,7 @@
       loadFeatureIndex(ele.data(Api.key));
       El.expanded = ele.append(El.content);
     }
-    defer(expand); // ensure insertion into DOM?
+    defer(expand, 11); // ensure insertion into DOM?
   }
   function wrapTargets(i, e) {
     var ele = $(e),
@@ -184,6 +183,7 @@
 
   function destroy() {
     collapse();
+    restoreFeature();
     El.content.appendTo('body');
     El.closer.off('click', collapse);
     El.choices.removeClass('ex-ani').each(zapTargets);
