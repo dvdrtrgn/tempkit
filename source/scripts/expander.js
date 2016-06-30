@@ -3,7 +3,7 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var v = '0.2.1';
+  var v = '0.2.2';
   if (typeof define === 'function' && define.amd) {
     console.info('AMD:expander.js', v);
     define(['jquery'], factory);
@@ -229,5 +229,8 @@
 
   todo: dvdrtrgn
     attach a resize event
+    test display flexbox
+    allow custom height at init?
+    auto scroll to bottom
 
  */

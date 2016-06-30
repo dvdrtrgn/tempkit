@@ -11,7 +11,12 @@
   position: absolute;
   width: 100%;
   z-index: 1;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
 .ex-closer {
   color: gray; /* or something */
   cursor: pointer;
@@ -34,10 +39,16 @@
 /* OPTIONAL */
 
 .ex-content {
-  background-color: white;
+  background-color: #ddd;
   box-shadow: 0px 0px 2px gray;
-  margin-top: 0.3%;
+  margin-top: 0.5%;
+
+  .widget_sow-hero {
+    flex: 1;
+    max-width: 768px;
+  }
 }
+
 .ex-target {
   background-color: white;
   box-shadow: 0px 0px 1px gray;
@@ -48,15 +59,14 @@
     cursor: default;
     &::after { /* makeshift nubbin */
       background-color: inherit;
-      border-radius: 1em 1em 0 0;
-      box-shadow: 0px -1px 1px gray;
       content: ' ';
-      height: 4%;
-      left: 48%;
+      height: 10%;
+      left: 49%;
       position: absolute;
       text-align: center;
-      bottom: -2%;
-      width: 4%;
+      top: 95%;
+      transform: rotate(45deg);
+      width: 10%;
       z-index: 2;
     }
   }
