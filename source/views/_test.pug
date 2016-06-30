@@ -1,7 +1,14 @@
+span.right
+  a(href='./styles/expander.css') get current expander.css
+  br
+  a(href='./scripts/expander.js') get current expander.js
+
 button(onclick='Expander.init();') init
-button(onclick='Expander.restore();') restore
 button(onclick='Expander.kill();') kill
+br
 button(onclick='Expander.init().restore();') init + restore
+hr
+
 #grid-preview
   div
     div
