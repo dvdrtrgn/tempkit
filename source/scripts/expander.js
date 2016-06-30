@@ -91,15 +91,12 @@
     El.holder = $('<placeholder>').insertBefore(El.feature);
     return El.feature;
   }
-  function setExpanded(ele, amt) {
-    ele = ele || El.expanded;
-
+  function setExpanded(amt) {
     if (!amt) {
-      ele.shrinkH().removeClass('ex-panded');
+      El.expanded.shrinkH().removeClass('ex-panded');
       El.expanded = El.null;
     } else {
-      ele.growH(amt).addClass('ex-panded');
-      El.expanded = ele;
+      El.expanded.growH(amt).addClass('ex-panded');
     }
   }
   function showContent(bool) {
@@ -118,10 +115,10 @@
   }
   function animateContent() {
     if (Api.shown) {
-      setExpanded(El.expanded, 0);
+      setExpanded(0);
       showContent(false);
     } else {
-      setExpanded(El.expanded, El.content.preserveH());
+      setExpanded(El.content.preserveH());
       showContent(true);
     }
   }
