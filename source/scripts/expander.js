@@ -3,13 +3,13 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  if (typeof define === 'function' && define.amd && 0) {
+  if (typeof define === 'function' && define.amd) {
     console.info('AMD:Expander');
     define(['jquery'], factory);
   } else {
     console.warn('expander.js shim');
     window.Expander = factory(jQuery);
-    window.debug || window.setTimeout(window.Expander.init, 333);
+    return window.debug || window.setTimeout(window.Expander.init, 333);
   }
 }(function ($) {
   'use strict';
