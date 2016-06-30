@@ -59,7 +59,9 @@
 
   var Nom = 'Expander',
       Api = {
+        inited: false,
         shown: false,
+        key: Nom + 'Index',
       },
       El = $.reify({
         body: 'body',
@@ -118,14 +120,14 @@
     var me = $(evt.delegateTarget),
         ele = me.parent();
 
-    Api.load(ele.data(Idx));
-
     if (ele.is(El.expanded)) {
       defer(restoreFeature); // toggle off
     } else {
       showContent();
       setExpanded(false);
     }
+
+    Api.load(ele.data(Api.key));
     ele.append(El.content);
 
     defer(function () { // ensure insertion into DOM?
@@ -141,7 +143,7 @@
   function wrapTargets(i, e) {
     var ele = $(e),
         div = ele.children();
-    ele.data(Idx, i + 1); // remember index
+    ele.data(Api.key, i + 1); // remember index
 
     if (div.length === 1) { // avoid re-wrapping
     } else {
@@ -172,19 +174,25 @@
     .children().removeClass('ex-target')
     .add(ele).css('height', '');
 
-    delete dat[Idx];
-    delete dat.preserveHeight;
+    delete dat[Api.key];
+    delete dat.preserveH;
   }
+
   function destroy() {
     shutDown();
     El.choices.each(unbind).removeClass('ex-ani');
     El.closer.off('click');
     El.content.appendTo('body');
+    Api.inited = false;
   }
 
   // - - - - - - - - - - - - - - - - - -
   // INIT
   function bind(choices, sources) {
+    if (Api.inited) {
+      throw new Error(Nom + ' double init?');
+    }
+    Api.inited = true;
     El.choices = $(choices || '#grid-preview .widget');
     El.sources = $(sources || '#grid-content .widget');
 
