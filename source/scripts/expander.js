@@ -3,7 +3,7 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var v = '0.2.2';
+  var v = '0.3.0';
   if (typeof define === 'function' && define.amd) {
     console.info('AMD:expander.js', v);
     define(['jquery'], factory);
@@ -61,8 +61,9 @@
   var Nom = 'Expander',
       Api = {
         inited: false,
-        shown: false,
         key: Nom + 'Index',
+        lastIndex: undefined,
+        shown: false,
       },
       Df = {
         body: 'body',
@@ -78,27 +79,29 @@
 
   // - - - - - - - - - - - - - - - - - -
   // FEATURES
-
-  function restoreFeature() {
+  function retireFeature() {
     if (El.feature && El.holder) {
       El.feature.insertAfter(El.holder);
       delete El.feature;
       El.holder.remove();
       delete El.holder;
+      return Api;
     }
   }
   function borrowFeature(num) {
-    restoreFeature(); // try anyway
+    retireFeature(); // try anyway
     El.feature = El.sources.eq(num);
     El.holder = $('<placeholder>').insertBefore(El.feature);
     return El.feature;
   }
   function loadFeatureIndex(num) {
     if (num === false) {
-      return restoreFeature();
+      return retireFeature();
     }
     num = (num - 1) % El.sources.length;
     El.content.append(borrowFeature(num));
+    Api.lastIndex = num;
+    return Api;
   }
 
   // - - - - - - - - - - - - - - - - - -
@@ -121,9 +124,12 @@
       Api.shown = false;
     }
   }
-  function collapse() {
+  function collapse(bool) {
     animateWidget();
     animateFeature();
+    if (bool) {
+      delete Api.lastIndex;
+    }
   }
   function expand() {
     if (Api.shown) {
@@ -142,7 +148,7 @@
         ele = me.parent();
 
     if (ele.is(El.expanded)) {
-      defer(restoreFeature); // toggle off
+      defer(retireFeature); // toggle off
     } else {
       collapse();
       loadFeatureIndex(ele.data(Api.key));
@@ -183,17 +189,21 @@
   // BINDERS
 
   function destroy() {
+    if (!Api.inited) {
+      return C.error(Nom + ' cannot kill what is already dead!');
+    }
     collapse();
-    restoreFeature();
+    retireFeature();
     El.content.appendTo('body');
     El.closer.off('click', collapse);
     El.choices.removeClass('ex-ani').each(zapTargets);
     El.choices = El.sources = '';
     Api.inited = false;
+    return Api;
   }
   function bind(choices, sources) {
     if (Api.inited) {
-      throw new Error(Nom + ' double init?');
+      return C.error(Nom + ' cannot double init');
     }
     Api.inited = true;
     El = $.reify($.extend({}, Df));
@@ -203,6 +213,7 @@
     El.closer.on('click', collapse);
     El.content.append(El.closer).appendTo(El.body)
     .preserveH(true).shrinkH('0');
+    return Api;
   }
 
   // - - - - - - - - - - - - - - - - - -
@@ -213,7 +224,11 @@
     init: bind,
     kill: destroy,
     load: loadFeatureIndex,
-    unload: restoreFeature,
+    unload: retireFeature,
+    restore: function () {
+      if (undef(Api.lastIndex)) return;
+      El.choices.eq(Api.lastIndex).find('.ex-target').trigger('click');
+    },
   });
 
   if (W.debug > 0) { // Expose
