@@ -9,11 +9,10 @@
   } else {
     console.warn('expander.js shim');
     window.Expander = factory(jQuery);
-    window.setTimeout(Expander.init, 999);
+    //window.setTimeout(window.Expander.init, 999);
   }
 }(function ($) {
   'use strict';
-
   var W = (W && W.window || window),
       C = (W.C || W.console || {});
 
@@ -32,7 +31,6 @@
       obj[i] = $(sel);
     });
   };
-
   $.fn.preserveHeight = function (init) {
     var me = $(this),
         dat = me.data(),
@@ -66,7 +64,7 @@
       El = $.reify({
         body: 'body',
         choices: '',
-        content: '<div class="ex-content">',
+        content: '<div class="ex-content ex-ani">',
         closer: '<div class="ex-closer">',
         feature: '',
         source: '',
@@ -75,7 +73,7 @@
       }),
       Idx = Nom + 'Index';
 
-  El.content.append(El.closer).appendTo(El.body);
+  El.content.append(El.closer).appendTo(El.body).grow('0').shrink('0');
 
   // - - - - - - - - - - - - - - - - - -
   // RUNTIME
@@ -111,6 +109,11 @@
       Api.shown = false;
     }
   }
+  function shutDown() {
+    showContent(false);
+    setExpanded(false);
+    restoreFeature();
+  }
   function insertContent(evt) {
     var me = $(evt.delegateTarget),
         ele = me.parent();
@@ -120,8 +123,8 @@
     if (ele.is(El.expanded)) {
       defer(restoreFeature); // toggle off
     } else {
-      setExpanded(); //
-      showContent(false);
+      showContent();
+      setExpanded(false);
     }
     ele.append(El.content);
 
@@ -135,11 +138,9 @@
       }
     });
   }
-
   function wrapTargets(i, e) {
     var ele = $(e),
         div = ele.children();
-
     ele.data(Idx, i + 1); // remember index
 
     if (div.length === 1) { // avoid re-wrapping
@@ -149,9 +150,10 @@
       C.warn(Nom, 'using innerHTML', e);
     }
 
-    div.addClass('ex-target').css({
+    div.addClass('ex-target').on('click', insertContent);
+    ele.add(div).css({
       height: ele.preserveHeight(),
-    }).on('click', insertContent);
+    });
   }
 
   function loadIndex(num) {
@@ -161,25 +163,39 @@
     num = (num - 1) % El.sources.length;
     borrowFeature(num);
   }
+
+  function unbind(i, e) {
+    var ele = $(e),
+        dat = ele.data();
+
+    ele.off('click')
+    .children().removeClass('ex-target')
+    .add(ele).css('height', '');
+
+    delete dat[Idx];
+    delete dat.preserveHeight;
+  }
+  function destroy() {
+    shutDown();
+    El.choices.each(unbind).removeClass('ex-ani');
+    El.closer.off('click');
+    El.content.appendTo('body');
+  }
+
   // - - - - - - - - - - - - - - - - - -
   // INIT
-
   function bind(choices, sources) {
     El.choices = $(choices || '#grid-preview .widget');
     El.sources = $(sources || '#grid-content .widget');
 
-    El.content.addClass('ex-ani').grow('0').shrink('0');
     El.choices.addClass('ex-ani').each(wrapTargets);
-
-    El.closer.on('click', function () {
-      showContent(false);
-      setExpanded(false);
-    });
+    El.closer.on('click', shutDown);
   }
 
   $.extend(Api, {
     _el: El,
     init: bind,
+    kill: destroy,
     load: loadIndex,
     unload: restoreFeature,
   });
@@ -194,9 +210,8 @@
   return Api;
 }));
 /*
-
-  todo:
-    allow destruction
+  v2
+  todo: dvdrtrgn
     attach a resize event
 
  */
