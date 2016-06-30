@@ -3,7 +3,7 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var v = '0.3.0';
+  var v = '0.3.1';
   if (typeof define === 'function' && define.amd) {
     console.info('AMD:expander.js', v);
     define(['jquery'], factory);
@@ -231,12 +231,8 @@
     },
   });
 
-  if (W.debug > 0) { // Expose
-    W[Nom] = Api;
-    C.warn(Nom, 'exposed', Api);
-  } else {
-    C.debug(Nom, 'loaded');
-  }
+  W[Nom] = Api;
+  C.warn(Nom, 'exposed', Api);
 
   return Api;
 }));
