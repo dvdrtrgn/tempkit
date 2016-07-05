@@ -3,7 +3,7 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var v = '0.3.2';
+  var v = '0.3.3';
   if (typeof define === 'function' && define.amd) {
     console.info('AMD:expander.js', v);
     define(['jquery'], factory);
@@ -107,6 +107,15 @@
   // - - - - - - - - - - - - - - - - - -
   // ACTIONS
 
+  function scrollToContent () {
+      var scrollVal = El.content.offset().top;
+
+      scrollVal += El.content.preserveH() + 2;
+      scrollVal -= $(W).height();
+      El.body.animate({
+        scrollTop: scrollVal
+      }, 333);
+  }
   function animateWidget(amt) {
     if (!amt) {
       El.expanded.shrinkH().removeClass('ex-panded');
@@ -194,7 +203,7 @@
     }
     collapse();
     retireFeature();
-    El.content.appendTo('body');
+    El.content.appendTo('body').off('transitionend', scrollToContent);
     El.closer.off('click', collapse);
     El.choices.removeClass('ex-ani').each(zapTargets);
     El.choices = El.sources = '';
@@ -211,7 +220,8 @@
     El.sources = $(sources || '#grid-content .widget');
     El.choices.addClass('ex-ani').each(wrapTargets);
     El.closer.on('click', collapse);
-    El.content.append(El.closer).appendTo(El.body)
+    El.content.append(El.closer).appendTo(El.body) //
+    .on('transitionend', scrollToContent) //
     .preserveH(true).shrinkH('0');
     return Api;
   }
@@ -240,8 +250,6 @@
 
   todo: dvdrtrgn
     attach a resize event
-    test display flexbox
     allow custom height at init?
-    auto scroll to bottom
 
  */
