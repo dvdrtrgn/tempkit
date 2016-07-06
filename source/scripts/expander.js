@@ -3,7 +3,7 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var v = '0.3.6';
+  var v = '0.3.7';
   if (typeof define === 'function' && define.amd) {
     console.info('AMD:expander.js', v);
     define(['jquery'], factory);
@@ -216,8 +216,8 @@
     }
     Api.inited = true;
     El = $.reify($.extend({}, Df));
-    El.choices = $(choices || '#grid-preview .widget');
-    El.sources = $(sources || '#grid-content .widget');
+    El.choices = $(choices || '#grid-preview .widget:not(:first-child)');
+    El.sources = $(sources || '#grid-content .widget:not(:first-child)');
     El.choices.addClass('ex-ani').each(wrapTargets);
     El.closer.on('click', collapse);
     El.content.append(El.closer).appendTo(El.body) //

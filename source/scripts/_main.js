@@ -31,7 +31,7 @@ define(['jqxtn'], function ($) {
   function bind() {
     W.jQuery = $;
     require(['expander'], function (Exp) {
-      Exp.init('#grid-preview .widget', '#grid-content .widget');
+      Exp.init(); // '#grid-preview .widget', '#grid-content .widget'
     });
     //$('head').append('<script src="./scripts/expander.js"></script>');
   }
