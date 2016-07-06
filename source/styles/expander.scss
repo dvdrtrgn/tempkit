@@ -71,6 +71,7 @@
 /* OVERRIDES */
 
 #grid-preview {
+
   .ex-content {
     height: 500px;
     margin-top: 0.3%;
@@ -81,8 +82,16 @@
     .widget_sow-hero {
       flex: 1;
       max-width: 768px;
+      z-index: 103;
     }
   }
+  .ex-panded {
+    .so-widget-sow-hero {
+      position: relative;
+      z-index: 103;
+    }
+  }
+
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
