@@ -3,7 +3,7 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var v = '0.3.3';
+  var v = '0.3.4';
   if (typeof define === 'function' && define.amd) {
     console.info('AMD:expander.js', v);
     define(['jquery'], factory);
@@ -68,7 +68,7 @@
       Df = {
         body: 'body',
         choices: '',
-        content: '<div class="ex-content ex-ani">',
+        content: '<div class="ex-content">',
         closer: '<div class="ex-closer">',
         feature: '',
         source: '',
@@ -223,6 +223,9 @@
     El.content.append(El.closer).appendTo(El.body) //
     .on('transitionend', scrollToContent) //
     .preserveH(true).shrinkH('0');
+    defer(function () {
+      El.content.addClass('ex-ani'); // prevent scrolling upon load
+    })
     return Api;
   }
 
@@ -250,6 +253,5 @@
 
   todo: dvdrtrgn
     attach a resize event
-    allow custom height at init?
 
  */
