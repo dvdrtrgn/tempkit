@@ -225,7 +225,7 @@
     .preserveH(true).shrinkH('0');
     defer(function () {
       El.content.addClass('ex-ani'); // prevent scrolling upon load
-    })
+    });
     return Api;
   }
 
