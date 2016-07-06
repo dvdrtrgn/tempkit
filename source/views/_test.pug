@@ -6,7 +6,7 @@ span.right
 button(onclick='Expander.init();') init
 button(onclick='Expander.kill();') kill
 br
-button(onclick='Expander.init().restore();') init + restore
+button(onclick='try{Expander.init().restore()}catch(z){}') init + restore
 hr
 
 #grid-preview
