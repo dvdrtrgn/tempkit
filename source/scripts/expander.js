@@ -3,7 +3,7 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var v = '0.3.5';
+  var v = '0.3.6';
   if (typeof define === 'function' && define.amd) {
     console.info('AMD:expander.js', v);
     define(['jquery'], factory);

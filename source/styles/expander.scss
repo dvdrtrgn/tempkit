@@ -2,32 +2,18 @@
 /* _expander.scss */
 
 .ex-ani {
-  transition: height 0.25s; /* or something */
+  transition: height 0.25s;
 }
-.ex-content {
-  background-color: #ddd; /* or something */
-  height: 300px; /* or something */
-  left: 0;
-  overflow: hidden;
-  position: absolute;
-  width: 100%;
-  z-index: 1;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .ex-closer {
-  color: gray; /* or something */
+  color: gray;
   cursor: pointer;
-  font-size: 3rem; /* or something */
+  font-size: 3rem;
   position: absolute;
   right: 0;
   top: 0;
   z-index: 101;
   &:hover {
-    color: black; /* or something */
+    color: black;
   }
   &::after {
     content: '×';
@@ -38,22 +24,30 @@
     width: 1em;
   }
 }
-
+.ex-content {
+  height: 300px; /* or something */
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  width: 100%;
+  z-index: 101;
+}
 .ex-target {
   cursor: pointer;
   position: relative;
 
   .ex-panded & {
     cursor: default;
-    &::after { /* nubbin */
+    &::after {
+      /* arrow indicator */
       background-color: inherit;
+      bottom: -1rem;
       content: ' ';
       height: 3rem;
       left: 45%;
       line-height: 1;
       position: absolute;
       text-align: center;
-      bottom: -1rem;
       transform: rotate(45deg);
       width: 3rem;
       z-index: 2;
@@ -64,32 +58,31 @@
 /* OPTIONAL */
 
 .ex-content {
-  box-shadow: 0px 0px 2px gray;
+  align-items: center;
+  background-color: #ddd;
+  display: flex;
+  justify-content: center;
   margin-top: 0.5%;
 }
-
 .ex-target {
   background-color: #eee;
-  box-shadow: 0px 0px 1px gray;
 }
 
 /* OVERRIDES */
 
-.ex-content {
-  box-shadow: none;
-  height: 500px;
-  margin-top: 0.3%;
+#grid-preview {
+  .ex-content {
+    height: 500px;
+    margin-top: 0.3%;
 
-  .so-panel {
-  	flex-basis: 768px;
+    .so-panel {
+    	flex-basis: 768px;
+    }
+    .widget_sow-hero {
+      flex: 1;
+      max-width: 768px;
+    }
   }
-  .widget_sow-hero {
-    flex: 1;
-    max-width: 768px;
-  }
-}
-.ex-target {
-  box-shadow: none;
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
