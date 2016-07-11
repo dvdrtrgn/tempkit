@@ -25,7 +25,7 @@
   }
 }
 .ex-content {
-  height: 300px; /* or something */
+  height: 1px; /* or something */
   left: 0;
   overflow: hidden;
   position: absolute;
@@ -73,7 +73,7 @@
 #grid-preview {
 
   .ex-content {
-    height: 500px;
+    height: 1px;
     margin-top: 0.3%;
 
     .so-panel {

@@ -3,7 +3,8 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var v = '0.3.8';
+  var v = '0.4.0';
+
   if (typeof define === 'function' && define.amd) {
     console.info('AMD:expander.js', v);
     define(['jquery'], factory);
@@ -70,9 +71,10 @@
         choices: '',
         content: '<div class="ex-content">',
         closer: '<div class="ex-closer">',
-        feature: '',
-        source: '',
         expanded: '',
+        feature: '',
+        holder: '',
+        sources: '',
         null: '#',
       },
       El;
@@ -126,7 +128,7 @@
   }
   function animateFeature(bool) {
     if (bool) {
-      El.content.growH(0);
+      El.content.growH(El.feature.preserveH());
       Api.shown = true;
     } else {
       El.content.shrinkH(0);
@@ -144,7 +146,7 @@
     if (Api.shown) {
       collapse();
     } else {
-      animateWidget(El.content.preserveH());
+      animateWidget(El.feature.preserveH());
       animateFeature(true);
     }
   }
@@ -215,7 +217,7 @@
       return C.error(Nom + ' cannot double init');
     }
     Api.inited = true;
-    El = $.reify($.extend({}, Df));
+    $.reify(El);
     El.choices = $(choices || '#grid-preview .widget:not(:first-child)');
     El.sources = $(sources || '#grid-content .widget:not(:first-child)');
     El.choices.addClass('ex-ani').each(wrapTargets);
@@ -233,7 +235,7 @@
   // INIT
 
   $.extend(Api, {
-    _el: El,
+    _el: El = $.extend({}, Df),
     init: bind,
     kill: destroy,
     load: loadFeatureIndex,
