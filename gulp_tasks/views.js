@@ -21,7 +21,7 @@ var options = minimist(process.argv.slice(2), {
 // Task
 gulp.task('views', function() {
 
-  return gulp.src('./source/views/index.jade')
+  return gulp.src('./source/views/index.pug')
 
     // Jade compilation
     .pipe(jade({
