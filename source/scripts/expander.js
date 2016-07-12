@@ -3,7 +3,7 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var v = '0.4.1';
+  var v = '0.4.2';
 
   if (typeof define === 'function' && define.amd) {
     console.info('AMD:expander.js', v);
@@ -69,11 +69,12 @@
       Df = {
         body: 'body',
         choices: '',
-        reveal: '<div class="ex-reveal">',
         closer: '<div class="ex-closer">',
         expanded: '',
         feature: '',
         holder: '',
+        reveal: '<div class="ex-reveal">',
+        scrolls: 'body, html', // for msie
         sources: '',
         null: '#',
       },
@@ -115,7 +116,7 @@
 
       scrollVal += revealed;
       scrollVal -= $(W).height();
-      El.body.animate({
+      El.scrolls.animate({
         scrollTop: scrollVal
       }, 333);
   }
