@@ -24,7 +24,7 @@
     width: 1em;
   }
 }
-.ex-content {
+.ex-reveal {
   height: 1px; /* or something */
   left: 0;
   overflow: hidden;
@@ -57,7 +57,7 @@
 
 /* OPTIONAL */
 
-.ex-content {
+.ex-reveal {
   align-items: center;
   background-color: #ddd;
   display: flex;
@@ -72,12 +72,12 @@
 
 #grid-preview {
 
-  .ex-content {
-    height: 1px;
+  .ex-reveal {
     margin-top: 0.3%;
 
     .so-panel {
     	flex-basis: 768px;
+      padding: 4rem;
     }
     .widget_sow-hero {
       flex: 1;

@@ -3,7 +3,7 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var v = '0.4.0';
+  var v = '0.4.1';
 
   if (typeof define === 'function' && define.amd) {
     console.info('AMD:expander.js', v);
@@ -69,7 +69,7 @@
       Df = {
         body: 'body',
         choices: '',
-        content: '<div class="ex-content">',
+        reveal: '<div class="ex-reveal">',
         closer: '<div class="ex-closer">',
         expanded: '',
         feature: '',
@@ -101,7 +101,7 @@
       return retireFeature();
     }
     num = (num - 1) % El.sources.length;
-    El.content.append(borrowFeature(num));
+    El.reveal.append(borrowFeature(num));
     Api.lastIndex = num;
     return Api;
   }
@@ -110,9 +110,10 @@
   // ACTIONS
 
   function scrollToContent () {
-      var scrollVal = El.content.offset().top;
+      var scrollVal = El.reveal.offset().top,
+          revealed = El.feature ? El.feature.preserveH() + 10 : 0;
 
-      scrollVal += El.content.preserveH() + 2;
+      scrollVal += revealed;
       scrollVal -= $(W).height();
       El.body.animate({
         scrollTop: scrollVal
@@ -128,10 +129,10 @@
   }
   function animateFeature(bool) {
     if (bool) {
-      El.content.growH(El.feature.preserveH());
+      El.reveal.growH(El.feature.preserveH());
       Api.shown = true;
     } else {
-      El.content.shrinkH(0);
+      El.reveal.shrinkH(0);
       Api.shown = false;
     }
   }
@@ -163,7 +164,7 @@
     } else {
       collapse();
       loadFeatureIndex(ele.data(Api.key));
-      El.expanded = ele.append(El.content);
+      El.expanded = ele.append(El.reveal);
     }
     defer(expand, 11); // ensure insertion into DOM?
   }
@@ -205,7 +206,7 @@
     }
     collapse();
     retireFeature();
-    El.content.appendTo('body').off('transitionend', scrollToContent);
+    El.reveal.appendTo('body').off('transitionend', scrollToContent);
     El.closer.off('click', collapse);
     El.choices.removeClass('ex-ani').each(zapTargets);
     El.choices = El.sources = '';
@@ -222,11 +223,11 @@
     El.sources = $(sources || '#grid-content .widget:not(:first-child)');
     El.choices.addClass('ex-ani').each(wrapTargets);
     El.closer.on('click', collapse);
-    El.content.append(El.closer).appendTo(El.body) //
+    El.reveal.append(El.closer).appendTo(El.body) //
     .on('transitionend', scrollToContent) //
     .preserveH(true).shrinkH('0');
     defer(function () {
-      El.content.addClass('ex-ani'); // prevent scrolling upon load
+      El.reveal.addClass('ex-ani'); // prevent scrolling upon load
     });
     return Api;
   }
