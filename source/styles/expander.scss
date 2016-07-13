@@ -1,0 +1,97 @@
+// - + - - + - - + - - + - - + - - + - - + - - + - - + - - + - - + - - + - //
+/* _expander.scss */
+
+.ex-ani {
+  transition: height 0.25s;
+}
+.ex-closer {
+  color: gray;
+  cursor: pointer;
+  font-size: 3rem;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 101;
+  &:hover {
+    color: black;
+  }
+  &::after {
+    content: '×';
+    display: block;
+    height: 1em;
+    line-height: 1;
+    text-align: left;
+    width: 1em;
+  }
+}
+.ex-reveal {
+  height: 1px; /* or something */
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  width: 100%;
+  z-index: 101;
+}
+.ex-target {
+  cursor: pointer;
+  position: relative;
+
+  .ex-panded & {
+    cursor: default;
+    &::after {
+      /* arrow indicator */
+      background-color: inherit;
+      bottom: -1rem;
+      content: ' ';
+      height: 3rem;
+      left: 45%;
+      line-height: 1;
+      position: absolute;
+      text-align: center;
+      transform: rotate(45deg);
+      width: 3rem;
+      z-index: 102;
+    }
+  }
+}
+
+/* OPTIONAL */
+
+.ex-reveal {
+  align-items: center;
+  background-color: #ddd;
+  display: flex;
+  justify-content: center;
+  margin-top: 0.5%;
+}
+.ex-target {
+  background-color: #eee;
+}
+
+/* OVERRIDES */
+
+#grid-preview {
+
+  .ex-reveal {
+    margin-top: 0.3%;
+
+    .so-panel {
+    	flex-basis: 768px;
+      padding: 4rem;
+    }
+    .widget_sow-hero {
+      flex: 1;
+      max-width: 768px;
+      z-index: 103;
+    }
+  }
+  .ex-panded {
+    .so-widget-sow-hero {
+      position: relative;
+      z-index: 103;
+    }
+  }
+
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */

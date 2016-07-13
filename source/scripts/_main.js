@@ -1,21 +1,15 @@
 /*jslint  white:false */
 /*global define, window */
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-(function (factory) {
-  'use strict';
-  if (typeof define === 'function' && define.amd) {
-    console.log('AMD:Main', !define(
-        ['jqxtn'], factory));
-  } else {
-    console.warn('app.js shim', window.Main = factory
-        ($));
-  }
-}(function ($) {
+define(['jqxtn'], function ($) {
   'use strict';
 
   var W = (W && W.window || window),
       C = (W.C || W.console || {});
 
+    $.inlineSvgs();
+    $.watchHash();
+    $.watchWidth();
   // - - - - - - - - - - - - - - - - - -
   // ASSIGN
 
@@ -30,15 +24,17 @@
   // - - - - - - - - - - - - - - - - - -
   // RUNTIME
 
-  function bind() {
-    $.inlineSvgs();
-    $.watchHash();
-    $.watchWidth();
-
-  }
 
   // - - - - - - - - - - - - - - - - - -
   // INIT
+
+  function bind() {
+    W.jQuery = $;
+    require(['expander'], function (Exp) {
+      Exp.init(); // '#grid-preview .widget', '#grid-content .widget'
+    });
+    //$('head').append('<script src="./scripts/expander.js"></script>');
+  }
 
   $.extend(Api, {
     _el: El,
@@ -54,7 +50,7 @@
   }
 
   return Api;
-}));
+});
 /*
 
 
