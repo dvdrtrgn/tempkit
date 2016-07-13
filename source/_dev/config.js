@@ -33,8 +33,9 @@ require.config({
       deps: ['deserial'],
       //exports: '$',
     },
-    slick: {
+    expander: {
       deps: ['jquery'],
+      exports: 'Expander',
     },
   },
 });

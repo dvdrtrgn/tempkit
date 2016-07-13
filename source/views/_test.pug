@@ -1,0 +1,49 @@
+span.right
+  a(href='./styles/expander.css') get current expander.css
+  br
+  a(href='./scripts/expander.js') get current expander.js
+
+button(onclick='Expander.init();') init
+button(onclick='Expander.kill();') kill
+br
+button(onclick='try{Expander.init().restore()}catch(z){}') init + restore
+hr
+
+#grid-preview
+  div
+    div
+      div.panel-cell-style
+        div.widget
+          div a
+        div.widget
+          div b
+        div.widget
+          div c
+        div.widget
+          div d
+        div.widget
+          div e
+        div.widget force use of innerHTML
+
+#grid-content
+  div
+    div
+      div.widget
+        p foo1
+      div.widget
+        p bar1
+        p bar1
+        p bar1
+      div.widget
+        p baz1
+      div.widget
+        p foo2
+      div.widget
+        p bar2
+        p bar2
+        p bar2
+        p bar2
+      div.widget
+        p baz2
+
+//

@@ -23,6 +23,7 @@ gulp.task('serve', function() {
 
   bs.watch('build/**/*').on('change', bs.reload);
 
+  gulp.watch('./source/_*/*', [ 'misc' ]);
   gulp.watch('./source/data/**/*', [ 'data' ]);
   gulp.watch('./source/fonts/**/*', [ 'fonts' ]);
   gulp.watch('./source/images/**/*', [ 'images' ]);
