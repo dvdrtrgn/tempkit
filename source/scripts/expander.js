@@ -9,7 +9,7 @@
     window.exp = new Expander('#grid-preview .widget:not(:first-child)', '#grid-content .widget:not(:first-child)');
   }
 
-  if (0 && typeof define === 'function' && define.amd) {
+  if (typeof define === 'function' && define.amd) {
     console.info('AMD:expander.js', v);
     define(['jquery'], factory);
   } else {
