@@ -16,12 +16,13 @@ html
 
     script(data-main='./config', src='./vendors/require.js/require.js')
 
-  body.loading
+  body
 
     .page
       //
       include ./_header.pug
       //
+      include ./_test-revealer.pug
       include ./_test-expander.pug
       //
       include ./_footer.pug

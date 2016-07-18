@@ -5,8 +5,8 @@ div#Expander
     br
     a(href='./scripts/expander.js') get current expander.js
 
-  button(onclick='Expander.init();') init
-  button(onclick='Expander.kill();') kill
+  button(onclick='try{ exp = new Expander().init() }catch(z){}') init
+  button(onclick='try{ exp.kill()                  }catch(z){}') kill
   br
   button(onclick='try{Expander.init().restore()}catch(z){}') init + restore
   hr

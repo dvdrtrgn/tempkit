@@ -21,4 +21,42 @@ body {
 
 }
 
+#Revealer {
+
+  .load_more-button {
+    background-color: pink;
+    display: inline-block;
+    padding: 2rem;
+  }
+
+  .siteorigin-widget-tinymce.textwidget {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .ef_flashcard {
+    border-radius: 5px;
+    width: 48%;
+  }
+  .ef_front_face {
+    background-color: green;
+    border-radius: 5px;
+  }
+  .ef_text_front {
+    color: white;
+    font-size: 28px;
+  }
+  .ef_back_face {
+    background-color: purple;
+    border-radius: 5px;
+  }
+
+  p.ef_text_back {
+    color: white;
+    font-size: 16px;
+  }
+
+}
+
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */

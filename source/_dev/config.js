@@ -12,30 +12,19 @@ W.SHIET = {
 require.config({
   baseUrl: 'scripts',
   paths: {
-    lr: 'http://localhost:7999/livereload.js?snipver=1',
-    lib: 'libs',
     jquery: '../vendors/jquery/jquery',
-    slick: '../vendors/slick-carousel/slick',
     lodash: '../vendors/lodash.js/lodash',
+    slick: '../vendors/slick-carousel/slick',
     //
     fobj: 'libs/fobj',
     jqxtn: 'libs/jq-xtn',
     stow: 'libs/stow',
     //
-    deserial: '../vendors/jquery.deserialize',
   },
   shim: {
     deserial: {
-      deps: ['jquery'],
-      //exports: '$',
-    },
-    fobj: {
-      deps: ['deserial'],
-      //exports: '$',
-    },
-    expander: {
-      deps: ['jquery'],
-      exports: 'Expander',
+      // deps: ['jquery'],
+      // exports: '$',
     },
   },
 });

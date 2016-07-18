@@ -1,0 +1,57 @@
+#Revealer
+
+  div(style='padding: 1rem; position: absolute; right: 0; top: 0;')
+    a(href='./styles/expander.css' target='_blank')
+    //get current x.css
+    br
+    a(href='./scripts/revealer.js' target='_blank') get current revealer.js
+
+  button(onclick='try{ rev = new Revealer().next(1) }catch(z){}') init 1
+  button(onclick='try{ rev = new Revealer().next(2) }catch(z){}') init 2
+  button(onclick='try{ rev.kill()                   }catch(z){}') kill
+  br
+  br
+
+  hr
+
+  //
+  .flashcards.panel-widget-style
+    .so-widget-sow-editor.so-widget-sow-editor-base
+      .siteorigin-widget-tinymce.textwidget
+        .ef_flashcard.article
+          .ef_front_face
+            .ef_text_front 1
+          .ef_back_face
+            p.ef_text_back
+              | blah
+        .ef_flashcard.article
+          .ef_front_face
+            .ef_text_front 2
+          .ef_back_face
+            p.ef_text_back
+              | blah
+        .ef_flashcard.article
+          .ef_front_face
+            .ef_text_front 3
+          .ef_back_face
+            p.ef_text_back
+              | blah
+        .ef_flashcard.article
+          .ef_front_face
+            .ef_text_front 4
+          .ef_back_face
+            p.ef_text_back
+              | blah
+
+  .load_more-button.panel-widget-style.button
+    .so-widget-sow-button.so-widget-sow-button-wire-470e5091e374
+      .ow-button-base.ow-button-align-center
+        a
+          span
+            span.sow-icon-fontawesome(data-sow-icon='')
+            | Load more
+
+  //script
+    | window.debug = 1;
+  //script(src='./vendors/jquery/jquery.js')
+  //script(src='./scripts/revealer.js')

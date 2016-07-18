@@ -17,9 +17,12 @@
 
   // - - - - - - - - - - - - - - - - - -
   // AUTOMATE
-  $.reify = function (obj) { // replace vals(selectors) with elements
+  $.reify = function (obj) { // reify v3 : replace vals(selectors) with elements
     return $.each(obj, function (i, sel) {
-      obj[i] = $(sel);
+      if (typeof sel === 'object') {
+        sel = sel.selector;
+      }
+      (obj[i] = $(sel)).selector = sel;
     });
   };
 
