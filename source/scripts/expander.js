@@ -71,7 +71,7 @@
   // - - - - - - - - - - - - - - - - - -
   // ASSIGN
 
-    var Api = {
+    var api = {
           inited: false,
           key: Nom + 'Index',
           lastIndex: undefined,
@@ -89,77 +89,77 @@
           sources: '',
           null: '#',
         },
-        El;
+        els;
 
     // - - - - - - - - - - - - - - - - - -
     // FEATURES
     function retireFeature() {
-      if (El.feature && El.holder) {
-        El.feature.insertAfter(El.holder);
-        delete El.feature;
-        El.holder.remove();
-        delete El.holder;
-        return Api;
+      if (els.feature && els.holder) {
+        els.feature.insertAfter(els.holder);
+        delete els.feature;
+        els.holder.remove();
+        delete els.holder;
+        return api;
       }
     }
     function borrowFeature(num) {
       retireFeature(); // try anyway
-      El.feature = El.sources.eq(num);
-      El.holder = $('<placeholder>').insertBefore(El.feature);
-      return El.feature;
+      els.feature = els.sources.eq(num);
+      els.holder = $('<placeholder>').insertBefore(els.feature);
+      return els.feature;
     }
     function loadFeatureIndex(num) {
       if (num === false) {
         return retireFeature();
       }
-      num = (num - 1) % El.sources.length;
-      El.reveal.append(borrowFeature(num));
-      Api.lastIndex = num;
-      return Api;
+      num = (num - 1) % els.sources.length;
+      els.reveal.append(borrowFeature(num));
+      api.lastIndex = num;
+      return api;
     }
 
     // - - - - - - - - - - - - - - - - - -
     // ACTIONS
 
     function scrollToContent () {
-        var scrollVal = El.reveal.offset().top,
-            revealed = El.feature ? El.feature.preserveH() + 10 : 0;
+        var scrollVal = els.reveal.offset().top,
+            revealed = els.feature ? els.feature.preserveH() + 10 : 0;
 
         scrollVal += revealed;
         scrollVal -= $(W).height();
-        El.scrolls.animate({
+        els.scrolls.animate({
           scrollTop: scrollVal
         }, 333);
     }
     function animateWidget(amt) {
       if (!amt) {
-        El.expanded.shrinkH().removeClass('ex-panded');
-        El.expanded = El.null;
+        els.expanded.shrinkH().removeClass('ex-panded');
+        els.expanded = els.null;
       } else {
-        El.expanded.growH(amt).addClass('ex-panded');
+        els.expanded.growH(amt).addClass('ex-panded');
       }
     }
     function animateFeature(bool) {
       if (bool) {
-        El.reveal.growH(El.feature.preserveH());
-        Api.shown = true;
+        els.reveal.growH(els.feature.preserveH());
+        api.shown = true;
       } else {
-        El.reveal.shrinkH(0);
-        Api.shown = false;
+        els.reveal.shrinkH(0);
+        api.shown = false;
       }
     }
     function collapse(bool) {
       animateWidget();
       animateFeature();
       if (bool) {
-        delete Api.lastIndex;
+        delete api.lastIndex;
       }
     }
     function expand() {
-      if (Api.shown) {
+      if (api.shown) {
         collapse();
       } else {
-        animateWidget(El.feature.preserveH());
+        animateWidget(els.feature.preserveH());
         animateFeature(true);
       }
     }
@@ -171,12 +171,12 @@
       var me = $(evt.delegateTarget),
           ele = me.parent();
 
-      if (ele.is(El.expanded)) {
+      if (ele.is(els.expanded)) {
         defer(retireFeature); // toggle off
       } else {
         collapse();
-        loadFeatureIndex(ele.data(Api.key));
-        El.expanded = ele.append(El.reveal);
+        loadFeatureIndex(ele.data(api.key));
+        els.expanded = ele.append(els.reveal);
       }
       defer(expand, 11); // ensure insertion into DOM?
     }
@@ -185,7 +185,7 @@
           div = ele.children(),
           dat = ele.data();
 
-      dat[Api.key] = i + 1; // remember index
+      dat[api.key] = i + 1; // remember index
 
       if (div.length === 1) { // avoid re-wrapping
       } else {
@@ -205,7 +205,7 @@
       div.removeClass('ex-target').off('click');
       div.add(ele).css('height', '');
 
-      delete dat[Api.key];
+      delete dat[api.key];
       delete dat.preserveH;
     }
 
@@ -213,60 +213,60 @@
     // BINDERS
 
     function destroy() {
-      if (!Api.inited) {
+      if (!api.inited) {
         return C.error(Nom + ' cannot kill what is already dead!');
       }
       collapse();
       retireFeature();
-      El.reveal.appendTo('body').off('transitionend', scrollToContent);
-      El.closer.off('click', collapse);
-      El.choices.removeClass('ex-ani').each(zapTargets);
-      El.choices = El.sources = '';
-      Api.inited = false;
-      return Api;
+      els.reveal.appendTo('body').off('transitionend', scrollToContent);
+      els.closer.off('click', collapse);
+      els.choices.removeClass('ex-ani').each(zapTargets);
+      els.choices = els.sources = '';
+      api.inited = false;
+      return api;
     }
     function bind(choices, sources) {
-      if (Api.inited) {
+      if (api.inited) {
         return C.error(Nom + ' cannot double init');
       }
-      Api.inited = true;
-      reify(El);
-      El.choices = $(choices || '#grid-preview .widget');
-      El.sources = $(sources || '#grid-content .widget');
-      El.choices.addClass('ex-ani').each(wrapTargets);
-      El.closer.on('click', collapse);
-      El.reveal.append(El.closer).appendTo(El.body) //
+      api.inited = true;
+      reify(els);
+      els.choices = $(choices || '#grid-preview .widget');
+      els.sources = $(sources || '#grid-content .widget');
+      els.choices.addClass('ex-ani').each(wrapTargets);
+      els.closer.on('click', collapse);
+      els.reveal.append(els.closer).appendTo(els.body) //
       .on('transitionend', scrollToContent) //
       .preserveH(true).shrinkH('0');
       defer(function () {
-        El.reveal.addClass('ex-ani'); // prevent scrolling upon load
+        els.reveal.addClass('ex-ani'); // prevent scrolling upon load
       });
-      return Api;
+      return api;
     }
 
     // - - - - - - - - - - - - - - - - - -
     // INIT
 
-    $.extend(Api, {
-      _el: El = $.extend({}, Df),
+    $.extend(api, {
+      _el: els = $.extend({}, Df),
       init: bind,
       kill: destroy,
       load: loadFeatureIndex,
       unload: retireFeature,
       restore: function () {
-        if (undef(Api.lastIndex)) return;
-        El.choices.eq(Api.lastIndex).find('.ex-target').trigger('click');
+        if (undef(api.lastIndex)) return;
+        els.choices.eq(api.lastIndex).find('.ex-target').trigger('click');
       },
     });
 
-  W[Nom] = Api;
-  C.warn(Nom, 'exposed', Api);
+  W[Nom] = api;
+  C.warn(Nom, 'exposed', api);
 
   // Expose Fake Constructor
   function Expander(a, b) {
     a = a || '.choices';
     b = b || '.sources';
-    return Api.init(a, b); // $(a).expander(b);
+    return api.init(a, b); // $(a).expander(b);
   }
   return Expander;
 }));
