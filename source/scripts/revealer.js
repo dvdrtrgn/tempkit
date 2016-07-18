@@ -3,7 +3,7 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var v = '0.1.3';
+  var v = '0.1.4';
 
   function mion_init() {
     window.rev = new Revealer('.load_more-button', '#pgc-54-grid-preview-0 .widget_sow-hero').next(3);
