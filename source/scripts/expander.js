@@ -3,7 +3,7 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var v = '0.4.2';
+  var v = '0.5.0';
 
   function mion_init() {
     window.exp = new Expander('#grid-preview .widget:not(:first-child)', '#grid-content .widget:not(:first-child)');
@@ -126,8 +126,8 @@
         var scrollVal = els.reveal.offset().top,
             revealed = els.feature ? els.feature.preserveH() + 10 : 0;
 
-        scrollVal += revealed;
-        scrollVal -= $(W).height();
+        scrollVal -= 100; // += revealed
+        // scrollVal -= $(W).height();
         els.scrolls.animate({
           scrollTop: scrollVal
         }, 333);
