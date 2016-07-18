@@ -3,10 +3,10 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var v = '0.5.0';
+  var v = '0.5.1';
 
   function mion_init() {
-    window.exp = new Expander('#grid-preview .widget:not(:first-child)', '#grid-content .widget:not(:first-child)');
+    new Expander('#grid-preview .widget:not(:first-child)', '#grid-content .widget:not(:first-child)');
   }
 
   if (typeof define === 'function' && define.amd) {
@@ -92,8 +92,8 @@
     var api = $.extend({}, Api),
         els = $.extend({}, Df);
 
-    els.choices = $(choices || '#grid-preview .widget');
-    els.sources = $(sources || '#grid-content .widget');
+    els.choices = choices || '#grid-preview .widget';
+    els.sources = sources || '#grid-content .widget';
 
     // - - - - - - - - - - - - - - - - - -
     // FEATURES
@@ -225,7 +225,7 @@
         els.reveal.appendTo('body').off('transitionend', scrollToContent);
         els.closer.off('click', collapse);
         els.choices.removeClass('ex-ani').each(zapTargets);
-        els.choices = els.sources = '';
+        // els.choices = els.sources = '';
         api.inited = false;
         return api;
       },

@@ -3,10 +3,10 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var v = '0.1.4';
+  var v = '0.1.5';
 
   function mion_init() {
-    window.rev = new Revealer('.load_more-button', '#pgc-54-grid-preview-0 .widget_sow-hero').next(3);
+    new Revealer('.load_more-button', '#pgc-54-grid-preview-0 .widget_sow-hero').next(3);
   }
 
   if (typeof define === 'function' && define.amd) {
@@ -86,39 +86,40 @@
       },
       //
       //--Meths
-      disable: function () {
+      disableBtn: function () {
         els.btn.css('cursor', 'initial').fadeTo(Speed, 0.5).off(ens);
-        return finish('disable');
+        return finish('disableBtn');
       },
-      refresh: function () {
-        reify(els);
-        if (revealed >= api.total()) {
-          revealed = api.total();
-          return api.disable();
-        } else {
-          api.enable();
-        }
-        return finish('refresh');
-      },
-      enable: function () {
+      enableBtn: function () {
         els.btn.css('cursor', 'pointer').fadeTo(Speed, 1) //
           .one(ens, function () {
             api.next();
             api.refresh();
           });
 
-        return finish('enable');
+        return finish('enableBtn');
       },
-      kill: function () {
-        els.btn.off(ens).fadeTo(Speed, 1); // remove listeners
-        els.them.fadeTo(Speed, 1); // release the hidden
-        delete els.btn.data()[Nom]; // clear api
-
-        return finish('kill');
+      refresh: function () {
+        reify(els);
+        if (revealed >= api.total()) {
+          revealed = api.total();
+          return api.disableBtn();
+        } else {
+          api.enableBtn();
+        }
+        return finish('refresh');
       },
       next: function (num) {
         reveal(revealed, revealed + api.inc(num));
         return finish('next');
+      },
+      kill: function () {
+        api.enableBtn(); // restore
+        els.btn.off(ens); // remove listeners
+        els.them.fadeTo(Speed, 1); // release the hidden
+        delete els.btn.data()[Nom]; // clear api
+        revealed = 0;
+        return finish('kill');
       },
       init: function () {
         var prior = els.btn.data(Nom);
@@ -130,13 +131,13 @@
         els.them.hide(); // todo: store initial state
 
         reveal(0, revealed);
-        return finish('init');
+        return finish('init').enableBtn();
       },
     });
     // - - - - - - - - - - - - - - - - - -
 
     api._els = reify(els);
-    return api.init().enable();
+    return api.init();
   };
 
   // Expose Fake Constructor

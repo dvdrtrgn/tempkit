@@ -63,7 +63,6 @@ define(['jqxtn', 'lodash'], function ($, _) {
 
   function bind() {
     W.jQuery = $;
-    window.debug = 0;
 
     // EXPANDER
     require(['expander'], function (Exp) {
