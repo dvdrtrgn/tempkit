@@ -1,16 +1,16 @@
-div#Expander
+#Expander
 
   span.right
-    a(href='./styles/expander.css') get current expander.css
+    a(href='./styles/expander.css' target='_blank') get current expander.css
     br
-    a(href='./scripts/expander.js') get current expander.js
+    a(href='./scripts/expander.js' target='_blank') get current expander.js
 
-  button(onclick='try{ exp = new Expander().init() }catch(z){}') init
-  button(onclick='try{ exp.kill()                  }catch(z){}') kill
+  button(onclick='try{ exp.init()           }catch(z){}') init
+  button(onclick='try{ exp.kill()           }catch(z){}') kill
   br
-  button(onclick='try{Expander.init().restore()}catch(z){}') init + restore
-  hr
-
+  button(onclick='try{ exp.init().restore() }catch(z){}') init + restore
+  br
+  //
   #grid-preview
     div
       div
