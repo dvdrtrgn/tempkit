@@ -66,196 +66,198 @@
     return me.setHeight(px);
   };
 
+  $.fn.expander = function (choices, sources) {}
+
   // - - - - - - - - - - - - - - - - - -
   // ASSIGN
 
-  var Api = {
-        inited: false,
-        key: Nom + 'Index',
-        lastIndex: undefined,
-        shown: false,
-      },
-      Df = {
-        body: 'body',
-        choices: '',
-        closer: '<div class="ex-closer">',
-        expanded: '',
-        feature: '',
-        holder: '',
-        reveal: '<div class="ex-reveal">',
-        scrolls: 'body, html', // for msie
-        sources: '',
-        null: '#',
-      },
-      El;
+    var Api = {
+          inited: false,
+          key: Nom + 'Index',
+          lastIndex: undefined,
+          shown: false,
+        },
+        Df = {
+          body: 'body',
+          choices: '',
+          closer: '<div class="ex-closer">',
+          expanded: '',
+          feature: '',
+          holder: '',
+          reveal: '<div class="ex-reveal">',
+          scrolls: 'body, html', // for msie
+          sources: '',
+          null: '#',
+        },
+        El;
 
-  // - - - - - - - - - - - - - - - - - -
-  // FEATURES
-  function retireFeature() {
-    if (El.feature && El.holder) {
-      El.feature.insertAfter(El.holder);
-      delete El.feature;
-      El.holder.remove();
-      delete El.holder;
+    // - - - - - - - - - - - - - - - - - -
+    // FEATURES
+    function retireFeature() {
+      if (El.feature && El.holder) {
+        El.feature.insertAfter(El.holder);
+        delete El.feature;
+        El.holder.remove();
+        delete El.holder;
+        return Api;
+      }
+    }
+    function borrowFeature(num) {
+      retireFeature(); // try anyway
+      El.feature = El.sources.eq(num);
+      El.holder = $('<placeholder>').insertBefore(El.feature);
+      return El.feature;
+    }
+    function loadFeatureIndex(num) {
+      if (num === false) {
+        return retireFeature();
+      }
+      num = (num - 1) % El.sources.length;
+      El.reveal.append(borrowFeature(num));
+      Api.lastIndex = num;
       return Api;
     }
-  }
-  function borrowFeature(num) {
-    retireFeature(); // try anyway
-    El.feature = El.sources.eq(num);
-    El.holder = $('<placeholder>').insertBefore(El.feature);
-    return El.feature;
-  }
-  function loadFeatureIndex(num) {
-    if (num === false) {
-      return retireFeature();
-    }
-    num = (num - 1) % El.sources.length;
-    El.reveal.append(borrowFeature(num));
-    Api.lastIndex = num;
-    return Api;
-  }
 
-  // - - - - - - - - - - - - - - - - - -
-  // ACTIONS
+    // - - - - - - - - - - - - - - - - - -
+    // ACTIONS
 
-  function scrollToContent () {
-      var scrollVal = El.reveal.offset().top,
-          revealed = El.feature ? El.feature.preserveH() + 10 : 0;
+    function scrollToContent () {
+        var scrollVal = El.reveal.offset().top,
+            revealed = El.feature ? El.feature.preserveH() + 10 : 0;
 
-      scrollVal += revealed;
-      scrollVal -= $(W).height();
-      El.scrolls.animate({
-        scrollTop: scrollVal
-      }, 333);
-  }
-  function animateWidget(amt) {
-    if (!amt) {
-      El.expanded.shrinkH().removeClass('ex-panded');
-      El.expanded = El.null;
-    } else {
-      El.expanded.growH(amt).addClass('ex-panded');
+        scrollVal += revealed;
+        scrollVal -= $(W).height();
+        El.scrolls.animate({
+          scrollTop: scrollVal
+        }, 333);
     }
-  }
-  function animateFeature(bool) {
-    if (bool) {
-      El.reveal.growH(El.feature.preserveH());
-      Api.shown = true;
-    } else {
-      El.reveal.shrinkH(0);
-      Api.shown = false;
+    function animateWidget(amt) {
+      if (!amt) {
+        El.expanded.shrinkH().removeClass('ex-panded');
+        El.expanded = El.null;
+      } else {
+        El.expanded.growH(amt).addClass('ex-panded');
+      }
     }
-  }
-  function collapse(bool) {
-    animateWidget();
-    animateFeature();
-    if (bool) {
-      delete Api.lastIndex;
+    function animateFeature(bool) {
+      if (bool) {
+        El.reveal.growH(El.feature.preserveH());
+        Api.shown = true;
+      } else {
+        El.reveal.shrinkH(0);
+        Api.shown = false;
+      }
     }
-  }
-  function expand() {
-    if (Api.shown) {
+    function collapse(bool) {
+      animateWidget();
+      animateFeature();
+      if (bool) {
+        delete Api.lastIndex;
+      }
+    }
+    function expand() {
+      if (Api.shown) {
+        collapse();
+      } else {
+        animateWidget(El.feature.preserveH());
+        animateFeature(true);
+      }
+    }
+
+    // - - - - - - - - - - - - - - - - - -
+    // HANDLERS
+
+    function insertContent(evt) {
+      var me = $(evt.delegateTarget),
+          ele = me.parent();
+
+      if (ele.is(El.expanded)) {
+        defer(retireFeature); // toggle off
+      } else {
+        collapse();
+        loadFeatureIndex(ele.data(Api.key));
+        El.expanded = ele.append(El.reveal);
+      }
+      defer(expand, 11); // ensure insertion into DOM?
+    }
+    function wrapTargets(i, e) {
+      var ele = $(e),
+          div = ele.children(),
+          dat = ele.data();
+
+      dat[Api.key] = i + 1; // remember index
+
+      if (div.length === 1) { // avoid re-wrapping
+      } else {
+        div = $('<div>').append(e.innerHTML);
+        ele.empty().append(div);
+        C.warn(Nom, 'using innerHTML', e);
+      }
+
+      div.addClass('ex-target').on('click', insertContent);
+      ele.add(div).setHeight(ele.preserveH());
+    }
+    function zapTargets(i, e) {
+      var ele = $(e),
+          div = ele.children(),
+          dat = ele.data();
+
+      div.removeClass('ex-target').off('click');
+      div.add(ele).css('height', '');
+
+      delete dat[Api.key];
+      delete dat.preserveH;
+    }
+
+    // - - - - - - - - - - - - - - - - - -
+    // BINDERS
+
+    function destroy() {
+      if (!Api.inited) {
+        return C.error(Nom + ' cannot kill what is already dead!');
+      }
       collapse();
-    } else {
-      animateWidget(El.feature.preserveH());
-      animateFeature(true);
+      retireFeature();
+      El.reveal.appendTo('body').off('transitionend', scrollToContent);
+      El.closer.off('click', collapse);
+      El.choices.removeClass('ex-ani').each(zapTargets);
+      El.choices = El.sources = '';
+      Api.inited = false;
+      return Api;
     }
-  }
-
-  // - - - - - - - - - - - - - - - - - -
-  // HANDLERS
-
-  function insertContent(evt) {
-    var me = $(evt.delegateTarget),
-        ele = me.parent();
-
-    if (ele.is(El.expanded)) {
-      defer(retireFeature); // toggle off
-    } else {
-      collapse();
-      loadFeatureIndex(ele.data(Api.key));
-      El.expanded = ele.append(El.reveal);
-    }
-    defer(expand, 11); // ensure insertion into DOM?
-  }
-  function wrapTargets(i, e) {
-    var ele = $(e),
-        div = ele.children(),
-        dat = ele.data();
-
-    dat[Api.key] = i + 1; // remember index
-
-    if (div.length === 1) { // avoid re-wrapping
-    } else {
-      div = $('<div>').append(e.innerHTML);
-      ele.empty().append(div);
-      C.warn(Nom, 'using innerHTML', e);
+    function bind(choices, sources) {
+      if (Api.inited) {
+        return C.error(Nom + ' cannot double init');
+      }
+      Api.inited = true;
+      reify(El);
+      El.choices = $(choices || '#grid-preview .widget');
+      El.sources = $(sources || '#grid-content .widget');
+      El.choices.addClass('ex-ani').each(wrapTargets);
+      El.closer.on('click', collapse);
+      El.reveal.append(El.closer).appendTo(El.body) //
+      .on('transitionend', scrollToContent) //
+      .preserveH(true).shrinkH('0');
+      defer(function () {
+        El.reveal.addClass('ex-ani'); // prevent scrolling upon load
+      });
+      return Api;
     }
 
-    div.addClass('ex-target').on('click', insertContent);
-    ele.add(div).setHeight(ele.preserveH());
-  }
-  function zapTargets(i, e) {
-    var ele = $(e),
-        div = ele.children(),
-        dat = ele.data();
+    // - - - - - - - - - - - - - - - - - -
+    // INIT
 
-    div.removeClass('ex-target').off('click');
-    div.add(ele).css('height', '');
-
-    delete dat[Api.key];
-    delete dat.preserveH;
-  }
-
-  // - - - - - - - - - - - - - - - - - -
-  // BINDERS
-
-  function destroy() {
-    if (!Api.inited) {
-      return C.error(Nom + ' cannot kill what is already dead!');
-    }
-    collapse();
-    retireFeature();
-    El.reveal.appendTo('body').off('transitionend', scrollToContent);
-    El.closer.off('click', collapse);
-    El.choices.removeClass('ex-ani').each(zapTargets);
-    El.choices = El.sources = '';
-    Api.inited = false;
-    return Api;
-  }
-  function bind(choices, sources) {
-    if (Api.inited) {
-      return C.error(Nom + ' cannot double init');
-    }
-    Api.inited = true;
-    reify(El);
-    El.choices = $(choices || '#grid-preview .widget');
-    El.sources = $(sources || '#grid-content .widget');
-    El.choices.addClass('ex-ani').each(wrapTargets);
-    El.closer.on('click', collapse);
-    El.reveal.append(El.closer).appendTo(El.body) //
-    .on('transitionend', scrollToContent) //
-    .preserveH(true).shrinkH('0');
-    defer(function () {
-      El.reveal.addClass('ex-ani'); // prevent scrolling upon load
+    $.extend(Api, {
+      _el: El = $.extend({}, Df),
+      init: bind,
+      kill: destroy,
+      load: loadFeatureIndex,
+      unload: retireFeature,
+      restore: function () {
+        if (undef(Api.lastIndex)) return;
+        El.choices.eq(Api.lastIndex).find('.ex-target').trigger('click');
+      },
     });
-    return Api;
-  }
-
-  // - - - - - - - - - - - - - - - - - -
-  // INIT
-
-  $.extend(Api, {
-    _el: El = $.extend({}, Df),
-    init: bind,
-    kill: destroy,
-    load: loadFeatureIndex,
-    unload: retireFeature,
-    restore: function () {
-      if (undef(Api.lastIndex)) return;
-      El.choices.eq(Api.lastIndex).find('.ex-target').trigger('click');
-    },
-  });
 
   W[Nom] = Api;
   C.warn(Nom, 'exposed', Api);
