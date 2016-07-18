@@ -24,9 +24,27 @@
   var C = (W.C || W.console || {});
   var Nom = 'Expander';
   var Speed = 222;
+  var Api = {
+        inited: false,
+        key: Nom + 'Index',
+        lastIndex: undefined,
+        shown: false,
+      },
+      Df = {
+        body: 'body',
+        choices: '',
+        closer: '<div class="ex-closer">',
+        expanded: '',
+        feature: '',
+        holder: '',
+        reveal: '<div class="ex-reveal">',
+        scrolls: 'body, html', // for msie
+        sources: '',
+        null: '#',
+      };
 
   function defer(fn, ms) {
-    W.setTimeout(fn, ms || Speed);
+    return W.setTimeout(fn, ms || Speed);
   }
   function reify(obj) { // reify v3 : replace vals(selectors) with elements
     return $.each(obj, function (i, sel) {
@@ -66,30 +84,13 @@
     return me.setHeight(px);
   };
 
-  $.fn.expander = function (choices, sources) {}
-
   // - - - - - - - - - - - - - - - - - -
   // ASSIGN
 
-    var api = {
-          inited: false,
-          key: Nom + 'Index',
-          lastIndex: undefined,
-          shown: false,
-        },
-        Df = {
-          body: 'body',
-          choices: '',
-          closer: '<div class="ex-closer">',
-          expanded: '',
-          feature: '',
-          holder: '',
-          reveal: '<div class="ex-reveal">',
-          scrolls: 'body, html', // for msie
-          sources: '',
-          null: '#',
-        },
-        els;
+  $.expander = function (choices, sources) {
+
+    var api = $.extend({}, Api),
+        els = $.extend({}, Df);
 
     // - - - - - - - - - - - - - - - - - -
     // FEATURES
@@ -210,63 +211,54 @@
     }
 
     // - - - - - - - - - - - - - - - - - -
-    // BINDERS
-
-    function destroy() {
-      if (!api.inited) {
-        return C.error(Nom + ' cannot kill what is already dead!');
-      }
-      collapse();
-      retireFeature();
-      els.reveal.appendTo('body').off('transitionend', scrollToContent);
-      els.closer.off('click', collapse);
-      els.choices.removeClass('ex-ani').each(zapTargets);
-      els.choices = els.sources = '';
-      api.inited = false;
-      return api;
-    }
-    function bind(choices, sources) {
-      if (api.inited) {
-        return C.error(Nom + ' cannot double init');
-      }
-      api.inited = true;
-      reify(els);
-      els.choices = $(choices || '#grid-preview .widget');
-      els.sources = $(sources || '#grid-content .widget');
-      els.choices.addClass('ex-ani').each(wrapTargets);
-      els.closer.on('click', collapse);
-      els.reveal.append(els.closer).appendTo(els.body) //
-      .on('transitionend', scrollToContent) //
-      .preserveH(true).shrinkH('0');
-      defer(function () {
-        els.reveal.addClass('ex-ani'); // prevent scrolling upon load
-      });
-      return api;
-    }
-
-    // - - - - - - - - - - - - - - - - - -
-    // INIT
-
+    // PUBLIC
     $.extend(api, {
-      _el: els = $.extend({}, Df),
-      init: bind,
-      kill: destroy,
-      load: loadFeatureIndex,
-      unload: retireFeature,
+      kill: function () {
+        if (!api.inited) {
+          return C.error(Nom + ' cannot kill what is already dead!');
+        }
+        collapse();
+        retireFeature();
+        els.reveal.appendTo('body').off('transitionend', scrollToContent);
+        els.closer.off('click', collapse);
+        els.choices.removeClass('ex-ani').each(zapTargets);
+        els.choices = els.sources = '';
+        api.inited = false;
+        return api;
+      },
+      init: function (choices, sources) {
+        if (api.inited) {
+          return C.error(Nom + ' cannot double init');
+        }
+        api.inited = true;
+        reify(els);
+        els.choices = $(choices || '#grid-preview .widget');
+        els.sources = $(sources || '#grid-content .widget');
+        els.choices.addClass('ex-ani').each(wrapTargets);
+        els.closer.on('click', collapse);
+        els.reveal.append(els.closer).appendTo(els.body) //
+        .on('transitionend', scrollToContent) //
+        .preserveH(true).shrinkH('0');
+        defer(function () {
+          els.reveal.addClass('ex-ani'); // prevent scrolling upon load
+        });
+        return api;
+      },
       restore: function () {
         if (undef(api.lastIndex)) return;
         els.choices.eq(api.lastIndex).find('.ex-target').trigger('click');
       },
     });
 
-  W[Nom] = api;
-  C.warn(Nom, 'exposed', api);
+    api._els = reify(els);
+    return api.init();
+  };
 
   // Expose Fake Constructor
   function Expander(a, b) {
     a = a || '.choices';
     b = b || '.sources';
-    return api.init(a, b); // $(a).expander(b);
+    return $.expander(a, b);
   }
   return Expander;
 }));
