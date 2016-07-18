@@ -5,16 +5,20 @@ body {
   color: $darker;
 }
 
-#grid-preview {
-  .panel-cell-style > .widget {
-    display: inline-block;
-    height: 150px;
-    margin: 1%;
-    width: 200px;
+#Expander {
+
+  #grid-preview {
+    .panel-cell-style > .widget {
+      display: inline-block;
+      height: 150px;
+      margin: 1%;
+      width: 200px;
+    }
   }
-}
-#grid-content {
-  display: none;
+  #grid-content {
+    display: none;
+  }
+
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */

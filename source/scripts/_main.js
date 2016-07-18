@@ -30,10 +30,13 @@ define(['jqxtn'], function ($) {
 
   function bind() {
     W.jQuery = $;
-    require(['expander'], function (Exp) {
-      Exp.init(); // '#grid-preview .widget', '#grid-content .widget'
-    });
-    //$('head').append('<script src="./scripts/expander.js"></script>');
+    window.debug = 0;
+
+    // EXPANDER
+      require(['expander'], function (Exp) {
+        //Exp.init(); // '#grid-preview .widget', '#grid-content .widget'
+      });
+      //$('head').append('<script src="./scripts/expander.js"></script>');
   }
 
   $.extend(Api, {

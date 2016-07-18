@@ -5,34 +5,44 @@
   'use strict';
   var v = '0.4.2';
 
-  if (typeof define === 'function' && define.amd) {
+  function mion_init() {
+    window.exp = new Expander('#grid-preview .widget:not(:first-child)', '#grid-content .widget:not(:first-child)');
+  }
+
+  if (0 && typeof define === 'function' && define.amd) {
     console.info('AMD:expander.js', v);
     define(['jquery'], factory);
   } else {
     console.warn('SHIM:expander.js', v);
     window.Expander = factory(jQuery);
-    return window.debug || window.setTimeout(window.Expander.init, 333);
+    return window.debug || window.setTimeout(mion_init, 333);
   }
 }(function ($) {
   'use strict';
-  var W = (W && W.window || window),
-      C = (W.C || W.console || {});
 
+  var W = (W && W.window || window);
+  var C = (W.C || W.console || {});
+  var Nom = 'Expander';
+  var Speed = 222;
+
+  function defer(fn, ms) {
+    W.setTimeout(fn, ms || Speed);
+  }
+  function reify(obj) { // reify v3 : replace vals(selectors) with elements
+    return $.each(obj, function (i, sel) {
+      if (typeof sel === 'object') {
+        sel = sel.selector;
+      }
+      (obj[i] = $(sel)).selector = sel;
+    });
+  }
   function undef(x) {
     return (typeof x === 'undefined');
-  }
-  function defer(fn, ms) {
-    W.setTimeout(fn, ms || 222);
   }
 
   // - - - - - - - - - - - - - - - - - -
   // EXTEND
 
-  $.reify = function (obj) { // replace vals(selectors) with elements
-    return $.each(obj, function (i, sel) {
-      obj[i] = $(sel);
-    });
-  };
   $.fn.preserveH = function (init) {
     var me = $(this),
         dat = me.data(),
@@ -59,8 +69,7 @@
   // - - - - - - - - - - - - - - - - - -
   // ASSIGN
 
-  var Nom = 'Expander',
-      Api = {
+  var Api = {
         inited: false,
         key: Nom + 'Index',
         lastIndex: undefined,
@@ -219,9 +228,9 @@
       return C.error(Nom + ' cannot double init');
     }
     Api.inited = true;
-    $.reify(El);
-    El.choices = $(choices || '#grid-preview .widget:not(:first-child)');
-    El.sources = $(sources || '#grid-content .widget:not(:first-child)');
+    reify(El);
+    El.choices = $(choices || '#grid-preview .widget');
+    El.sources = $(sources || '#grid-content .widget');
     El.choices.addClass('ex-ani').each(wrapTargets);
     El.closer.on('click', collapse);
     El.reveal.append(El.closer).appendTo(El.body) //
@@ -251,7 +260,13 @@
   W[Nom] = Api;
   C.warn(Nom, 'exposed', Api);
 
-  return Api;
+  // Expose Fake Constructor
+  function Expander(a, b) {
+    a = a || '.choices';
+    b = b || '.sources';
+    return Api.init(a, b); // $(a).expander(b);
+  }
+  return Expander;
 }));
 /*
 
