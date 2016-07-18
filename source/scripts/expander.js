@@ -92,6 +92,9 @@
     var api = $.extend({}, Api),
         els = $.extend({}, Df);
 
+    els.choices = $(choices || '#grid-preview .widget');
+    els.sources = $(sources || '#grid-content .widget');
+
     // - - - - - - - - - - - - - - - - - -
     // FEATURES
     function retireFeature() {
@@ -226,14 +229,12 @@
         api.inited = false;
         return api;
       },
-      init: function (choices, sources) {
+      init: function () {
         if (api.inited) {
           return C.error(Nom + ' cannot double init');
         }
         api.inited = true;
         reify(els);
-        els.choices = $(choices || '#grid-preview .widget');
-        els.sources = $(sources || '#grid-content .widget');
         els.choices.addClass('ex-ani').each(wrapTargets);
         els.closer.on('click', collapse);
         els.reveal.append(els.closer).appendTo(els.body) //
