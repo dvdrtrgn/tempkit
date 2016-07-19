@@ -24,13 +24,6 @@ define(['jqxtn', 'lodash'], function ($, _) {
   // - - - - - - - - - - - - - - - - - -
   // RUNTIME
 
-  function keyExperiment () {
-
-    // function readKeys(evt) {
-    //   C.debug($.filterKeys(evt));
-    // }
-    // end keyExperiment
-  }
 
   // - - - - - - - - - - - - - - - - - -
   // INIT
