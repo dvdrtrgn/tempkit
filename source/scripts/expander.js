@@ -3,7 +3,7 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var v = '0.5.1';
+  var v = '0.5.2';
 
   function mion_init() {
     new window.Expander('#grid-preview .widget:not(:first-child)', '#grid-content .widget:not(:first-child)');
@@ -22,30 +22,32 @@
 
   var W = (W && W.window || window);
   var C = (W.C || W.console || {});
+  var Debug = W._dbug;
   var Nom = 'Expander';
   var Speed = 222;
   var Api = {
-        inited: false,
-        key: Nom + 'Index',
-        lastIndex: undefined,
-        shown: false,
-      },
-      Df = {
-        body: 'body',
-        choices: '',
-        closer: '<div class="ex-closer">',
-        expanded: '',
-        feature: '',
-        holder: '',
-        reveal: '<div class="ex-reveal">',
-        scrolls: 'body, html', // for msie
-        sources: '',
-        null: '#',
-      };
+      inited: false,
+      key: Nom + 'Index',
+      lastIndex: undefined,
+      shown: false,
+    },
+    Df = {
+      body: 'body',
+      choices: '',
+      closer: '<div class="ex-closer">',
+      expanded: '',
+      feature: '',
+      holder: '',
+      reveal: '<div class="ex-reveal">',
+      scrolls: 'body, html', // for msie
+      sources: '',
+      null: '#',
+    };
 
   function defer(fn, ms) {
     return W.setTimeout(fn, ms || Speed);
   }
+
   function reify(obj) { // reify v3 : replace vals(selectors) with elements
     return $.each(obj, function (i, sel) {
       if (typeof sel === 'object') {
@@ -54,6 +56,7 @@
       (obj[i] = $(sel)).selector = sel;
     });
   }
+
   function undef(x) {
     return (typeof x === 'undefined');
   }
@@ -63,9 +66,9 @@
 
   $.fn.preserveH = function (init) {
     var me = $(this),
-        dat = me.data(),
-        str = 'preserveH',
-        rtn;
+      dat = me.data(),
+      str = 'preserveH',
+      rtn;
     rtn = Number(dat[str] = dat[str] || me.innerHeight());
     return init ? this : rtn;
   };
@@ -90,12 +93,20 @@
   $.expander = function (choices, sources) {
 
     var api = $.extend({}, Api),
-        els = $.extend({}, Df);
+      els = $.extend({}, Df);
 
     els.choices = choices || '#grid-preview .widget';
     els.sources = sources || '#grid-content .widget';
 
     // - - - - - - - - - - - - - - - - - -
+    // PRIVATE
+    function finish(str) {
+      if (Debug > 0) {
+        C.info(Nom, (str || ''), api);
+      }
+      return api;
+    }
+
     // FEATURES
     function retireFeature() {
       if (els.feature && els.holder) {
@@ -103,15 +114,17 @@
         delete els.feature;
         els.holder.remove();
         delete els.holder;
-        return api;
+        return finish('retireFeature');
       }
     }
+
     function borrowFeature(num) {
       retireFeature(); // try anyway
       els.feature = els.sources.eq(num);
       els.holder = $('<placeholder>').insertBefore(els.feature);
       return els.feature;
     }
+
     function loadFeatureIndex(num) {
       if (num === false) {
         return retireFeature();
@@ -119,22 +132,21 @@
       num = (num - 1) % els.sources.length;
       els.reveal.append(borrowFeature(num));
       api.lastIndex = num;
-      return api;
+      return finish('loadFeatureIndex');
     }
 
-    // - - - - - - - - - - - - - - - - - -
-    // ACTIONS
+    // ANIMATIONS
+    function scrollToContent() {
+      var scrollVal = els.reveal.offset().top,
+        revealH = els.feature ? els.feature.preserveH() + 10 : 0;
 
-    function scrollToContent () {
-        var scrollVal = els.reveal.offset().top,
-            revealH = els.feature ? els.feature.preserveH() + 10 : 0;
-
-        scrollVal -= 100; // += revealH
-        // scrollVal -= $(W).height();
-        els.scrolls.animate({
-          scrollTop: scrollVal
-        }, 333);
+      scrollVal -= 100; // += revealH
+      // scrollVal -= $(W).height();
+      els.scrolls.animate({
+        scrollTop: scrollVal
+      }, 333);
     }
+
     function animateWidget(amt) {
       if (!amt) {
         els.expanded.shrinkH().removeClass('ex-panded');
@@ -143,6 +155,7 @@
         els.expanded.growH(amt).addClass('ex-panded');
       }
     }
+
     function animateFeature(bool) {
       if (bool) {
         els.reveal.growH(els.feature.preserveH());
@@ -152,6 +165,7 @@
         api.shown = false;
       }
     }
+
     function collapse(bool) {
       animateWidget();
       animateFeature();
@@ -159,6 +173,7 @@
         delete api.lastIndex;
       }
     }
+
     function expand() {
       if (api.shown) {
         collapse();
@@ -168,12 +183,10 @@
       }
     }
 
-    // - - - - - - - - - - - - - - - - - -
     // HANDLERS
-
     function insertContent(evt) {
       var me = $(evt.delegateTarget),
-          ele = me.parent();
+        ele = me.parent();
 
       if (ele.is(els.expanded)) {
         defer(retireFeature); // toggle off
@@ -184,10 +197,11 @@
       }
       defer(expand, 11); // ensure insertion into DOM?
     }
+
     function wrapTargets(i, e) {
       var ele = $(e),
-          div = ele.children(),
-          dat = ele.data();
+        div = ele.children(),
+        dat = ele.data();
 
       dat[api.key] = i + 1; // remember index
 
@@ -201,10 +215,11 @@
       div.addClass('ex-target').on('click', insertContent);
       ele.add(div).setHeight(ele.preserveH());
     }
+
     function zapTargets(i, e) {
       var ele = $(e),
-          div = ele.children(),
-          dat = ele.data();
+        div = ele.children(),
+        dat = ele.data();
 
       div.removeClass('ex-target').off('click');
       div.add(ele).css('height', '');
@@ -227,7 +242,7 @@
         els.choices.removeClass('ex-ani').each(zapTargets);
         // els.choices = els.sources = '';
         api.inited = false;
-        return api;
+        return finish('kill');
       },
       init: function () {
         if (api.inited) {
@@ -238,12 +253,12 @@
         els.choices.addClass('ex-ani').each(wrapTargets);
         els.closer.on('click', collapse);
         els.reveal.append(els.closer).appendTo(els.body) //
-        .on('transitionend', scrollToContent) //
-        .preserveH(true).shrinkH('0');
+          .on('transitionend', scrollToContent) //
+          .preserveH(true).shrinkH('0');
         defer(function () {
           els.reveal.addClass('ex-ani'); // prevent scrolling upon load
         });
-        return api;
+        return finish('init');
       },
       restore: function () {
         if (undef(api.lastIndex)) return;
