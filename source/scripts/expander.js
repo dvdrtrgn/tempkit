@@ -6,7 +6,7 @@
   var v = '0.5.1';
 
   function mion_init() {
-    new Expander('#grid-preview .widget:not(:first-child)', '#grid-content .widget:not(:first-child)');
+    new window.Expander('#grid-preview .widget:not(:first-child)', '#grid-content .widget:not(:first-child)');
   }
 
   if (typeof define === 'function' && define.amd) {
@@ -15,7 +15,7 @@
   } else {
     console.warn('SHIM:expander.js', v);
     window.Expander = factory(jQuery);
-    return window.debug || window.setTimeout(mion_init, 333);
+    return window._dbug || window.setTimeout(mion_init, 333);
   }
 }(function ($) {
   'use strict';
@@ -127,9 +127,9 @@
 
     function scrollToContent () {
         var scrollVal = els.reveal.offset().top,
-            revealed = els.feature ? els.feature.preserveH() + 10 : 0;
+            revealH = els.feature ? els.feature.preserveH() + 10 : 0;
 
-        scrollVal -= 100; // += revealed
+        scrollVal -= 100; // += revealH
         // scrollVal -= $(W).height();
         els.scrolls.animate({
           scrollTop: scrollVal

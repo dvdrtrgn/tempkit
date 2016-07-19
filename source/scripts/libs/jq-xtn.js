@@ -155,6 +155,30 @@
     $('.loading').removeClass('loading');
   };
 
+  // create modifier-keys object [storing event?]
+  $.filterKeys = function (evt, bool) {
+    return {
+      alt: evt.altKey,
+      ctrl: evt.ctrlKey,
+      meta: evt.metaKey,
+      shift: evt.shiftKey,
+      evt: bool ? evt : undefined,
+    };
+  };
+  // help OSX assert(control+click !== contextual-click)
+  $.fn.con = function () {
+    var me = 'contextmenu.con'; // start as a name
+    function check(evt) {
+      if (!evt.button && evt.ctrlKey) {
+        evt.preventDefault(); // stop contextmenu
+        evt.type = 'click'; // mutate event
+        me.trigger(evt); // recall as click
+      }
+    }
+    me = $(this).off(me).on(me, check); // recycle var & reattach
+    return me.on.apply(this, arguments); // do normal event/listener
+  };
+
   // - - - - - - - - - - - - - - - - - -
   // HANDLERS
 

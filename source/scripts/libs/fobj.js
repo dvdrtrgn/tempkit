@@ -22,7 +22,7 @@
       Api = {},
       filter = W.location.hostname !== 'localhost';
 
-  if (W.debug > 0) {
+  if (W._dbug > 0) {
     C.info(Nom, 'always saving', !filter);
   }
 
