@@ -14,7 +14,6 @@ require.config({
   paths: {
     jquery: '../vendors/jquery/jquery',
     lodash: '../vendors/lodash.js/lodash',
-    slick: '../vendors/slick-carousel/slick',
     //
     fobj: 'libs/fobj',
     jqxtn: 'libs/jq-xtn',
@@ -22,7 +21,7 @@ require.config({
     //
   },
   shim: {
-    deserial: {
+    jqxtn: {
       // deps: ['jquery'],
       // exports: '$',
     },
@@ -46,25 +45,15 @@ require(['jquery'], function () {
     C.error('config', err);
   }
 
-  // ASSIST DEBUGGING
-
-//  if (W._dbug && loc || W._dbug > 1) {
-//    require(['lr'], function () {
-//      C.warn('LiveReloading @ ' + W._dbug);
-//    }, function () {
-//      C.info('no LiveReloading @ ' + W._dbug);
-//    });
-//  }
-
   /// CUSTOMIZED INIT
-  location.hash = location.hash || 'Page1';
+  W.location.hash = W.location.hash || 'Page1';
 
   require(['jqxtn'], function ($) {
     require(['_main'], function () {
 
       $('body').removeClass('loading');
     });
-  }); //
+  });
 
 });
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
