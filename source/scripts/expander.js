@@ -26,7 +26,7 @@
 
   var W = (W && W.window || window);
   var C = (W.C || W.console || {});
-  var Debug = W._dbug;
+  var Debug = W._dbug > 0;
   var Nom = 'Expander';
   var Api = {
     inited: false,
@@ -115,7 +115,7 @@
     // PRIVATE
 
     function finish(str) {
-      if (Debug > 0) {
+      if (Debug) {
         C.info(Nom, (str || ''), api);
       }
       return api;
@@ -230,9 +230,10 @@
       } else {
         div = $('<div>').append(e.innerHTML);
         ele.empty().append(div);
-        C.warn(Nom, 'using innerHTML', e);
+        if (Debug) {
+          C.warn(Nom, 'using innerHTML', e);
+        }
       }
-
       div.addClass('ex-target').on('click', insertContent);
       ele.add(div).setHeight(ele.preserveH());
     }
@@ -261,7 +262,6 @@
         } else if (val) {
           cf[obj] = val;
         }
-        C.debug(cf, api._cf);
       },
       kill: function () {
         if (!api.inited) {

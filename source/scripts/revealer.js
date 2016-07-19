@@ -22,7 +22,7 @@
 
   var W = (W && W.window || window);
   var C = (W.C || W.console || {});
-  var Debug = W._dbug;
+  var Debug = W._dbug > 0;
   var Nom = 'Revealer';
   var Speed = 333;
 
