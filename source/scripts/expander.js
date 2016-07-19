@@ -108,8 +108,8 @@
       els = $.extend({}, El),
       cf = $.extend({}, Df, opts);
 
-    els.choices = choices || '#grid-preview .widget';
-    els.sources = sources || '#grid-content .widget';
+    els.choices = choices || '.choices';
+    els.sources = sources || '.sources';
 
     // - - - - - - - - - - - - - - - - - -
     // PRIVATE
@@ -316,9 +316,10 @@
 
   // Expose Fake Constructor
   function Expander(a, b) {
-    a = a || '.choices';
-    b = b || '.sources';
-    return $.expander.apply(null, arguments);
+    var args = [].slice.call(arguments);
+    args[0] = a || '#grid-preview .widget';
+    args[1] = b || '#grid-content .widget';
+    return $.expander.apply(null, args);
   }
   return Expander;
 }));

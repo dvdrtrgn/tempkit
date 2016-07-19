@@ -66,6 +66,7 @@
     // - - - - - - - - - - - - - - - - - -
     // PUBLIC
     $.extend(api, {
+      _el: Debug ? els : null,
       //
       //--Props
       _inc: 1,
@@ -136,7 +137,7 @@
     });
     // - - - - - - - - - - - - - - - - - -
 
-    api._els = reify(els);
+    reify(els);
     return api.init();
   };
 
