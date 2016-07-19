@@ -3,7 +3,7 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var v = '0.5.4';
+  var v = '0.5.5';
 
   function mion_init() {
     new window.Expander(
@@ -15,13 +15,13 @@
 
   if (typeof define === 'function' && define.amd) {
     console.info('AMD:expander.js', v);
-    define(['jquery'], factory);
+    define(['jquery', 'lodash'], factory);
   } else {
     console.warn('SHIM:expander.js', v);
-    window.Expander = factory(jQuery);
+    window.Expander = factory(window.jQuery, window._);
     return window._dbug || window.setTimeout(mion_init, 333);
   }
-}(function ($) {
+}(function ($, _) {
   'use strict';
 
   var W = (W && W.window || window);
@@ -48,11 +48,16 @@
   };
   var Df = {
     align: 'bottom',
-    speed: 222,
+    speed: 250,
   };
+  var Styles;
 
   function defer(fn, ms) {
     return W.setTimeout(fn, ms || Df.speed);
+  }
+
+  function getStyles() {
+    return Styles || (Styles = $('link[href*=' + Nom.toLowerCase() + ']')[0].sheet.rules);
   }
 
   function reify(obj) { // reify v3 : replace vals(selectors) with elements
@@ -159,7 +164,7 @@
       }
       els.scrolls.animate({
         scrollTop: scrollVal
-      }, 333);
+      }, cf.speed);
     }
 
     function animateWidget(amt) {
@@ -248,13 +253,15 @@
     // PUBLIC
 
     $.extend(api, {
-      config: function (arg1, arg2) {
-        if (typeof arg1 === 'object') {
-          $.extend(cf, arg1);
-        } else if (arg2){
-          cf[arg1] = arg2;
+      _el: Debug ? els : null,
+      _cf: Debug ? cf : null,
+      config: function (obj, val) {
+        if (typeof obj === 'object') {
+          $.extend(cf, obj);
+        } else if (val) {
+          cf[obj] = val;
         }
-        return cf;
+        C.debug(cf, api._cf);
       },
       kill: function () {
         if (!api.inited) {
@@ -289,9 +296,21 @@
         if (undef(api.lastIndex)) return;
         els.choices.eq(api.lastIndex).find('.ex-target').trigger('click');
       },
+      setSpeed: function (num) {
+        var rule;
+        cf.speed = num;
+        try {
+          rule = _.find(getStyles(), {
+            selectorText: '.ex-ani',
+          });
+          rule.style.transitionDuration = num + 'ms';
+        } catch (err) {
+          C.error(err);
+        }
+      }
     });
 
-    api._els = reify(els);
+    reify(els);
     return api.init();
   };
 
