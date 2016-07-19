@@ -3,10 +3,10 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var v = '0.5.2';
+  var v = '0.5.3';
 
   function mion_init() {
-    new window.Expander('#grid-preview .widget:not(:first-child)', '#grid-content .widget:not(:first-child)');
+    new window.Expander('#grid-preview .widget:not(:first-child)', '#grid-content .widget:not(:first-child)', 'top');
   }
 
   if (typeof define === 'function' && define.amd) {
@@ -43,6 +43,7 @@
       sources: '',
       null: '#',
     };
+  var Anc = 'bottom';
 
   function defer(fn, ms) {
     return W.setTimeout(fn, ms || Speed);
@@ -90,16 +91,18 @@
   // - - - - - - - - - - - - - - - - - -
   // ASSIGN
 
-  $.expander = function (choices, sources) {
+  $.expander = function (choices, sources, anchor) {
 
     var api = $.extend({}, Api),
       els = $.extend({}, Df);
 
+    api.anc = anchor || Anc
     els.choices = choices || '#grid-preview .widget';
     els.sources = sources || '#grid-content .widget';
 
     // - - - - - - - - - - - - - - - - - -
     // PRIVATE
+
     function finish(str) {
       if (Debug > 0) {
         C.info(Nom, (str || ''), api);
@@ -108,6 +111,7 @@
     }
 
     // FEATURES
+
     function retireFeature() {
       if (els.feature && els.holder) {
         els.feature.insertAfter(els.holder);
@@ -136,12 +140,17 @@
     }
 
     // ANIMATIONS
+
     function scrollToContent() {
       var scrollVal = els.reveal.offset().top,
-        revealH = els.feature ? els.feature.preserveH() + 10 : 0;
+        revealH = els.feature ? els.feature.preserveH() : 0;
 
-      scrollVal -= 100; // += revealH
-      // scrollVal -= $(W).height();
+      if (api.anc === 'top') {
+        scrollVal -= 100; // buffer top by a couple fingers
+      } else {
+        scrollVal += (revealH + 10); // lift 10px
+        scrollVal -= $(W).height();
+      }
       els.scrolls.animate({
         scrollTop: scrollVal
       }, 333);
@@ -184,6 +193,7 @@
     }
 
     // HANDLERS
+
     function insertContent(evt) {
       var me = $(evt.delegateTarget),
         ele = me.parent();
@@ -230,7 +240,15 @@
 
     // - - - - - - - - - - - - - - - - - -
     // PUBLIC
+
     $.extend(api, {
+      xsrAnchor: function (str) {
+        if (str) {
+          anc = str;
+        } else {
+          return anc;
+        }
+      },
       kill: function () {
         if (!api.inited) {
           return C.error(Nom + ' cannot kill what is already dead!');
@@ -274,7 +292,7 @@
   function Expander(a, b) {
     a = a || '.choices';
     b = b || '.sources';
-    return $.expander(a, b);
+    return $.expander.apply(null, arguments);
   }
   return Expander;
 }));
