@@ -3,10 +3,14 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var v = '0.5.3';
+  var v = '0.5.4';
 
   function mion_init() {
-    new window.Expander('#grid-preview .widget:not(:first-child)', '#grid-content .widget:not(:first-child)', 'top');
+    new window.Expander(
+      '#grid-preview .widget:not(:first-child)',
+      '#grid-content .widget:not(:first-child)', {
+        align: 'top'
+      });
   }
 
   if (typeof define === 'function' && define.amd) {
@@ -24,29 +28,31 @@
   var C = (W.C || W.console || {});
   var Debug = W._dbug;
   var Nom = 'Expander';
-  var Speed = 222;
   var Api = {
-      inited: false,
-      key: Nom + 'Index',
-      lastIndex: undefined,
-      shown: false,
-    },
-    Df = {
-      body: 'body',
-      choices: '',
-      closer: '<div class="ex-closer">',
-      expanded: '',
-      feature: '',
-      holder: '',
-      reveal: '<div class="ex-reveal">',
-      scrolls: 'body, html', // for msie
-      sources: '',
-      null: '#',
-    };
-  var Anc = 'bottom';
+    inited: false,
+    key: Nom + 'Index',
+    lastIndex: undefined,
+    shown: false,
+  };
+  var El = {
+    body: 'body',
+    choices: '',
+    closer: '<div class="ex-closer">',
+    expanded: '',
+    feature: '',
+    holder: '',
+    reveal: '<div class="ex-reveal">',
+    scrolls: 'body, html', // for msie
+    sources: '',
+    null: '#',
+  };
+  var Df = {
+    align: 'bottom',
+    speed: 222,
+  };
 
   function defer(fn, ms) {
-    return W.setTimeout(fn, ms || Speed);
+    return W.setTimeout(fn, ms || Df.speed);
   }
 
   function reify(obj) { // reify v3 : replace vals(selectors) with elements
@@ -91,12 +97,12 @@
   // - - - - - - - - - - - - - - - - - -
   // ASSIGN
 
-  $.expander = function (choices, sources, anchor) {
+  $.expander = function (choices, sources, opts) {
 
     var api = $.extend({}, Api),
-      els = $.extend({}, Df);
+      els = $.extend({}, El),
+      cf = $.extend({}, Df, opts);
 
-    api.anc = anchor || Anc
     els.choices = choices || '#grid-preview .widget';
     els.sources = sources || '#grid-content .widget';
 
@@ -145,7 +151,7 @@
       var scrollVal = els.reveal.offset().top,
         revealH = els.feature ? els.feature.preserveH() : 0;
 
-      if (api.anc === 'top') {
+      if (cf.align === 'top') {
         scrollVal -= 100; // buffer top by a couple fingers
       } else {
         scrollVal += (revealH + 10); // lift 10px
@@ -199,7 +205,7 @@
         ele = me.parent();
 
       if (ele.is(els.expanded)) {
-        defer(retireFeature); // toggle off
+        defer(retireFeature, cf.speed); // toggle off
       } else {
         collapse();
         loadFeatureIndex(ele.data(api.key));
@@ -242,12 +248,13 @@
     // PUBLIC
 
     $.extend(api, {
-      xsrAnchor: function (str) {
-        if (str) {
-          anc = str;
-        } else {
-          return anc;
+      config: function (arg1, arg2) {
+        if (typeof arg1 === 'object') {
+          $.extend(cf, arg1);
+        } else if (arg2){
+          cf[arg1] = arg2;
         }
+        return cf;
       },
       kill: function () {
         if (!api.inited) {
@@ -275,7 +282,7 @@
           .preserveH(true).shrinkH('0');
         defer(function () {
           els.reveal.addClass('ex-ani'); // prevent scrolling upon load
-        });
+        }, cf.speed);
         return finish('init');
       },
       restore: function () {
