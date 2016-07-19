@@ -13,7 +13,7 @@
   'use strict';
 
   var W = (W && W.window || window),
-      C = (W.C || W.console || {});
+    C = (W.C || W.console || {});
 
   // - - - - - - - - - - - - - - - - - -
   // AUTOMATE
@@ -44,8 +44,8 @@
   $.watchHash = function () {
     function trackHash() {
       var self = trackHash,
-          hash = W.location.hash.slice(1),
-          prev = self.previous;
+        hash = W.location.hash.slice(1),
+        prev = self.previous;
 
       if (prev !== hash) {
         $('html').removeClass(prev).addClass(hash);
@@ -60,7 +60,7 @@
     // track window size
     $.onResize(function () {
       var w = W.innerWidth,
-          b = $('body');
+        b = $('body');
       b.removeClass('small medium large');
       if (w < 600)
         b.addClass('small');
@@ -89,7 +89,7 @@
 
     $.watchResize(function () {
       if (ua.match(/mobi/i) ||
-          $(W).width() < 768) { // simulate
+        $(W).width() < 768) { // simulate
         $('html').addClass('mobi');
       } else {
         $('html').removeClass('mobi');
@@ -121,10 +121,10 @@
   };
   $.fn.inlineSvg = function () {
     var $img = $(this),
-        imgID = $img.attr('id'),
-        imgClass = $img.attr('class'),
-        imgURL = $img.attr('src'),
-        imgStyle = $img.attr('style').replace('color', 'fill');
+      imgID = $img.attr('id'),
+      imgClass = $img.attr('class'),
+      imgURL = $img.attr('src'),
+      imgStyle = $img.attr('style').replace('color', 'fill');
 
     $.get(imgURL, function (data) {
       var $svg = $(data).find('svg');

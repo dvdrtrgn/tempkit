@@ -22,7 +22,7 @@
 
   var W = (W && W.window || window);
   var C = (W.C || W.console || {});
-  var Debug = W._dbug;
+  var Debug = W._dbug > 0;
   var Nom = 'Revealer';
   var Speed = 333;
 
@@ -66,6 +66,7 @@
     // - - - - - - - - - - - - - - - - - -
     // PUBLIC
     $.extend(api, {
+      _el: Debug ? els : null,
       //
       //--Props
       _inc: 1,
@@ -136,7 +137,7 @@
     });
     // - - - - - - - - - - - - - - - - - -
 
-    api._els = reify(els);
+    reify(els);
     return api.init();
   };
 

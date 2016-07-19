@@ -5,21 +5,21 @@ define(['jqxtn', 'lodash'], function ($, _) {
   'use strict';
 
   var W = (W && W.window || window),
-      C = (W.C || W.console || {});
+    C = (W.C || W.console || {});
 
-    $.inlineSvgs();
-    $.watchHash();
-    $.watchWidth();
+  $.inlineSvgs();
+  $.watchHash();
+  $.watchWidth();
   // - - - - - - - - - - - - - - - - - -
   // ASSIGN
 
   var Nom = 'Main',
-      Api = {
-        slick: null,
-      },
-      El = $.reify({
-        body: 'body',
-      });
+    Api = {
+      slick: null,
+    },
+    El = $.reify({
+      body: 'body',
+    });
 
   // - - - - - - - - - - - - - - - - - -
   // RUNTIME

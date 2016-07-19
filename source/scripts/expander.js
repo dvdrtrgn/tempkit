@@ -3,49 +3,63 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var v = '0.5.1';
+  var v = '0.5.5';
 
   function mion_init() {
-    new window.Expander('#grid-preview .widget:not(:first-child)', '#grid-content .widget:not(:first-child)');
+    new window.Expander(
+      '#grid-preview .widget:not(:first-child)',
+      '#grid-content .widget:not(:first-child)', {
+        align: 'top'
+      });
   }
 
   if (typeof define === 'function' && define.amd) {
     console.info('AMD:expander.js', v);
-    define(['jquery'], factory);
+    define(['jquery', 'lodash'], factory);
   } else {
     console.warn('SHIM:expander.js', v);
-    window.Expander = factory(jQuery);
+    window.Expander = factory(window.jQuery, window._);
     return window._dbug || window.setTimeout(mion_init, 333);
   }
-}(function ($) {
+}(function ($, _) {
   'use strict';
 
   var W = (W && W.window || window);
   var C = (W.C || W.console || {});
+  var Debug = W._dbug > 0;
   var Nom = 'Expander';
-  var Speed = 222;
   var Api = {
-        inited: false,
-        key: Nom + 'Index',
-        lastIndex: undefined,
-        shown: false,
-      },
-      Df = {
-        body: 'body',
-        choices: '',
-        closer: '<div class="ex-closer">',
-        expanded: '',
-        feature: '',
-        holder: '',
-        reveal: '<div class="ex-reveal">',
-        scrolls: 'body, html', // for msie
-        sources: '',
-        null: '#',
-      };
+    inited: false,
+    key: Nom + 'Index',
+    lastIndex: undefined,
+    shown: false,
+  };
+  var El = {
+    body: 'body',
+    choices: '',
+    closer: '<div class="ex-closer">',
+    expanded: '',
+    feature: '',
+    holder: '',
+    reveal: '<div class="ex-reveal">',
+    scrolls: 'body, html', // for msie
+    sources: '',
+    null: '#',
+  };
+  var Df = {
+    align: 'bottom',
+    speed: 250,
+  };
+  var Styles;
 
   function defer(fn, ms) {
-    return W.setTimeout(fn, ms || Speed);
+    return W.setTimeout(fn, ms || Df.speed);
   }
+
+  function getStyles() {
+    return Styles || (Styles = $('link[href*=' + Nom.toLowerCase() + ']')[0].sheet.rules);
+  }
+
   function reify(obj) { // reify v3 : replace vals(selectors) with elements
     return $.each(obj, function (i, sel) {
       if (typeof sel === 'object') {
@@ -54,6 +68,7 @@
       (obj[i] = $(sel)).selector = sel;
     });
   }
+
   function undef(x) {
     return (typeof x === 'undefined');
   }
@@ -63,9 +78,9 @@
 
   $.fn.preserveH = function (init) {
     var me = $(this),
-        dat = me.data(),
-        str = 'preserveH',
-        rtn;
+      dat = me.data(),
+      str = 'preserveH',
+      rtn;
     rtn = Number(dat[str] = dat[str] || me.innerHeight());
     return init ? this : rtn;
   };
@@ -87,31 +102,44 @@
   // - - - - - - - - - - - - - - - - - -
   // ASSIGN
 
-  $.expander = function (choices, sources) {
+  $.expander = function (choices, sources, opts) {
 
     var api = $.extend({}, Api),
-        els = $.extend({}, Df);
+      els = $.extend({}, El),
+      cf = $.extend({}, Df, opts);
 
-    els.choices = choices || '#grid-preview .widget';
-    els.sources = sources || '#grid-content .widget';
+    els.choices = choices || '.choices';
+    els.sources = sources || '.sources';
 
     // - - - - - - - - - - - - - - - - - -
+    // PRIVATE
+
+    function finish(str) {
+      if (Debug) {
+        C.info(Nom, (str || ''), api);
+      }
+      return api;
+    }
+
     // FEATURES
+
     function retireFeature() {
       if (els.feature && els.holder) {
         els.feature.insertAfter(els.holder);
         delete els.feature;
         els.holder.remove();
         delete els.holder;
-        return api;
+        return finish('retireFeature');
       }
     }
+
     function borrowFeature(num) {
       retireFeature(); // try anyway
       els.feature = els.sources.eq(num);
       els.holder = $('<placeholder>').insertBefore(els.feature);
       return els.feature;
     }
+
     function loadFeatureIndex(num) {
       if (num === false) {
         return retireFeature();
@@ -119,22 +147,26 @@
       num = (num - 1) % els.sources.length;
       els.reveal.append(borrowFeature(num));
       api.lastIndex = num;
-      return api;
+      return finish('loadFeatureIndex');
     }
 
-    // - - - - - - - - - - - - - - - - - -
-    // ACTIONS
+    // ANIMATIONS
 
-    function scrollToContent () {
-        var scrollVal = els.reveal.offset().top,
-            revealH = els.feature ? els.feature.preserveH() + 10 : 0;
+    function scrollToContent() {
+      var scrollVal = els.reveal.offset().top,
+        revealH = els.feature ? els.feature.preserveH() : 0;
 
-        scrollVal -= 100; // += revealH
-        // scrollVal -= $(W).height();
-        els.scrolls.animate({
-          scrollTop: scrollVal
-        }, 333);
+      if (cf.align === 'top') {
+        scrollVal -= 100; // buffer top by a couple fingers
+      } else {
+        scrollVal += (revealH + 10); // lift 10px
+        scrollVal -= $(W).height();
+      }
+      els.scrolls.animate({
+        scrollTop: scrollVal
+      }, cf.speed);
     }
+
     function animateWidget(amt) {
       if (!amt) {
         els.expanded.shrinkH().removeClass('ex-panded');
@@ -143,6 +175,7 @@
         els.expanded.growH(amt).addClass('ex-panded');
       }
     }
+
     function animateFeature(bool) {
       if (bool) {
         els.reveal.growH(els.feature.preserveH());
@@ -152,6 +185,7 @@
         api.shown = false;
       }
     }
+
     function collapse(bool) {
       animateWidget();
       animateFeature();
@@ -159,6 +193,7 @@
         delete api.lastIndex;
       }
     }
+
     function expand() {
       if (api.shown) {
         collapse();
@@ -168,15 +203,14 @@
       }
     }
 
-    // - - - - - - - - - - - - - - - - - -
     // HANDLERS
 
     function insertContent(evt) {
       var me = $(evt.delegateTarget),
-          ele = me.parent();
+        ele = me.parent();
 
       if (ele.is(els.expanded)) {
-        defer(retireFeature); // toggle off
+        defer(retireFeature, cf.speed); // toggle off
       } else {
         collapse();
         loadFeatureIndex(ele.data(api.key));
@@ -184,10 +218,11 @@
       }
       defer(expand, 11); // ensure insertion into DOM?
     }
+
     function wrapTargets(i, e) {
       var ele = $(e),
-          div = ele.children(),
-          dat = ele.data();
+        div = ele.children(),
+        dat = ele.data();
 
       dat[api.key] = i + 1; // remember index
 
@@ -195,16 +230,18 @@
       } else {
         div = $('<div>').append(e.innerHTML);
         ele.empty().append(div);
-        C.warn(Nom, 'using innerHTML', e);
+        if (Debug) {
+          C.warn(Nom, 'using innerHTML', e);
+        }
       }
-
       div.addClass('ex-target').on('click', insertContent);
       ele.add(div).setHeight(ele.preserveH());
     }
+
     function zapTargets(i, e) {
       var ele = $(e),
-          div = ele.children(),
-          dat = ele.data();
+        div = ele.children(),
+        dat = ele.data();
 
       div.removeClass('ex-target').off('click');
       div.add(ele).css('height', '');
@@ -215,7 +252,17 @@
 
     // - - - - - - - - - - - - - - - - - -
     // PUBLIC
+
     $.extend(api, {
+      _el: Debug ? els : null,
+      _cf: Debug ? cf : null,
+      config: function (obj, val) {
+        if (typeof obj === 'object') {
+          $.extend(cf, obj);
+        } else if (val) {
+          cf[obj] = val;
+        }
+      },
       kill: function () {
         if (!api.inited) {
           return C.error(Nom + ' cannot kill what is already dead!');
@@ -227,7 +274,7 @@
         els.choices.removeClass('ex-ani').each(zapTargets);
         // els.choices = els.sources = '';
         api.inited = false;
-        return api;
+        return finish('kill');
       },
       init: function () {
         if (api.inited) {
@@ -238,28 +285,41 @@
         els.choices.addClass('ex-ani').each(wrapTargets);
         els.closer.on('click', collapse);
         els.reveal.append(els.closer).appendTo(els.body) //
-        .on('transitionend', scrollToContent) //
-        .preserveH(true).shrinkH('0');
+          .on('transitionend', scrollToContent) //
+          .preserveH(true).shrinkH('0');
         defer(function () {
           els.reveal.addClass('ex-ani'); // prevent scrolling upon load
-        });
-        return api;
+        }, cf.speed);
+        return finish('init');
       },
       restore: function () {
         if (undef(api.lastIndex)) return;
         els.choices.eq(api.lastIndex).find('.ex-target').trigger('click');
       },
+      setSpeed: function (num) {
+        var rule;
+        cf.speed = num;
+        try {
+          rule = _.find(getStyles(), {
+            selectorText: '.ex-ani',
+          });
+          rule.style.transitionDuration = num + 'ms';
+        } catch (err) {
+          C.error(err);
+        }
+      }
     });
 
-    api._els = reify(els);
+    reify(els);
     return api.init();
   };
 
   // Expose Fake Constructor
   function Expander(a, b) {
-    a = a || '.choices';
-    b = b || '.sources';
-    return $.expander(a, b);
+    var args = [].slice.call(arguments);
+    args[0] = a || '#grid-preview .widget';
+    args[1] = b || '#grid-content .widget';
+    return $.expander.apply(null, args);
   }
   return Expander;
 }));
