@@ -13,7 +13,7 @@
   'use strict';
 
   var Nom = 'Stow',
-      Api = {};
+    Api = {};
 
   function stringIt(obj) {
     return JSON.stringify(obj) || '""';
@@ -25,6 +25,7 @@
         if (i.match(/^test\.\d+/))
           localStorage.removeItem(i);
     }
+
     function makeKey() {
       var num = (new Date()).valueOf();
 
@@ -32,21 +33,25 @@
 
       return 'test.' + num;
     }
+
     function test(obj) {
       var foo,
-          str = makeKey();
+        str = makeKey();
 
       Api.set(str, obj);
       foo = Api.get(str);
 
       console.assert(stringIt(obj) === stringIt(foo),
-          Nom, '...stowed object should match original');
+        Nom, '...stowed object should match original');
     }
     clearTests();
 
     test(123);
     test('xyz');
-    test({m: 3, n: 9});
+    test({
+      m: 3,
+      n: 9
+    });
     test([]);
     test(makeKey);
   }
