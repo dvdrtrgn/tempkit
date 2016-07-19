@@ -15,14 +15,14 @@
   } else {
     console.warn('SHIM:revealer.js', v);
     window.Revealer = factory(jQuery);
-    return window.debug || window.setTimeout(mion_init, 666);
+    return window._dbug || window.setTimeout(mion_init, 666);
   }
 }(function ($) {
   'use strict';
 
   var W = (W && W.window || window);
   var C = (W.C || W.console || {});
-  var Debug = W.debug;
+  var Debug = W._dbug;
   var Nom = 'Revealer';
   var Speed = 333;
 

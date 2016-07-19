@@ -4,7 +4,7 @@
 var W = (W && W.window || window),
     C = (W.C || W.console || {});
 
-W.debug = Number(new Date('2016/04/01') > new Date());
+W._dbug = Number(new Date('2016/04/01') > new Date());
 W.SHIET = {
   trident: W.navigator.userAgent.indexOf('rident') + 1,
 };
@@ -36,10 +36,10 @@ require(['jquery'], function () {
 
   try {
     if (W.SHIET.trident) { // debug IE less
-      W.debug -= 1;
+      W._dbug -= 1;
       $('html').addClass('msie');
     } else if (loc) {
-      W.debug += 1;
+      W._dbug += 1;
       $('html').addClass('debug');
     }
   } catch (err) {
@@ -48,11 +48,11 @@ require(['jquery'], function () {
 
   // ASSIST DEBUGGING
 
-//  if (W.debug && loc || W.debug > 1) {
+//  if (W._dbug && loc || W._dbug > 1) {
 //    require(['lr'], function () {
-//      C.warn('LiveReloading @ ' + W.debug);
+//      C.warn('LiveReloading @ ' + W._dbug);
 //    }, function () {
-//      C.info('no LiveReloading @ ' + W.debug);
+//      C.info('no LiveReloading @ ' + W._dbug);
 //    });
 //  }
 

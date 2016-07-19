@@ -84,7 +84,7 @@ define(['jqxtn', 'lodash'], function ($, _) {
 
   W.setTimeout(bind, 99);
 
-  if (W.debug > 0) {
+  if (W._dbug > 0) {
     W[Nom] = Api;
     C.warn(Nom, 'exposed', Api); // Expose
   } else {

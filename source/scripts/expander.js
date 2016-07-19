@@ -15,7 +15,7 @@
   } else {
     console.warn('SHIM:expander.js', v);
     window.Expander = factory(jQuery);
-    return window.debug || window.setTimeout(mion_init, 333);
+    return window._dbug || window.setTimeout(mion_init, 333);
   }
 }(function ($) {
   'use strict';

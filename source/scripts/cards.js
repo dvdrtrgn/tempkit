@@ -46,7 +46,7 @@ define(['jquery'], function ($) {
     dump: console,
   });
 
-  if (W.debug > 0) { // Expose
+  if (W._dbug > 0) { // Expose
     W[Nom] = Api;
     C.warn(Nom, 'exposed', Api);
   } else {
