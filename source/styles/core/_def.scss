@@ -48,11 +48,11 @@ $n-stone:       #d7d3c7;
 }
 
 @mixin clearfix() {
-  &:before, &:after {
+  &::before, &::after {
     content: ' ';
     display: table;
   }
-  &:after {
+  &::after {
     clear: both;
   }
 }

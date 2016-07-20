@@ -3,19 +3,19 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var v = '0.1.5';
+  var V = '0.1.6';
+  var W = (W && W.window || window);
 
   function mion_init() {
-    new window.Revealer('.load_more-button', '#pgc-54-grid-preview-0 .widget_sow-hero').next(3);
+    W._rev = new W.Revealer('.load_more-button', '#pgc-54-grid-preview-0 .widget_sow-hero').next(6);
   }
-
-  if (typeof define === 'function' && define.amd) {
-    console.info('AMD:revealer.js', v);
-    define(['jquery'], factory);
+  if (!(typeof define === 'function' && define.amd)) {
+    console.warn('shim:revealer.js', V);
+    W.Revealer = factory(jQuery);
+    return W._dbug || W.setTimeout(mion_init, 666);
   } else {
-    console.warn('SHIM:revealer.js', v);
-    window.Revealer = factory(jQuery);
-    return window._dbug || window.setTimeout(mion_init, 666);
+    console.info('AMD:revealer.js', V);
+    define(['jquery'], factory);
   }
 }(function ($) {
   'use strict';
