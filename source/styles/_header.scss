@@ -21,8 +21,9 @@ header {
       @include background-image(linear-gradient(top, #d5172f 0%, #8e0114 100%));
       @include halo;
       height: 3rem;
+      left: 0;
       position: fixed;
-      top: 0; left: 0;
+      top: 0;
       width: 100%;
       z-index: 9;
 

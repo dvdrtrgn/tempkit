@@ -53,7 +53,7 @@ define(['jqxtn', 'lodash'], function ($, _) {
 
   if (W._dbug > 0) {
     W[Nom] = Api;
-    C.warn(Nom, 'exposed', Api); // Expose
+    C.warn(Nom, 'exposed', Api, _); // Expose
   } else {
     C.debug(Nom, 'loaded', Api); // Expose
   }

@@ -57,14 +57,14 @@
 
 /* OPTIONAL */
 
-.ex-reveal {
+.ex-reveal, option.al {
   align-items: center;
   background-color: #ddd;
   display: flex;
   justify-content: center;
   margin-top: 0.5%;
 }
-.ex-target {
+.ex-target, option.al {
   background-color: #eee;
 }
 
