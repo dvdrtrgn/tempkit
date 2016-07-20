@@ -3,23 +3,23 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var v = '0.5.5';
+  var V = '0.5.6';
+  var W = (W && W.window || window);
 
   function mion_init() {
-    new window.Expander(
+    W._exp = new W.Expander(
       '#grid-preview .widget:not(:first-child)',
       '#grid-content .widget:not(:first-child)', {
         align: 'top'
       });
   }
-
-  if (typeof define === 'function' && define.amd) {
-    console.info('AMD:expander.js', v);
-    define(['jquery', 'lodash'], factory);
+  if (!(typeof define === 'function' && define.amd)) {
+    console.warn('shim:expander.js', V);
+    W.Expander = factory(W.jQuery, W._);
+    return W._dbug || W.setTimeout(mion_init, 333);
   } else {
-    console.warn('SHIM:expander.js', v);
-    window.Expander = factory(window.jQuery, window._);
-    return window._dbug || window.setTimeout(mion_init, 333);
+    console.info('AMD:expander.js', V);
+    define(['jquery', 'lodash'], factory);
   }
 }(function ($, _) {
   'use strict';
