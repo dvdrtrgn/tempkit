@@ -49,7 +49,7 @@ gulp.task('styles-build', function() {
 
     // Compile Sass
     .pipe(sass({
-      outputStyle: 'nested'
+      outputStyle: 'expanded'
     }))
 
     // Save expanded CSS

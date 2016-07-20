@@ -48,6 +48,7 @@
       line-height: 1;
       position: absolute;
       text-align: center;
+      top: auto; // msie!
       transform: rotate(45deg);
       width: 3rem;
       z-index: 102;
