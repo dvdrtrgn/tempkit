@@ -3,10 +3,10 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var v = '0.1.5';
+  var v = '0.1.6';
 
   function mion_init() {
-    new window.Revealer('.load_more-button', '#pgc-54-grid-preview-0 .widget_sow-hero').next(3);
+    new window.Revealer('.load_more-button', '#pgc-54-grid-preview-0 .widget_sow-hero').next(6);
   }
 
   if (typeof define === 'function' && define.amd) {
