@@ -70,28 +70,30 @@
 
 /* OVERRIDES */
 
-#grid-preview {
+.home {
+  #grid-preview {
 
-  .ex-reveal {
-    margin-top: 0.3%;
+    .ex-reveal {
+      margin-top: 0.3%;
 
-    .so-panel {
-    	flex-basis: 768px;
-      padding: 4rem;
+      .so-panel {
+        flex-basis: 768px;
+        padding: 4rem;
+      }
+      .widget_sow-hero {
+        flex: 1;
+        max-width: 768px;
+        z-index: 103;
+      }
     }
-    .widget_sow-hero {
-      flex: 1;
-      max-width: 768px;
-      z-index: 103;
+    .ex-panded {
+      .so-widget-sow-hero {
+        position: relative;
+        z-index: 103;
+      }
     }
+
   }
-  .ex-panded {
-    .so-widget-sow-hero {
-      position: relative;
-      z-index: 103;
-    }
-  }
-
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
