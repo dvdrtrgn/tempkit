@@ -5,10 +5,10 @@
     br
     a(href='./scripts/expander.js' target='_blank') get current expander.js
 
-  button(onclick='try{ exp.init()           }catch(z){}') init
-  button(onclick='try{ exp.kill()           }catch(z){}') kill
+  button(onclick='try{ _exp.init()           }catch(z){}') init
+  button(onclick='try{ _exp.kill()           }catch(z){}') kill
   br
-  button(onclick='try{ exp.init().restore() }catch(z){}') init + restore
+  button(onclick='try{ _exp.init().restore() }catch(z){}') init + restore
   br
 
   #grid-preview
