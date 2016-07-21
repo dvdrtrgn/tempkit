@@ -3,7 +3,7 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var V = '0.1.6';
+  var V = '0.1.7';
   var W = (W && W.window || window);
 
   function mion_init() {
@@ -58,7 +58,7 @@
 
     function reveal(lo, hi) {
       if (revealed < api.total()) {
-        els.them.slice(lo, hi).slideDown();
+        els.them.slice(lo, hi).fadeIn();
         revealed = hi;
       }
       return api;
