@@ -3,15 +3,17 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var V = '0.5.6';
+  var V = '0.5.7';
   var W = (W && W.window || window);
 
   function mion_init() {
-    W._exp = new W.Expander(
-      '#grid-preview .widget:not(:first-child)',
-      '#grid-content .widget:not(:first-child)', {
-        align: 'top'
+    W.jQuery(function () {
+      W._exp = new W.Expander(
+        '#grid-preview .widget:not(:first-child)',
+        '#grid-content .widget:not(:first-child)', {
+          align: 'top'
       });
+    });
   }
   if (!(typeof define === 'function' && define.amd)) {
     console.warn('shim:expander.js', V);

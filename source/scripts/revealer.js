@@ -3,11 +3,13 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var V = '0.1.7';
+  var V = '0.1.8';
   var W = (W && W.window || window);
 
   function mion_init() {
-    W._rev = new W.Revealer('.load_more-button', '#pgc-54-grid-preview-0 .widget_sow-hero').next(6);
+    W.jQuery(function () {
+      W._rev = new W.Revealer('.load_more-button', '#pgc-54-grid-preview-0 .widget_sow-hero').next(6);
+    });
   }
   if (!(typeof define === 'function' && define.amd)) {
     console.warn('shim:revealer.js', V);
