@@ -3,7 +3,7 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var V = '0.6.0';
+  var V = '0.6.1';
   var W = (W && W.window || window);
 
   function mion_init() {
@@ -213,6 +213,11 @@
       }
     }
 
+    function dismiss() {
+      collapse();
+      retireFeature();
+    }
+
     // HANDLERS
 
     function insertContent(evt) {
@@ -293,7 +298,7 @@
         api.inited = true;
         reify(els);
         els.choices.addClass('ex-ani').each(wrapTargets);
-        els.closer.makeTabbable().on('click', collapse);
+        els.closer.makeTabbable().on('click', dismiss);
         els.reveal.append(els.closer).appendTo(els.body) //
           .on('transitionend', scrollToContent) //
           .preserveH(true).shrinkH('0');
