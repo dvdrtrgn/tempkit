@@ -8,7 +8,7 @@
 
   function mion_init() {
     W.jQuery(function () {
-      W._rev = new W.Revealer('.load_more-button', '#grid-preview .widget').next(3);
+      W._rev = new W.Revealer('.load_more-button', '#grid-preview .widget').next(6);
     });
   }
   if (!(typeof define === 'function' && define.amd)) {

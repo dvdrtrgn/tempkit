@@ -6,22 +6,23 @@
 }
 .ex-closer {
   color: gray;
+  display: none;
   cursor: pointer;
-  font-size: 3rem;
+  line-height: 0.5;
   position: absolute;
-  right: 0;
-  top: 0;
+  right: 1rem;
+  top: 1rem;
   z-index: 999;
-  &:hover {
+  &:hover, &:focus {
     color: black;
   }
-  &::after {
+  &::before {
     content: '×';
-    display: block;
-    height: 1em;
-    line-height: 1;
-    text-align: left;
+    font-size: 3rem;
     width: 1em;
+  }
+  .ex-panded & {
+    display: block;
   }
 }
 .ex-reveal {

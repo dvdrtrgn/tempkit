@@ -3,7 +3,7 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var V = '0.5.8';
+  var V = '0.6.0';
   var W = (W && W.window || window);
 
   function mion_init() {
@@ -99,6 +99,14 @@
     var me = $(this);
     px = undef(px) ? '' : Number(px);
     return me.setHeight(px);
+  };
+  $.fn.makeTabbable = function () {
+    var me = $(this);
+    me.attr('tabindex', '0') //
+    .on('keypress', function (evt) {
+      return (evt.keyCode === 13) && me.click();
+    });
+    return this;
   };
 
   // - - - - - - - - - - - - - - - - - -
@@ -236,7 +244,7 @@
           C.warn(Nom, 'using innerHTML', e);
         }
       }
-      div.addClass('ex-target').on('click', insertContent);
+      div.addClass('ex-target').makeTabbable().on('click', insertContent);
       ele.add(div).setHeight(ele.preserveH());
     }
 
@@ -285,7 +293,7 @@
         api.inited = true;
         reify(els);
         els.choices.addClass('ex-ani').each(wrapTargets);
-        els.closer.on('click', collapse);
+        els.closer.makeTabbable().on('click', collapse);
         els.reveal.append(els.closer).appendTo(els.body) //
           .on('transitionend', scrollToContent) //
           .preserveH(true).shrinkH('0');
