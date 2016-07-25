@@ -3,12 +3,12 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var V = '0.1.8';
+  var V = '0.1.9';
   var W = (W && W.window || window);
 
   function mion_init() {
     W.jQuery(function () {
-      W._rev = new W.Revealer('.load_more-button', '#pgc-54-grid-preview-0 .widget_sow-hero').next(6);
+      W._rev = new W.Revealer('.load_more-button', '#grid-preview .widget').next(3);
     });
   }
   if (!(typeof define === 'function' && define.amd)) {
@@ -145,8 +145,8 @@
 
   // Expose Fake Constructor
   function Revealer(a, b) {
-    a = a || '.button';
-    b = b || '.article';
+    a = a || '.page .loadmore';
+    b = b || '.page .widget';
     return $(a).revealer(b);
   }
   return Revealer;

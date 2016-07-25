@@ -3,7 +3,7 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var V = '0.5.7';
+  var V = '0.5.8';
   var W = (W && W.window || window);
 
   function mion_init() {

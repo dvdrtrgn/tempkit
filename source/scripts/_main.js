@@ -34,13 +34,13 @@ define(['jqxtn', 'lodash'], function ($, _) {
     // EXPANDER
     require(['expander'], function (Exp) {
       W.Expander = Exp;
-      W._exp = new Exp('#grid-preview .widget', '#grid-content .widget');
+      W._exp = new Exp();
     });
 
     // REVEALER
     require(['revealer'], function (Rev) {
       W.Revealer = Rev;
-      W._rev = new Rev('.load_more-button', '.ef_flashcard').next(2);
+      W._rev = new Rev().next(2);
     });
 
   }

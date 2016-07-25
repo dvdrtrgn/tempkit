@@ -1,0 +1,20 @@
+#Expander
+  strong Expander
+  ul
+    li
+      a(href='//wellsfargomedia.com/lib/dev/expander.css' target='_blank') live.css
+    li
+      a(href='//wellsfargomedia.com/lib/dev/expander.js' target='_blank')  live.js
+    li
+      a(href='./styles/expander.css' target='_blank') current.css
+    li
+      a(href='./scripts/expander.js' target='_blank') current.js
+
+  span.right
+
+  button(onclick='try{ _exp.kill();_exp.init();           }catch(z){}') init
+  button(onclick='try{ _exp.kill();                       }catch(z){}') kill
+  button(onclick='try{ _exp.kill();_exp.init().restore(); }catch(z){}') init + restore
+  br
+
+//./_test-expander.pug
