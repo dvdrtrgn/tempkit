@@ -3,7 +3,7 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var V = '0.6.3';
+  var V = '0.6.4';
   var W = (W && W.window || window);
   var $ = W.jQuery;
 
@@ -85,7 +85,7 @@
       dat = me.data(),
       str = 'preserveH',
       rtn;
-    rtn = Number(dat[str] = dat[str] || me.innerHeight());
+    rtn = dat && Number(dat[str] = dat[str] || me.innerHeight());
     return init ? this : rtn;
   };
   $.fn.setHeight = function (px) {
@@ -247,9 +247,7 @@
       } else {
         div = $('<div>').append(e.innerHTML);
         ele.empty().append(div);
-        if (Debug) {
-          C.warn(Nom, 'using innerHTML', e);
-        }
+        C.warn(Nom, 'using innerHTML', e);
       }
       div.addClass('ex-target').makeTabbable().on('click', insertContent);
       ele.add(div).setHeight(ele.preserveH());
@@ -288,7 +286,7 @@
         retireFeature();
         els.reveal.appendTo('body').off('transitionend', scrollToContent);
         els.closer.off('click', collapse);
-        els.choices.parent().removeClass('ex-ani').each(zapTargets);
+        els.choices.parent().removeClass('ex-wrap').each(zapTargets);
         // els.choices = els.sources = '';
         api.inited = false;
         return finish('kill');
@@ -299,7 +297,7 @@
         }
         api.inited = true;
         reify(els);
-        els.choices.parent().addClass('ex-ani').each(wrapTargets);
+        els.choices.parent().addClass('ex-wrap').each(wrapTargets); // todo: ensure parent wrapper
         els.closer.makeTabbable().on('click', dismiss);
         els.reveal.append(els.closer).appendTo(els.body) //
           .on('transitionend', scrollToContent) //
@@ -344,5 +342,6 @@
 
   todo: dvdrtrgn
     attach a resize event
+    ensure parent wrapper
 
  */
