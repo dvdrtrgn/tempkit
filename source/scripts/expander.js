@@ -3,14 +3,14 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var V = '0.6.2';
+  var V = '0.6.3';
   var W = (W && W.window || window);
   var $ = W.jQuery;
 
   function mion_init() {
     W.setTimeout(function () {
       W._exp = new W.Expander(
-        '#grid-preview .widget:not(:first-child)',
+        '#grid-preview .ex-init',
         '#grid-content .widget:not(:first-child)', {
           align: 'top'
       });
@@ -288,7 +288,7 @@
         retireFeature();
         els.reveal.appendTo('body').off('transitionend', scrollToContent);
         els.closer.off('click', collapse);
-        els.choices.removeClass('ex-ani').each(zapTargets);
+        els.choices.parent().removeClass('ex-ani').each(zapTargets);
         // els.choices = els.sources = '';
         api.inited = false;
         return finish('kill');
@@ -299,7 +299,7 @@
         }
         api.inited = true;
         reify(els);
-        els.choices.addClass('ex-ani').each(wrapTargets);
+        els.choices.parent().addClass('ex-ani').each(wrapTargets);
         els.closer.makeTabbable().on('click', dismiss);
         els.reveal.append(els.closer).appendTo(els.body) //
           .on('transitionend', scrollToContent) //
@@ -334,7 +334,7 @@
   // Expose Fake Constructor
   function Expander(a, b) {
     var args = [].slice.call(arguments);
-    args[0] = a || '#grid-preview .widget';
+    args[0] = a || '#grid-preview .ex-init';
     args[1] = b || '#grid-content .widget';
     return $.expander.apply(null, args);
   }
