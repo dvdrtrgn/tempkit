@@ -3,18 +3,20 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var V = '0.1.9';
+  var V = '0.1.10';
   var W = (W && W.window || window);
+  var $ = W.jQuery;
 
   function mion_init() {
-    W.jQuery(function () {
+    W.setTimeout(function () {
       W._rev = new W.Revealer('.load_more-button', '#grid-preview .widget').next(6);
-    });
+    }, 2e3)
   }
+
   if (!(typeof define === 'function' && define.amd)) {
     console.warn('shim:revealer.js', V);
-    W.Revealer = factory(jQuery);
-    return W._dbug || W.setTimeout(mion_init, 666);
+    W.Revealer = factory($);
+    return W._dbug || $(mion_init);
   } else {
     console.info('AMD:revealer.js', V);
     define(['jquery'], factory);

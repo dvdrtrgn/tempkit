@@ -3,22 +3,24 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var V = '0.6.1';
+  var V = '0.6.2';
   var W = (W && W.window || window);
+  var $ = W.jQuery;
 
   function mion_init() {
-    W.jQuery(function () {
+    W.setTimeout(function () {
       W._exp = new W.Expander(
         '#grid-preview .widget:not(:first-child)',
         '#grid-content .widget:not(:first-child)', {
           align: 'top'
       });
-    });
+    }, 1e3)
   }
+
   if (!(typeof define === 'function' && define.amd)) {
     console.warn('shim:expander.js', V);
-    W.Expander = factory(W.jQuery, W._);
-    return W._dbug || W.setTimeout(mion_init, 333);
+    W.Expander = factory($, W._);
+    return W._dbug || $(mion_init);
   } else {
     console.info('AMD:expander.js', V);
     define(['jquery', 'lodash'], factory);
