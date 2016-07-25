@@ -46,7 +46,7 @@
     feature: '',
     holder: '',
     reveal: '<div class="ex-reveal">',
-    scrolls: 'body, html', // for msie
+    scrolls: 'body, html', // html for msie (set only)
     sources: '',
     null: '#',
   };
@@ -168,12 +168,19 @@
       var scrollVal = els.reveal.offset().top,
         revealH = els.feature ? els.feature.preserveH() : 0;
 
-      if (cf.align === 'top') {
-        scrollVal -= 100; // buffer top by a couple fingers
+      if (cf.save) {
+        scrollVal = cf.save;
+        delete cf.save;
       } else {
-        scrollVal += (revealH + 10); // lift 10px
-        scrollVal -= $(W).height();
+        if (cf.align === 'top') {
+          scrollVal -= 100; // buffer top by a couple fingers
+        } else {
+          scrollVal += (revealH + 10); // lift 10px
+          scrollVal -= $(W).height();
+        }
+        cf.save = $(window).scrollTop();
       }
+
       els.scrolls.animate({
         scrollTop: scrollVal
       }, cf.speed);
