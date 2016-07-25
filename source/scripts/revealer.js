@@ -3,13 +3,13 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var V = '0.1.10';
+  var V = '0.1.11';
   var W = (W && W.window || window);
   var $ = W.jQuery;
 
   function mion_init() {
     W.setTimeout(function () {
-      W._rev = new W.Revealer('.load_more-button', '#grid-preview .widget').next(6);
+      W._rev = new W.Revealer('.load_more-button', '#grid-preview .widget', 7);
     }, 2e3)
   }
 
@@ -42,7 +42,7 @@
   // - - - - - - - - - - - - - - - - - -
   // EXTEND
   $.fn.revealer = function (these, revealed) {
-    revealed = revealed || 0;
+    revealed = revealed > 0 ? revealed : 0;
 
     var api = {};
     var els = { // use later for defaults
@@ -73,7 +73,7 @@
       _el: Debug ? els : null,
       //
       //--Props
-      _inc: 1,
+      _inc: revealed || 1,
       //
       //--Xsrs
       inc: function (num) {
@@ -146,10 +146,10 @@
   };
 
   // Expose Fake Constructor
-  function Revealer(a, b) {
+  function Revealer(a, b, c) {
     a = a || '.page .loadmore';
     b = b || '.page .widget';
-    return $(a).revealer(b);
+    return $(a).revealer(b, c);
   }
   return Revealer;
 }));

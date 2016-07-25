@@ -40,7 +40,7 @@ define(['jqxtn', 'lodash'], function ($, _) {
     // REVEALER
     require(['revealer'], function (Rev) {
       W.Revealer = Rev;
-      W._rev = new Rev().next(2);
+      W._rev = new Rev('.page .loadmore','.page .widget', 3);
     });
 
   }
