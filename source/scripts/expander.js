@@ -14,7 +14,7 @@
         '#grid-content .widget:not(:first-child)', {
           align: 'top'
       });
-    }, 1e3)
+    }, 1e3);
   }
 
   if (!(typeof define === 'function' && define.amd)) {
@@ -46,7 +46,7 @@
     feature: '',
     holder: '',
     reveal: '<div class="ex-reveal">',
-    scrolls: 'body, html', // html for msie (set only)
+    scrolls: 'body, html', // for msie
     sources: '',
     null: '#',
   };
@@ -168,19 +168,12 @@
       var scrollVal = els.reveal.offset().top,
         revealH = els.feature ? els.feature.preserveH() : 0;
 
-      if (cf.save) {
-        scrollVal = cf.save;
-        delete cf.save;
+      if (cf.align === 'top') {
+        scrollVal -= 100; // buffer top by a couple fingers
       } else {
-        if (cf.align === 'top') {
-          scrollVal -= 100; // buffer top by a couple fingers
-        } else {
-          scrollVal += (revealH + 10); // lift 10px
-          scrollVal -= $(W).height();
-        }
-        cf.save = $(window).scrollTop();
+        scrollVal += (revealH + 10); // lift 10px
+        scrollVal -= $(W).height();
       }
-
       els.scrolls.animate({
         scrollTop: scrollVal
       }, cf.speed);

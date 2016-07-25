@@ -10,7 +10,7 @@
   function mion_init() {
     W.setTimeout(function () {
       W._rev = new W.Revealer('.load_more-button', '#grid-preview .widget', 7);
-    }, 2e3)
+    }, 2e3);
   }
 
   if (!(typeof define === 'function' && define.amd)) {
