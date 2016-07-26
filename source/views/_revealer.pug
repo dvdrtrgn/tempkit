@@ -1,0 +1,14 @@
+#Revealer
+  strong Revealer
+  ul
+    li
+      a(href='//wellsfargomedia.com/lib/dev/revealer.js' target='_blank')  live.js
+    li
+      a(href='./scripts/revealer.js' target='_blank') current.js
+
+  button(onclick='try{ _rev.kill();_rev.init().next(1) }catch(z){}') init 1
+  button(onclick='try{ _rev.kill();_rev.init().next(2) }catch(z){}') init 2
+  button(onclick='try{ _rev.kill();                    }catch(z){}') kill
+  br
+
+//./_test-revealer.pug

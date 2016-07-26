@@ -15,7 +15,7 @@
   // scss-lint:enable ImportantRule
 }
 :focus::after {
-  content: ' selected';
+  content: ' Selected';
 }
 
 .keyboard :focus,

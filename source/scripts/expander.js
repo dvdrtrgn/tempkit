@@ -3,20 +3,24 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var V = '0.5.6';
+  var V = '0.6.6';
   var W = (W && W.window || window);
+  var $ = W.jQuery;
 
   function mion_init() {
-    W._exp = new W.Expander(
-      '#grid-preview .widget:not(:first-child)',
-      '#grid-content .widget:not(:first-child)', {
-        align: 'top'
+    W.setTimeout(function () {
+      W._exp = new W.Expander(
+        '#grid-preview .ex-init',
+        '#grid-content .widget:not(:first-child)', {
+          align: 'top'
       });
+    }, 1e3);
   }
+
   if (!(typeof define === 'function' && define.amd)) {
     console.warn('shim:expander.js', V);
-    W.Expander = factory(W.jQuery, W._);
-    return W._dbug || W.setTimeout(mion_init, 333);
+    W.Expander = factory($, W._);
+    return W._dbug || $(mion_init);
   } else {
     console.info('AMD:expander.js', V);
     define(['jquery', 'lodash'], factory);
@@ -81,7 +85,7 @@
       dat = me.data(),
       str = 'preserveH',
       rtn;
-    rtn = Number(dat[str] = dat[str] || me.innerHeight());
+    rtn = dat && Number(dat[str] = dat[str] || me.innerHeight());
     return init ? this : rtn;
   };
   $.fn.setHeight = function (px) {
@@ -97,6 +101,14 @@
     var me = $(this);
     px = undef(px) ? '' : Number(px);
     return me.setHeight(px);
+  };
+  $.fn.makeTabbable = function () {
+    var me = $(this);
+    me.attr('tabindex', '0') //
+    .on('keypress', function (evt) {
+      return (evt.keyCode === 13) && me.click();
+    });
+    return this;
   };
 
   // - - - - - - - - - - - - - - - - - -
@@ -145,14 +157,14 @@
         return retireFeature();
       }
       num = (num - 1) % els.sources.length;
-      els.reveal.append(borrowFeature(num));
+      els.reveal.prepend(borrowFeature(num));
       api.lastIndex = num;
       return finish('loadFeatureIndex');
     }
 
     // ANIMATIONS
 
-    function scrollToContent() {
+    function scrollToFeature() {
       var scrollVal = els.reveal.offset().top,
         revealH = els.feature ? els.feature.preserveH() : 0;
 
@@ -203,6 +215,11 @@
       }
     }
 
+    function dismiss() {
+      collapse();
+      retireFeature();
+    }
+
     // HANDLERS
 
     function insertContent(evt) {
@@ -230,11 +247,13 @@
       } else {
         div = $('<div>').append(e.innerHTML);
         ele.empty().append(div);
-        if (Debug) {
-          C.warn(Nom, 'using innerHTML', e);
-        }
+        C.warn(Nom, 'using innerHTML', e);
       }
-      div.addClass('ex-target').on('click', insertContent);
+
+      div.addClass('ex-target').makeTabbable() //
+      .on('click', insertContent) //
+      .append('<span class="ada">Show more</span>');
+
       ele.add(div).setHeight(ele.preserveH());
     }
 
@@ -269,9 +288,9 @@
         }
         collapse();
         retireFeature();
-        els.reveal.appendTo('body').off('transitionend', scrollToContent);
+        els.reveal.appendTo('body').off('transitionend', scrollToFeature);
         els.closer.off('click', collapse);
-        els.choices.removeClass('ex-ani').each(zapTargets);
+        els.choices.parent().removeClass('ex-wrap').each(zapTargets);
         // els.choices = els.sources = '';
         api.inited = false;
         return finish('kill');
@@ -282,14 +301,22 @@
         }
         api.inited = true;
         reify(els);
-        els.choices.addClass('ex-ani').each(wrapTargets);
-        els.closer.on('click', collapse);
+
+        els.choices.parent() //
+        .addClass('ex-wrap') //
+        .each(wrapTargets); // todo: ensure parent wrapper
+
+        els.closer.makeTabbable() //
+        .on('click', dismiss) //
+        .prepend('<span class="ada">Close</span>');
+
         els.reveal.append(els.closer).appendTo(els.body) //
-          .on('transitionend', scrollToContent) //
+          .on('transitionend', scrollToFeature) //
           .preserveH(true).shrinkH('0');
+
         defer(function () {
           els.reveal.addClass('ex-ani'); // prevent scrolling upon load
-        }, cf.speed);
+        }, cf.speed * 10);
         return finish('init');
       },
       restore: function () {
@@ -317,7 +344,7 @@
   // Expose Fake Constructor
   function Expander(a, b) {
     var args = [].slice.call(arguments);
-    args[0] = a || '#grid-preview .widget';
+    args[0] = a || '#grid-preview .ex-init';
     args[1] = b || '#grid-content .widget';
     return $.expander.apply(null, args);
   }
@@ -327,5 +354,6 @@
 
   todo: dvdrtrgn
     attach a resize event
+    ensure parent wrapper
 
  */

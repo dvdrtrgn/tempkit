@@ -3,16 +3,20 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var V = '0.1.6';
+  var V = '0.1.11';
   var W = (W && W.window || window);
+  var $ = W.jQuery;
 
   function mion_init() {
-    W._rev = new W.Revealer('.load_more-button', '#pgc-54-grid-preview-0 .widget_sow-hero').next(6);
+    W.setTimeout(function () {
+      W._rev = new W.Revealer('.load_more-button', '#grid-preview .widget', 7);
+    }, 2e3);
   }
+
   if (!(typeof define === 'function' && define.amd)) {
     console.warn('shim:revealer.js', V);
-    W.Revealer = factory(jQuery);
-    return W._dbug || W.setTimeout(mion_init, 666);
+    W.Revealer = factory($);
+    return W._dbug || $(mion_init);
   } else {
     console.info('AMD:revealer.js', V);
     define(['jquery'], factory);
@@ -38,7 +42,7 @@
   // - - - - - - - - - - - - - - - - - -
   // EXTEND
   $.fn.revealer = function (these, revealed) {
-    revealed = revealed || 0;
+    revealed = revealed > 0 ? revealed : 0;
 
     var api = {};
     var els = { // use later for defaults
@@ -58,7 +62,7 @@
 
     function reveal(lo, hi) {
       if (revealed < api.total()) {
-        els.them.slice(lo, hi).slideDown();
+        els.them.slice(lo, hi).fadeIn();
         revealed = hi;
       }
       return api;
@@ -69,7 +73,7 @@
       _el: Debug ? els : null,
       //
       //--Props
-      _inc: 1,
+      _inc: revealed || 1,
       //
       //--Xsrs
       inc: function (num) {
@@ -142,10 +146,10 @@
   };
 
   // Expose Fake Constructor
-  function Revealer(a, b) {
-    a = a || '.button';
-    b = b || '.article';
-    return $(a).revealer(b);
+  function Revealer(a, b, c) {
+    a = a || '.page .loadmore';
+    b = b || '.page .widget';
+    return $(a).revealer(b, c);
   }
   return Revealer;
 }));

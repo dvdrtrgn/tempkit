@@ -1,27 +1,28 @@
 // - + - - + - - + - - + - - + - - + - - + - - + - - + - - + - - + - - + - //
 /* _expander.scss */
 
-.ex-ani {
+.ex-ani, .ex-wrap {
   transition: height 0.25s;
 }
 .ex-closer {
   color: gray;
+  display: none;
   cursor: pointer;
-  font-size: 3rem;
+  line-height: 0.5;
   position: absolute;
-  right: 0;
-  top: 0;
-  z-index: 101;
-  &:hover {
+  right: 1rem;
+  top: 1rem;
+  z-index: 999;
+  &:hover, &:focus {
     color: black;
   }
-  &::after {
+  &::before {
     content: '×';
-    display: block;
-    height: 1em;
-    line-height: 1;
-    text-align: left;
+    font-size: 3rem;
     width: 1em;
+  }
+  .ex-panded & {
+    display: block;
   }
 }
 .ex-reveal {
@@ -67,6 +68,23 @@
 }
 .ex-target, option.al {
   background-color: #eee;
+}
+.ex-wrap {
+  vertical-align: top;
+
+  .ada, :focus::after {
+    display: initial !important;
+    height: 1px;
+    left: -5000px;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    visibility: visible !important;
+    width: 1px;
+  }
+  :focus::after {
+    content: ' Selected';
+  }
 }
 
 /* OVERRIDES */

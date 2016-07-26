@@ -16,29 +16,41 @@ html
 
     script(data-main='./config', src='./vendors/require.js/require.js')
 
-  body
+  body.keyboard
 
     .page
       //_header.pug
       include ./_header.pug
 
-      ul
-        li
-          a(href='//wellsfargomedia.com/lib/dev/expander.css' target='_blank') get live expander.css
-        li
-          a(href='//wellsfargomedia.com/lib/dev/expander.js' target='_blank')  get live expander.js
-        li
-          a(href='//wellsfargomedia.com/lib/dev/revealer.js' target='_blank')  get live revealer.js
+      //_expander.pug
+      include ./_expander.pug
 
-      //_test-expander.pug
-      include ./_test-expander.pug
+      //_revealer.pug
+      include ./_revealer.pug
 
-      br
-      hr
-      br
+      //_test.pug
+      include ./_test.pug
 
-      //_test-revealer.pug
-      include ./_test-revealer.pug
+    #grid-content
+      div
+        div
+          div.widget
+            p foo1
+          div.widget
+            p bar1
+            p bar1
+            p bar1
+          div.widget
+            p baz1
+          div.widget
+            p foo2
+          div.widget
+            p bar2
+            p bar2
+            p bar2
+            p bar2
+          div.widget
+            p baz2
 
       //_footer.pug
       include ./_footer.pug
