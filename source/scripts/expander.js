@@ -3,7 +3,7 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var V = '0.6.5';
+  var V = '0.6.6';
   var W = (W && W.window || window);
   var $ = W.jQuery;
 
@@ -164,7 +164,7 @@
 
     // ANIMATIONS
 
-    function scrollToContent() {
+    function scrollToFeature() {
       var scrollVal = els.reveal.offset().top,
         revealH = els.feature ? els.feature.preserveH() : 0;
 
@@ -288,7 +288,7 @@
         }
         collapse();
         retireFeature();
-        els.reveal.appendTo('body').off('transitionend', scrollToContent);
+        els.reveal.appendTo('body').off('transitionend', scrollToFeature);
         els.closer.off('click', collapse);
         els.choices.parent().removeClass('ex-wrap').each(zapTargets);
         // els.choices = els.sources = '';
@@ -311,12 +311,12 @@
         .prepend('<span class="ada">Close</span>');
 
         els.reveal.append(els.closer).appendTo(els.body) //
-          .on('transitionend', scrollToContent) //
+          .on('transitionend', scrollToFeature) //
           .preserveH(true).shrinkH('0');
 
         defer(function () {
           els.reveal.addClass('ex-ani'); // prevent scrolling upon load
-        }, cf.speed);
+        }, cf.speed * 10);
         return finish('init');
       },
       restore: function () {
