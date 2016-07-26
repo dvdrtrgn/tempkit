@@ -3,7 +3,7 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var V = '0.6.4';
+  var V = '0.6.5';
   var W = (W && W.window || window);
   var $ = W.jQuery;
 
@@ -157,7 +157,7 @@
         return retireFeature();
       }
       num = (num - 1) % els.sources.length;
-      els.reveal.append(borrowFeature(num));
+      els.reveal.prepend(borrowFeature(num));
       api.lastIndex = num;
       return finish('loadFeatureIndex');
     }
@@ -249,7 +249,11 @@
         ele.empty().append(div);
         C.warn(Nom, 'using innerHTML', e);
       }
-      div.addClass('ex-target').makeTabbable().on('click', insertContent);
+
+      div.addClass('ex-target').makeTabbable() //
+      .on('click', insertContent) //
+      .append('<span class="ada">Show more</span>');
+
       ele.add(div).setHeight(ele.preserveH());
     }
 
@@ -297,11 +301,19 @@
         }
         api.inited = true;
         reify(els);
-        els.choices.parent().addClass('ex-wrap').each(wrapTargets); // todo: ensure parent wrapper
-        els.closer.makeTabbable().on('click', dismiss);
+
+        els.choices.parent() //
+        .addClass('ex-wrap') //
+        .each(wrapTargets); // todo: ensure parent wrapper
+
+        els.closer.makeTabbable() //
+        .on('click', dismiss) //
+        .prepend('<span class="ada">Close</span>');
+
         els.reveal.append(els.closer).appendTo(els.body) //
           .on('transitionend', scrollToContent) //
           .preserveH(true).shrinkH('0');
+
         defer(function () {
           els.reveal.addClass('ex-ani'); // prevent scrolling upon load
         }, cf.speed);
