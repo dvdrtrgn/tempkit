@@ -3,18 +3,31 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var V = '0.1.1';
+  var V = '0.1.2';
   var W = (W && W.window || window);
   var $ = W.jQuery;
 
   function mion_init() {
-    W._lo = new W.Loader('body', 3e3, []);
+    W._lo = new W.Loader(
+      'body', 3e3, [function () {
+        W._exp = new W.Expander(
+          '#grid-preview .ex-init',
+          '#grid-content .widget:not(:first-child)', {
+            align: 'top'
+          }
+        );
+      }, function () {
+        W._rev = new W.Revealer(
+          '.load_more-button', '#grid-preview .widget', 7
+        );
+      }]
+    );
   }
 
   if (!(typeof define === 'function' && define.amd)) {
     console.warn('shim:loader.js', V);
     W.Loader = factory($);
-    return W._dbug || $(mion_init);
+    return W._dbug || $(W._loader || mion_init);
   } else {
     console.info('AMD:loader.js', V);
     define(['jquery'], factory);
@@ -24,7 +37,7 @@
 
   var W = (W && W.window || window);
   var C = (W.C || W.console || {});
-  var Debug = W._dbug > 0;
+  var Debug = !W._dbug > 0;
   var Nom = 'Loader';
 
   // - - - - - - - - - - - - - - - - - -
@@ -94,7 +107,6 @@
       },
     });
     // - - - - - - - - - - - - - - - - - -
-
 
     return api.init();
   };

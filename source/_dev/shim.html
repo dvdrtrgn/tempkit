@@ -15,10 +15,6 @@
     <script src="./vendors/jquery/jquery.js"></script>
     <script src="./scripts/libs/jq-xtn.js"></script>
 
-    <script src="./scripts/loader.js"></script>
-    <script src="./scripts/expander.js"></script>
-    <script src="./scripts/revealer.js"></script>
-
   </head>
   <body class="keyboard loading">
     <div class="page">
@@ -124,10 +120,26 @@
       </footer>
       <!--./_footer.pug-->
     </div>
+
     <script>
+      var W = (W && W.window || window);
       $.inlineSvgs();
       $.watchHash();
       $.watchWidth();
+
+      function _loader() {
+        W._lo = new W.Loader(
+          'body', 1e3, [function () {
+            W._exp = new W.Expander();
+          }, function () {
+            W._rev = new W.Revealer('.page .loadmore', '.page .widget', 3);
+          }]
+        );
+      }
     </script>
+    <script src="./scripts/loader.js"></script>
+    <script src="./scripts/expander.js"></script>
+    <script src="./scripts/revealer.js"></script>
+
   </body>
 </html>
