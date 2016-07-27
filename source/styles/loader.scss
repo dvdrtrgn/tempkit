@@ -13,4 +13,15 @@ body {
   }
 }
 
+/* OVERRIDES */
+
+html:not(.debug) {
+  body {
+    background: url('./loading.gif') 50% 40% no-repeat;
+    &.loading {
+      background: url('./loader.gif') 50% 40% no-repeat;
+    }
+  }
+}
+
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
