@@ -3,7 +3,7 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var V = '0.1.2';
+  var V = '0.1.3';
   var W = (W && W.window || window);
   var $ = W.jQuery;
 

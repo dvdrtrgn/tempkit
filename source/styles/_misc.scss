@@ -4,7 +4,9 @@
 body {
   color: $darker;
 }
-
+ul {
+  padding-left: 1em;
+}
 #grid-preview {
   .panel-cell-style > .widget {
     display: inline-block;
@@ -18,9 +20,12 @@ body {
   display: none;
 }
 
-#Expander, #Revealer {
+#Expander, #Loader, #Revealer {
+  border: 1px solid silver;
+  border-radius: 3px;
   display: inline-block;
-  padding: 1rem;
+  margin: 1rem;
+  padding: 1rem 2rem;
   vertical-align: top;
 }
 

@@ -29,13 +29,23 @@
         <h1 class="inline">Template</h1>
       </header>
       <!--./_header.pug-->
+      <!--_loader.pug-->
+      <div id="Loader"><strong>Loader</strong>
+        <ul>
+          <li><a href="./styles/loader.css" target="_blank">dev.css</a></li>
+          <li><a href="./scripts/loader.js" target="_blank">dev.js</a></li>
+          <li><a href="./images/stock/loader.gif" target="_blank">spinner</a></li>
+          <li><a href="./images/stock/loading.gif" target="_blank">loading</a></li>
+        </ul>
+      </div>
+      <!--./_test-loader.pug-->
       <!--_expander.pug-->
       <div id="Expander"><strong>Expander</strong>
         <ul>
           <li><a href="//wellsfargomedia.com/lib/dev/expander.css" target="_blank">live.css</a></li>
           <li><a href="//wellsfargomedia.com/lib/dev/expander.js" target="_blank"> live.js</a></li>
-          <li><a href="./styles/expander.css" target="_blank">current.css</a></li>
-          <li><a href="./scripts/expander.js" target="_blank">current.js</a></li>
+          <li><a href="./styles/expander.css" target="_blank">dev.css</a></li>
+          <li><a href="./scripts/expander.js" target="_blank">dev.js</a></li>
         </ul><span class="right"></span>
         <button onclick="try{ _exp.kill();_exp.init();           }catch(z){}">init</button>
         <button onclick="try{ _exp.kill();                       }catch(z){}">kill</button>
@@ -46,7 +56,7 @@
       <div id="Revealer"><strong>Revealer</strong>
         <ul>
           <li><a href="//wellsfargomedia.com/lib/dev/revealer.js" target="_blank"> live.js</a></li>
-          <li><a href="./scripts/revealer.js" target="_blank">current.js</a></li>
+          <li><a href="./scripts/revealer.js" target="_blank">dev.js</a></li>
         </ul>
         <button onclick="try{ _rev.kill();_rev.init().next(1) }catch(z){}">init 1</button>
         <button onclick="try{ _rev.kill();_rev.init().next(2) }catch(z){}">init 2</button>
