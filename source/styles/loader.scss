@@ -1,0 +1,16 @@
+// - + - - + - - + - - + - - + - - + - - + - - + - - + - - + - - + - - + - //
+/* _expander.scss */
+body {
+  background: url("../images/help/loading.gif") 50% 500px no-repeat;
+  background-size: 10px; }
+
+body.loading {
+  background-color: #eee;
+  background-size: 100px;
+  overflow-y: scroll; }
+
+body.loading * {
+  opacity: 0.1; }
+
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
