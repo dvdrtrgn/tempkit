@@ -3,7 +3,7 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var V = '0.0.1';
+  var V = '0.1.0';
   var W = (W && W.window || window);
   var $ = W.jQuery;
 
@@ -30,13 +30,28 @@
   // - - - - - - - - - - - - - - - - - -
   // EXTEND
   $.fn.loader = function (ms, cbs) {
-    var api = {};
+    var api = {
+      cbs: (cbs && cbs.length) ? cbs : [],
+    };
     var els = { // use later for defaults
-      me: this,
+      me: $(this),
     };
 
     // - - - - - - - - - - - - - - - - - -
     // PRIVATE
+    function fire() {
+      $.each(api.cbs, function (i, e) {
+        if (typeof e !== 'function') {
+          return;
+        }
+        try {
+          e();
+        } catch (err) {
+          C.error(err);
+        }
+      });
+    }
+
     function finish(str) {
       if (Debug > 0) {
         C.info(Nom, (str || ''), api);
@@ -63,6 +78,7 @@
       },
       stop: function () {
         els.me.removeClass('loading');
+        fire();
         return finish('stop');
       },
       //
@@ -79,7 +95,7 @@
     });
     // - - - - - - - - - - - - - - - - - -
 
-    $.reify(els);
+
     return api.init();
   };
 
