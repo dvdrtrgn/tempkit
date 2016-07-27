@@ -20,14 +20,14 @@ body {
   line-height: 1.4;
   padding: 1rem;
   overflow-y: scroll;
-  &.loading {
-    background: url('../images/stock/loader.gif') 50% 40% no-repeat;
-    background-size: 25%;
-    position: fixed;
-    * {
-      opacity: 0.5;
-    }
-  }
+  // &.loading {
+  //   background: url('../images/stock/loader.gif') 50% 40% no-repeat;
+  //   background-size: 25%;
+  //   position: fixed;
+  //   * {
+  //     opacity: 0.5;
+  //   }
+  // }
 }
 a {
   color: $link;

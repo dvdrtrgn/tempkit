@@ -51,7 +51,7 @@ require(['jquery'], function () {
   require(['jqxtn'], function ($) {
     require(['_main'], function () {
 
-      $('body').removeClass('loading');
+      //$('body').removeClass('loading');
     });
   });
 

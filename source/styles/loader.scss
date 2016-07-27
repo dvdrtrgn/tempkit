@@ -1,16 +1,16 @@
 // - + - - + - - + - - + - - + - - + - - + - - + - - + - - + - - + - - + - //
-/* _expander.scss */
+/* _loader.scss */
+
 body {
-  background: url("../images/help/loading.gif") 50% 500px no-repeat;
-  background-size: 10px; }
-
-body.loading {
-  background-color: #eee;
-  background-size: 100px;
-  overflow-y: scroll; }
-
-body.loading * {
-  opacity: 0.1; }
-
+  background: url('../images/stock/loading.gif') 50% 40% no-repeat;
+  &.loading {
+    background: url('../images/stock/loader.gif') 50% 40% no-repeat;
+    background-size: 25%;
+    position: fixed;
+    * {
+      opacity: 0.5;
+    }
+  }
+}
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */

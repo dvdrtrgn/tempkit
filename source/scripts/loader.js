@@ -1,5 +1,5 @@
 /*jslint  white:false */
-/*global define, window */
+/*global define, window, jQuery */
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
@@ -8,9 +8,7 @@
   var $ = W.jQuery;
 
   function mion_init() {
-    W.setTimeout(function () {
-      W._rev = new W.Loader(7);
-    }, 2e3);
+    W._lo = new W.Loader('body', 3e3, []);
   }
 
   if (!(typeof define === 'function' && define.amd)) {
@@ -28,19 +26,14 @@
   var C = (W.C || W.console || {});
   var Debug = W._dbug > 0;
   var Nom = 'Loader';
-  var Speed = 333;
 
   // - - - - - - - - - - - - - - - - - -
   // EXTEND
-  $.fn.loader = function (these, revealed) {
-    revealed = revealed > 0 ? revealed : 0;
-
+  $.fn.loader = function (ms, cbs) {
     var api = {};
     var els = { // use later for defaults
-      btn: this,
-      them: these,
+      me: this,
     };
-    var ens = 'click.' + Nom;
 
     // - - - - - - - - - - - - - - - - - -
     // PRIVATE
@@ -57,33 +50,42 @@
       _el: Debug ? els : null,
       //
       showing: function () {
-        return revealed;
+        return els.me.is('.loading');
+      },
+      timeout: function (ms) {
+        ms = ms || 1e3;
+        W.setTimeout(api.stop, ms);
+        return finish('timeout: ' + ms);
+      },
+      start: function () {
+        els.me.addClass('loading');
+        return finish('start');
+      },
+      stop: function () {
+        els.me.removeClass('loading');
+        return finish('stop');
       },
       //
       //--Meths
       init: function () {
-        var prior = els.btn.data(Nom);
+        var prior = els.me.data(Nom);
         if (prior) {
           C.warn(Nom, 'already there');
           return prior;
         }
-        els.btn.data(Nom, api); // expose on primary element
-
-        reveal(0, revealed);
-        return finish('init').enableBtn();
+        els.me.data(Nom, api); // expose on primary element
+        return finish('init').start().timeout(ms);
       },
     });
     // - - - - - - - - - - - - - - - - - -
 
-    reify(els);
+    $.reify(els);
     return api.init();
   };
 
   // Expose Fake Constructor
   function Loader(a, b, c) {
-    a = a || '.page .loadmore';
-    b = b || '.page .widget';
-    return $(a).loader(b, c);
+    return $(a || 'body').loader(b, c);
   }
   return Loader;
 }));
