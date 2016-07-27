@@ -1,9 +1,9 @@
 /*jslint  white:false */
-/*global define, window, jQuery */
+/*global define, window */
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var V = '0.1.0';
+  var V = '0.1.1';
   var W = (W && W.window || window);
   var $ = W.jQuery;
 
@@ -31,6 +31,7 @@
   // EXTEND
   $.fn.loader = function (ms, cbs) {
     var api = {
+      ms: ms || 1e3,
       cbs: (cbs && cbs.length) ? cbs : [],
     };
     var els = { // use later for defaults
@@ -68,7 +69,6 @@
         return els.me.is('.loading');
       },
       timeout: function (ms) {
-        ms = ms || 1e3;
         W.setTimeout(api.stop, ms);
         return finish('timeout: ' + ms);
       },
@@ -90,7 +90,7 @@
           return prior;
         }
         els.me.data(Nom, api); // expose on primary element
-        return finish('init').start().timeout(ms);
+        return finish('init').start().timeout(api.ms);
       },
     });
     // - - - - - - - - - - - - - - - - - -
