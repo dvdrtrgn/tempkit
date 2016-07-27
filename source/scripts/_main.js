@@ -31,13 +31,16 @@ define(['jqxtn', 'lodash'], function ($, _) {
   function bind() {
     W.jQuery = $;
 
-    // EXPANDER
+    require(['loader'], function (Lo) {
+      W.Loader = Lo;
+      W._lo = new Lo();
+    });
+
     require(['expander'], function (Exp) {
       W.Expander = Exp;
       W._exp = new Exp();
     });
 
-    // REVEALER
     require(['revealer'], function (Rev) {
       W.Revealer = Rev;
       W._rev = new Rev('.page .loadmore', '.page .widget', 3);

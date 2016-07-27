@@ -3,24 +3,13 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var V = '0.6.6';
+  var V = '0.6.7';
   var W = (W && W.window || window);
   var $ = W.jQuery;
-
-  function mion_init() {
-    W.setTimeout(function () {
-      W._exp = new W.Expander(
-        '#grid-preview .ex-init',
-        '#grid-content .widget:not(:first-child)', {
-          align: 'top'
-      });
-    }, 1e3);
-  }
 
   if (!(typeof define === 'function' && define.amd)) {
     console.warn('shim:expander.js', V);
     W.Expander = factory($, W._);
-    return W._dbug || $(mion_init);
   } else {
     console.info('AMD:expander.js', V);
     define(['jquery', 'lodash'], factory);
@@ -105,9 +94,9 @@
   $.fn.makeTabbable = function () {
     var me = $(this);
     me.attr('tabindex', '0') //
-    .on('keypress', function (evt) {
-      return (evt.keyCode === 13) && me.click();
-    });
+      .on('keypress', function (evt) {
+        return (evt.keyCode === 13) && me.click();
+      });
     return this;
   };
 
@@ -251,8 +240,8 @@
       }
 
       div.addClass('ex-target').makeTabbable() //
-      .on('click', insertContent) //
-      .append('<span class="ada">Show more</span>');
+        .on('click', insertContent) //
+        .append('<span class="ada">Show more</span>');
 
       ele.add(div).setHeight(ele.preserveH());
     }
@@ -303,12 +292,12 @@
         reify(els);
 
         els.choices.parent() //
-        .addClass('ex-wrap') //
-        .each(wrapTargets); // todo: ensure parent wrapper
+          .addClass('ex-wrap') //
+          .each(wrapTargets); // todo: ensure parent wrapper
 
         els.closer.makeTabbable() //
-        .on('click', dismiss) //
-        .prepend('<span class="ada">Close</span>');
+          .on('click', dismiss) //
+          .prepend('<span class="ada">Close</span>');
 
         els.reveal.append(els.closer).appendTo(els.body) //
           .on('transitionend', scrollToFeature) //

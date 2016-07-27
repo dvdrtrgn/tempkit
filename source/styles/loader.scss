@@ -1,0 +1,27 @@
+// - + - - + - - + - - + - - + - - + - - + - - + - - + - - + - - + - - + - //
+/* _loader.scss */
+
+body {
+  background: url('../images/stock/loading.gif') 50% 40% no-repeat;
+  &.loading {
+    background: url('../images/stock/loader.gif') 50% 40% no-repeat;
+    background-size: 25%;
+    position: fixed;
+    * {
+      opacity: 0.5;
+    }
+  }
+}
+
+/* OVERRIDES */
+
+html:not(.debug) {
+  body {
+    background: url('./loading.gif') 50% 40% no-repeat;
+    &.loading {
+      background: url('./loader.gif') 50% 40% no-repeat;
+    }
+  }
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */

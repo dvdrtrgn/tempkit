@@ -13,18 +13,20 @@ html
 
     link(href='./styles/main.css', rel='stylesheet', media='all')
     link(href='./styles/expander.css', rel='stylesheet', media='all')
+    link(href='./styles/loader.css', rel='stylesheet', media='all')
 
     script(data-main='./config', src='./vendors/require.js/require.js')
 
-  body.keyboard
+  body.keyboard.loading
 
     .page
       //_header.pug
       include ./_header.pug
 
+      //_loader.pug
+      include ./_loader.pug
       //_expander.pug
       include ./_expander.pug
-
       //_revealer.pug
       include ./_revealer.pug
 
