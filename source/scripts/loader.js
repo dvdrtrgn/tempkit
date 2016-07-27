@@ -37,7 +37,7 @@
 
   var W = (W && W.window || window);
   var C = (W.C || W.console || {});
-  var Debug = !W._dbug > 0;
+  var Debug = W._dbug > 0;
   var Nom = 'Loader';
 
   // - - - - - - - - - - - - - - - - - -
