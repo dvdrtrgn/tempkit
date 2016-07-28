@@ -39,7 +39,7 @@
 
   .ex-panded & {
     cursor: default;
-    &::after {
+    &::before {
       /* arrow indicator */
       background-color: inherit;
       bottom: -1rem;
