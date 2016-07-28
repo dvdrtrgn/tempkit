@@ -3,7 +3,7 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var V = '0.1.4';
+  var V = '0.2.0';
   var W = (W && W.window || window);
   var $ = W.jQuery;
 
@@ -79,18 +79,18 @@
       _el: Debug ? els : null,
       //
       showing: function () {
-        return els.me.is('.loading');
+        return !els.me.is('.loaded');
       },
       timeout: function (ms) {
         W.setTimeout(api.stop, ms);
         return finish('timeout: ' + ms);
       },
       start: function () {
-        els.me.addClass('loading');
+        els.me.removeClass('loaded').addClass('loading');
         return finish('start');
       },
       stop: function () {
-        els.me.removeClass('loading');
+        els.me.removeClass('loading').addClass('loaded');
         fire();
         return finish('stop');
       },
