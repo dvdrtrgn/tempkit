@@ -24,7 +24,7 @@ html[lang='en-US'] {
   body {
     &:not(.loaded) {
       background: url('./loader.gif') 50% 40% no-repeat;
-      background-size: 50%;
+      background-size: 25%;
       * {
         visibility: hidden;
       }
