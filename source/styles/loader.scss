@@ -3,9 +3,10 @@
 
 body {
   background: url('../images/stock/loading.gif') 50% 40% no-repeat;
+  height: 100%;
   &.loading {
     background: url('../images/stock/loader.gif') 50% 40% no-repeat;
-    background-size: 25%;
+    background-size: 50%;
     position: fixed;
     * {
       opacity: 0.5;
@@ -16,10 +17,15 @@ body {
 /* OVERRIDES */
 
 html:not(.debug) {
+  height: 100%;
   body {
     background: url('./loading.gif') 50% 40% no-repeat;
     &.loading {
       background: url('./loader.gif') 50% 40% no-repeat;
+      background-size: 25%;
+      * {
+        visibility: hidden;
+      }
     }
   }
 }
