@@ -56,6 +56,15 @@
     }
     $(W).on('hashchange', trackHash());
   };
+  $.watchInputDevice = function () {
+    $('body').on('keydown', function () {
+      $(this).removeClass('mouse');
+      $(this).addClass('keyboard');
+    }).on('mouseover', function () {
+      $(this).removeClass('keyboard');
+      $(this).addClass('mouse');
+    });
+  };
   $.watchWidth = function () {
     // track window size
     $.onResize(function () {

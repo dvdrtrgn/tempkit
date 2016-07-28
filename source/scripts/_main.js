@@ -10,6 +10,7 @@ define(['jqxtn', 'lodash'], function ($, _) {
   $.inlineSvgs();
   $.watchHash();
   $.watchWidth();
+  $.watchInputDevice();
   // - - - - - - - - - - - - - - - - - -
   // ASSIGN
 
