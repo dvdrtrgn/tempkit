@@ -3,13 +3,13 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var V = '0.1.3';
+  var V = '0.1.4';
   var W = (W && W.window || window);
   var $ = W.jQuery;
 
   function mion_init() {
     W._lo = new W.Loader(
-      'body', 3e3, [function () {
+      3e3, [function () {
         W._exp = new W.Expander(
           '#grid-preview .ex-init',
           '#grid-content .widget:not(:first-child)', {
@@ -42,13 +42,13 @@
 
   // - - - - - - - - - - - - - - - - - -
   // EXTEND
-  $.fn.loader = function (ms, cbs) {
+  $.loader = function (ms, cbs) {
     var api = {
       ms: ms || 1e3,
       cbs: (cbs && cbs.length) ? cbs : [],
     };
     var els = { // use later for defaults
-      me: $(this),
+      me: $('body'),
     };
 
     // - - - - - - - - - - - - - - - - - -
@@ -112,8 +112,8 @@
   };
 
   // Expose Fake Constructor
-  function Loader(a, b, c) {
-    return $(a || 'body').loader(b, c);
+  function Loader(a, b) {
+    return $.loader(a, b);
   }
   return Loader;
 }));
