@@ -1,17 +1,23 @@
-/*jslint white:false, laxcomma:true */
-/*globals define */
+/*jslint white:false */
+/*global define, window */
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
- created drt 2015-09
-
- USE
- single use
- create command object for manipulating lightbox
-
- TODO
- document a bit
-
+ rev. dvdrtrgn 2016-08
+ USE: single use / create command object for manipulating lightbox
  */
-define(['jquery'], function ($) {
+(function (factory) {
+  'use strict';
+  var V = '0.1.0';
+  var W = (W && W.window || window);
+  var $ = W.jQuery;
+
+  if (!(typeof define === 'function' && define.amd)) {
+    console.warn('shim:modal.js', V);
+    W.Modal = factory($);
+  } else {
+    console.info('AMD:modal.js', V);
+    define(['jquery'], factory);
+  }
+}(function ($) {
   'use strict';
 
   var Nom = 'Modal';
@@ -157,4 +163,4 @@ define(['jquery'], function ($) {
   };
 
   return self;
-});
+}));

@@ -1,17 +1,23 @@
-/*jslint white:false, laxcomma:true */
-/*globals define */
+/*jslint white:false */
+/*global define, window */
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
- created drt 2015-09
-
- USE
- single use
- create command object for manipulating lightbox
-
- TODO
- document a bit
-
+ rev. dvdrtrgn 2016-08
+ USE: single use / insert offsite-interstial into ada compliant modal
  */
-define(['jquery', 'modal'], function ($, Modal) {
+(function (factory) {
+  'use strict';
+  var V = '0.1.0';
+  var W = (W && W.window || window);
+  var $ = W.jQuery;
+
+  if (!(typeof define === 'function' && define.amd)) {
+    console.warn('shim:dialog.js', V);
+    W.Dialog = factory($, W.Modal);
+  } else {
+    console.info('AMD:dialog.js', V);
+    define(['jquery', 'modal'], factory);
+  }
+}(function ($, Modal) {
   'use strict';
 
   var W = (W && W.window || window),
@@ -36,4 +42,4 @@ define(['jquery', 'modal'], function ($, Modal) {
   return {
     bind: bindDialog,
   };
-});
+}));
