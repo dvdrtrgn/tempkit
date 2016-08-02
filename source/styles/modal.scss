@@ -48,6 +48,10 @@
     & > div a.closer img {
         border : 0;
     }
+    .logo {
+        height: 55px;
+        width: 55px;
+    }
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
@@ -56,42 +60,38 @@
     .dialog {
         border: 4px solid #807f7d;
         font-family: Verdana, Arial, sans-serif;
-        font-size: 0.9em;
+        font-size: 0.8em;
         line-height: 1.5em;
-        padding: 0 20px;
-        width: 380px; height: 420px;
+        padding: 0 1.5em;
+        width: 32em; height: 34em;
         .mobi & {
             font-size: 1.4em;
         }
     }
-    .dialog .header {
-        border-bottom: 3px solid #dfdfdf;
-        margin: 0 0 18px;
-        padding: 20px 0 12px;
-        text-align: left;
-    }
     .dialog .content {
-        height: 250px;
+        height: 18em;
     }
     .dialog .content h2 {
         color: #444;
         font-family: Verdana, Arial, sans-serif;
         font-size: 115%;
         font-weight: bold;
-        margin: 0 0 7px;
+        margin: 0 0 1em;
     }
     .dialog .footer {
-        height: 30px;
+        height: 3em;
         margin: 0;
-        padding: 20px 0;
+        padding: 2em 0;
         text-align: right;
+        & a {
+          margin-left: 1.5em;
+        }
     }
-    .dialog .footer a {
-        margin-left: 15px;
-    }
-    .dialog .logo {
-        height: 50px;
-        width: 50px;
+    .dialog .header {
+        border-bottom: 3px solid #dfdfdf;
+        margin: 0 0 2em;
+        padding: 2em 0 1em;
+        text-align: left;
     }
     .dialog .utilitybtn {
         background-color: #5174b8;
@@ -102,7 +102,7 @@
         cursor: pointer;
         display: inline;
         font-weight: 700;
-        margin-right: 5px;
+        margin-right: 0.5em;
         overflow: visible;
         padding: 7px 15px;
         text-align: center;
