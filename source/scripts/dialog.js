@@ -12,28 +12,28 @@
 
  */
 define(['jquery', 'modal'], function ($, Modal) {
-    'use strict';
+  'use strict';
 
-    var W = (W && W.window || window),
-        C = (W.C || W.console || {});
+  var W = (W && W.window || window),
+    C = (W.C || W.console || {});
 
-    function bindDialog() { // off site dialog
-        var dialog = $('.modal .dialog'); // thing to show
-        var triggers = $('.trigger'); // intercept these
+  function bindDialog() { // off site dialog
+    var dialog = $('.modal .dialog'); // thing to show
+    var triggers = $('.trigger'); // intercept these
 
-        Modal.bind(triggers, dialog, function (data) {
-            var btn = dialog.find('.utilitybtn'); // find the go button
-            var src = data.source[0];
+    Modal.bind(triggers, dialog, function (data) {
+      var btn = dialog.find('.utilitybtn'); // find the go button
+      var src = data.source[0];
 
-            if (src.target) {
-                btn.attr('target', src.target); // transfer target
-            }
-            btn.attr('href', src.href); // transfer url
-            btn.on('click', Modal.hide);
-        });
-    }
+      if (src.target) {
+        btn.attr('target', src.target); // transfer target
+      }
+      btn.attr('href', src.href); // transfer url
+      btn.on('click', Modal.hide);
+    });
+  }
 
-    return {
-        bind: bindDialog,
-    };
+  return {
+    bind: bindDialog,
+  };
 });
