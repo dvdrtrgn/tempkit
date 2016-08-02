@@ -23,11 +23,12 @@
   var W = (W && W.window || window),
     C = (W.C || W.console || {});
 
-  function bindDialog() { // off site dialog
+  function bindDialog(sel) { // off site dialog
     var dialog = $('.modal .dialog'); // thing to show
-    var triggers = $('.trigger'); // intercept these
+    var triggers = $(sel || '.external-link'); // intercept these
 
     Modal.bind(triggers, dialog, function (data) {
+      // data is passed from Modal
       var btn = dialog.find('.utilitybtn'); // find the go button
       var src = data.source[0];
 
@@ -43,3 +44,8 @@
     bind: bindDialog,
   };
 }));
+/*
+
+  todo: dvdrtrgn
+
+ */

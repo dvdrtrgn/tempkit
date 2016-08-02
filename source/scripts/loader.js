@@ -10,6 +10,8 @@
   function mion_init() {
     W._lo = new W.Loader(
       3e3, [function () {
+        W._mod = W.Modal.init('#pg-54-7 div.modal');
+        W._dia = W.Dialog.bind('.external-link');
         W._exp = new W.Expander(
           '#grid-preview .ex-init',
           '#grid-content .widget:not(:first-child)', {

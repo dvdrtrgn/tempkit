@@ -41,7 +41,7 @@
   };
   // ELEMENTS
   El = {
-    modal: 'body > div.modal, .ui-page > div.modal', // only top level containers
+    modal: 'body > div.modal, #Modal', // safe guesses
     watcher: 'body',
   };
 
@@ -130,7 +130,7 @@
       }
       return self;
     },
-    init: function (sel) {
+    init: function (sel) { // to pre-emptively spec the modal div
       if (Df.inited) {
         return null;
       }
@@ -164,3 +164,8 @@
 
   return self;
 }));
+/*
+
+  todo: dvdrtrgn
+
+ */
