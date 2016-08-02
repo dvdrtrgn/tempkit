@@ -32,6 +32,10 @@ define(['jqxtn', 'lodash'], function ($, _) {
   function bind() {
     W.jQuery = $;
 
+    require(['dialog'], function (Dia) {
+      W.Dialog = Dia.bind();
+    });
+
     require(['loader'], function (Lo) {
       W.Loader = Lo;
       W._lo = new Lo();

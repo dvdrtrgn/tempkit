@@ -19,7 +19,7 @@ define(['jquery', 'modal'], function ($, Modal) {
 
     function bindDialog() { // off site dialog
         var dialog = $('.modal .dialog'); // thing to show
-        var triggers = $('.shareBar .shares a'); // intercept these
+        var triggers = $('.trigger'); // intercept these
 
         Modal.bind(triggers, dialog, function (data) {
             var btn = dialog.find('.utilitybtn'); // find the go button
