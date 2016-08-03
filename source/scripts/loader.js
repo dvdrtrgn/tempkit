@@ -92,6 +92,18 @@
     return api.init();
   };
 
+  function genEle() {
+    var div = $('<div id="Loading">').prependTo('body');
+    var arr = 'Loading'.split('');
+
+    $.each(arr, function (i, e) {
+      div.append($('<i>').text(e));
+    });
+  }
+  if (!$('#Loading').length) {
+    genEle();
+  }
+
   // Expose Fake Constructor
   function Loader(a, b) {
     return $.loader(a, b);

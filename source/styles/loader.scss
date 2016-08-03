@@ -16,6 +16,50 @@ html {
     }
   }
 }
+html {
+  $blur: 0.15em;
+  @import url(http://fonts.googleapis.com/css?family=Playfair+Display:400,400italic);
+
+  body.loading {
+    perspective: 1234px;
+    transform-style: preserve-3d;
+    #Loading { display: flex; }
+  }
+  #Loading {
+    align-items: center;
+    animation: wobble 5s ease-in-out infinite;
+    background: white;
+    display: none;
+    height: 200%;
+    left: -50%;
+    justify-content: center;
+    position: absolute;
+    top: -50%;
+    width: 200%;
+    z-index: 1;
+    i {
+      animation: 5s ease-in-out infinite;
+      color: transparent;
+      font-style: normal;
+      font: italic 10vw Playfair Display;//'Archer SSm A', 'Archer SSm B', serif;
+      text-shadow: 0 0 1px black;
+      &:nth-child(-n+3) { animation-delay: -2.5s; }
+    }
+  }
+  @keyframes wobble {
+    from, to { transform: rotateY(-35deg); }
+    50% { transform: rotateY(35deg); }
+  }
+  @for $i from 1 through 3 {
+    i:nth-child(#{$i}),
+    i:nth-last-child(#{$i}) {
+      animation-name: blur-#{$i};
+    }
+    @keyframes blur-#{$i} {
+      50% { text-shadow: 0 0 $blur/$i black; }
+    }
+  }
+}
 
 /* OVERRIDES */
 
