@@ -64,6 +64,9 @@
       color: #eee;
       line-height: 1;
       text-decoration: none;
+      &:hover {
+        background-color: #ae1e23;
+      }
       &::before {
         content: '×';
         font-size: 2rem;
