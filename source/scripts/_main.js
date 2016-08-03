@@ -32,24 +32,28 @@ define(['jqxtn', 'lodash'], function ($, _) {
   function bind() {
     W.jQuery = $;
 
-    require(['grocer'], function () {
-      console.log('foo in da house');
+    require(['grocer'], function (grocer) {
+      $('#Grocs').on('click', function () {
+        grocer(470, function (grocs) {
+          console.info('Here are your groceries:', grocs);
+        });
+      });
     });
 
-    require(['modal', 'dialog'], function (Mod, Dia) {
-      W._dia = Dia.bind();
+    require(['modal', 'dialog'], function (mod, dialog) {
+      W._dia = dialog.bind();
     });
 
-    require(['loader'], function (Lo) {
-      W._lo = new Lo();
+    require(['loader'], function (loader) {
+      W._lo = loader();
     });
 
-    require(['expander'], function (Exp) {
-      W._exp = new Exp();
+    require(['expander'], function (expander) {
+      W._exp = expander();
     });
 
-    require(['revealer'], function (Rev) {
-      W._rev = new Rev('.page .loadmore', '.page .widget', 3);
+    require(['revealer'], function (revealer) {
+      W._rev = revealer('.page .loadmore', '.page .widget', 3);
     });
 
   }

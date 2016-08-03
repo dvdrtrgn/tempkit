@@ -1,8 +1,24 @@
 /*jslint  white:false */
 /*global define, window, jQuery */
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-jQuery(function () {
+(function (factory) {
   'use strict';
+  var V = '0.0.1';
+  var W = (W && W.window || window);
+
+  if (!(typeof define === 'function' && define.amd)) {
+    console.warn('shim:grocer.js', V);
+    W.Grocer = factory(jQuery);
+  } else {
+    console.info('AMD:grocer.js', V);
+    define(['jquery'], factory);
+  }
+}(function ($) {
+  'use strict';
+
+  var W = (W && W.window || window);
+  var Nom = 'Grocer';
+  var Debug = W._dbug > 0;
 
   var Host = 'https://blogs.wf.com';
 
@@ -34,11 +50,14 @@ jQuery(function () {
 
   function goShopping(forPost, thenDo) {
     var basket = {};
-    var shutup = false,
-      dbg = function () {
-        return (shutup ? console.debug.apply(null, arguments) : '');
-      };
 
+    function dbg() {
+      var args = [].slice.call(arguments);
+      args = [Nom].concat(args);
+      return (Debug ? console.debug.apply(console, args) : '');
+    }
+
+    dbg('getting grocs...');
     fetchPost(forPost, function (obj) {
       basket.href = obj.link;
       basket.para = obj.excerpt.rendered;
@@ -53,16 +72,12 @@ jQuery(function () {
     });
   }
 
-  $('#Grocs').on('click', function () {
-    var index = 470;
-
-    goShopping(index, function (grocs) {
-      console.info('Here are your groceries:', grocs);
-      window.alert('check your console');
-    });
-  });
-
-});
+  // Expose Fake Constructor
+  function Grocer(a, b) {
+    return goShopping(a, b);
+  }
+  return Grocer;
+}));
 /*
 
   todo: dvdrtrgn
