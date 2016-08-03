@@ -1,12 +1,12 @@
 /*jslint white:false */
 /*global define, window */
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
- rev. dvdrtrgn 2016-08
- USE: single use / insert offsite-interstial into ada compliant modal
+ rev. 2016-08 dvdrtrgn
+ USE: single use / insert offsite-interstitial into ada compliant modal
  */
 (function (factory) {
   'use strict';
-  var V = '0.1.0';
+  var V = '0.1.1';
   var W = (W && W.window || window);
   var $ = W.jQuery;
 
@@ -20,12 +20,11 @@
 }(function ($, Modal) {
   'use strict';
 
-  var W = (W && W.window || window),
-    C = (W.C || W.console || {});
+  var W = (W && W.window || window);
 
   function bindDialog(sel) { // off site dialog
     var dialog = $('.modal .dialog'); // thing to show
-    var triggers = $(sel || '.external-link'); // intercept these
+    var triggers = $(sel || '.external, .external-link'); // intercept these
 
     Modal.bind(triggers, dialog, function (data) {
       // data is passed from Modal
@@ -45,7 +44,5 @@
   };
 }));
 /*
-
-  todo: dvdrtrgn
 
  */

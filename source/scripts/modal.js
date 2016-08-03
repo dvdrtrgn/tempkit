@@ -1,12 +1,12 @@
 /*jslint white:false */
 /*global define, window */
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
- rev. dvdrtrgn 2016-08
- USE: single use / create command object for manipulating lightbox
+ rev. 2016-08 dvdrtrgn
+ USE: single use / command object for manipulating lightbox
  */
 (function (factory) {
   'use strict';
-  var V = '0.1.0';
+  var V = '0.1.1';
   var W = (W && W.window || window);
   var $ = W.jQuery;
 
@@ -70,23 +70,23 @@
       self.init(); // double check
 
       var data = {
-        source: $(source),
+        source: $(source), // departure
         target: $(target),
         df: Df
       };
 
-      if (data.source.length > 1) {
+      if (data.source.length > 1) { // recurse
         return data.source.each(function (i, e) {
           self.bind(e, target, fixer, cleaner);
         });
-      } else if (data.source.data(Nom)) {
-        throw new Error('Already Modal');
+      } else if (data.source.data(Nom)) { // reject
+        throw new Error(Nom + ' already');
       }
       cleanup.add(cleaner);
       data.target.addCloser();
       /// map selectors to trigger show and callback
       data.source.on(Act, function (evt) {
-        Df.trigger = this; // remember departure
+        Df.trigger = this; // remember THE departure point
 
         if (evt.keyCode === undefined || evt.keyCode === 13) {
           evt.preventDefault(); // do not trigger
@@ -167,5 +167,6 @@
 /*
 
   todo: dvdrtrgn
+    document data
 
  */
