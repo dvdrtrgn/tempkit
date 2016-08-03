@@ -11,12 +11,13 @@
     <link href="./styles/main.css" rel="stylesheet" media="all">
     <link href="./styles/expander.css" rel="stylesheet" media="all">
     <link href="./styles/loader.css" rel="stylesheet" media="all">
+    <link href="./styles/modal.css" rel="stylesheet" media="all">
 
     <script src="./vendors/jquery/jquery.js"></script>
     <script src="./scripts/libs/jq-xtn.js"></script>
 
   </head>
-  <body class="loading">
+  <body class="loading" id="pg-54-7">
     <div class="page">
       <!--_header.pug-->
       <header>
@@ -50,6 +51,16 @@
         <button onclick="try{ _rev.kill();                    }catch(z){}">kill</button><br>
       </div>
       <!--./_test-revealer.pug-->
+      <!--_modal.pug-->
+      <div id="Modal"><strong>Modal</strong>
+        <ul>
+          <li><a href="./styles/modal.css" target="_blank">modal.css</a></li>
+          <li><a href="./scripts/modal.js" target="_blank">modal.js</a></li>
+          <li><a href="./scripts/dialog.js" target="_blank">dialog.js</a></li>
+        </ul>
+        <button class="external-link">test</button><br>
+      </div>
+      <!--./_modal.pug-->
       <!--_loader.pug-->
       <div id="Loader"><strong>Loader</strong>
         <ul>
@@ -130,11 +141,29 @@
           </div>
         </div>
       </div>
-      <!--_footer.pug-->
-      <footer>
-        <p>© 2016 Wells Fargo Bank, N.A. All rights reserved. ECG-???????</p>
-      </footer>
-      <!--./_footer.pug-->
+    <!--_footer.pug-->
+    </div>
+    <footer>
+      <p>© 2016 Wells Fargo Bank, N.A. All rights reserved. ECG-???????</p>
+    </footer>
+    <!--./_footer.pug-->
+
+    <div class="modal">
+      <!-- OFFSITE DIALOG -->
+      <div class="dialog">
+        <div class="header"><img class="logo" alt="" src="./images/stock/wf-square.svg"></div>
+        <div class="content">
+          <h2>You are leaving this Wells Fargo website</h2>
+          <p>
+            You are leaving a Wells Fargo site and entering a website that Wells Fargo does not control.
+            Wells Fargo has provided this link for your convenience,
+            but does not endorse and is not responsible for the content,
+            links, privacy policy, or security policy of this website.
+          </p>
+        </div>
+        <div class="footer"><a class="cancel" href="javascript:;">Cancel</a><a class="utilitybtn">Continue</a></div>
+        <!---->
+      </div>
     </div>
 
     <script>
@@ -147,6 +176,9 @@
       function _loader() {
         W._lo = new W.Loader(
           999, [function () {
+            W._mod = W.Modal.init('#pg-54-7 div.modal');
+            W._dia = W.Dialog.bind('.external-link');
+          }, function () {
             W._exp = new W.Expander();
           }, function () {
             W._rev = new W.Revealer('.page .loadmore', '.page .widget', 3);
@@ -154,6 +186,8 @@
         );
       }
     </script>
+    <script src="./scripts/modal.js"></script>
+    <script src="./scripts/dialog.js"></script>
     <script src="./scripts/expander.js"></script>
     <script src="./scripts/revealer.js"></script>
     <script src="./scripts/loader.js"></script>

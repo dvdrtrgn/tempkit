@@ -26,7 +26,7 @@ $desktop: 800px;
     box-shadow: $shadow 0 0 1px 3px;
   }
 }
-@mixin reflex ($grow: 0, $shrink: 0, $basis: 0%) {
+@mixin reflex ($grow: 0, $shrink: 1, $basis: auto) {
   flex-grow: $grow;
   flex-shrink: $shrink;
   flex-basis: $basis;

@@ -3,13 +3,16 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var V = '0.2.1';
+  var V = '0.2.2';
   var W = (W && W.window || window);
   var $ = W.jQuery;
 
   function mion_init() {
     W._lo = new W.Loader(
       3e3, [function () {
+        W._mod = W.Modal.init('#pg-54-7 div.modal');
+        W._dia = W.Dialog.bind('.external-link');
+      }, function () {
         W._exp = new W.Expander(
           '#grid-preview .ex-init',
           '#grid-content .widget:not(:first-child)', {
