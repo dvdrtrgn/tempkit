@@ -1,15 +1,14 @@
 /*jslint  white:false */
-/*global define, window */
+/*global define, window, jQuery */
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var V = '0.2.2';
+  var V = '0.2.3';
   var W = (W && W.window || window);
-  var $ = W.jQuery;
 
   if (!(typeof define === 'function' && define.amd)) {
     console.warn('shim:loader.js', V);
-    W.Loader = factory($);
+    W.Loader = factory(jQuery);
   } else {
     console.info('AMD:loader.js', V);
     define(['jquery'], factory);

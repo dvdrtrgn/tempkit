@@ -57,6 +57,7 @@
   }
 }
 
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 /* OPTIONAL */
 
 .ex-reveal, option.al {
@@ -73,6 +74,7 @@
   vertical-align: top;
 
   .ada, :focus::after {
+    // scss-lint:disable ImportantRule
     display: initial !important;
     height: 1px;
     left: -5000px;
@@ -87,6 +89,7 @@
   }
 }
 
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 /* OVERRIDES */
 
 .home {

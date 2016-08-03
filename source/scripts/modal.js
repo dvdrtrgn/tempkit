@@ -1,18 +1,17 @@
 /*jslint white:false */
-/*global define, window */
+/*global define, window, jQuery */
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
  rev. 2016-08 dvdrtrgn
  USE: single use / command object for manipulating lightbox
  */
 (function (factory) {
   'use strict';
-  var V = '0.1.1';
+  var V = '0.1.2';
   var W = (W && W.window || window);
-  var $ = W.jQuery;
 
   if (!(typeof define === 'function' && define.amd)) {
     console.warn('shim:modal.js', V);
-    W.Modal = factory($);
+    W.Modal = factory(jQuery);
   } else {
     console.info('AMD:modal.js', V);
     define(['jquery'], factory);

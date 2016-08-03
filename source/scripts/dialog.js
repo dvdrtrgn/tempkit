@@ -1,18 +1,17 @@
 /*jslint white:false */
-/*global define, window */
+/*global define, window, jQuery, Modal */
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
  rev. 2016-08 dvdrtrgn
  USE: single use / insert offsite-interstitial into ada compliant modal
  */
 (function (factory) {
   'use strict';
-  var V = '0.2.0';
+  var V = '0.2.1';
   var W = (W && W.window || window);
-  var $ = W.jQuery;
 
   if (!(typeof define === 'function' && define.amd)) {
     console.warn('shim:dialog.js', V);
-    W.Dialog = factory($, W.Modal);
+    W.Dialog = factory(jQuery, Modal);
   } else {
     console.info('AMD:dialog.js', V);
     define(['jquery', 'modal'], factory);

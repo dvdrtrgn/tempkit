@@ -1,15 +1,14 @@
 /*jslint  white:false */
-/*global define, window */
+/*global define, window, jQuery */
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var V = '0.6.8';
+  var V = '0.6.9';
   var W = (W && W.window || window);
-  var $ = W.jQuery;
 
   if (!(typeof define === 'function' && define.amd)) {
     console.warn('shim:expander.js', V);
-    W.Expander = factory($, W._);
+    W.Expander = factory(jQuery, W._);
   } else {
     console.info('AMD:expander.js', V);
     define(['jquery', 'lodash'], factory);

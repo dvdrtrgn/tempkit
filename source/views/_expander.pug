@@ -6,11 +6,9 @@
     li
       a(href='./scripts/expander.js' target='_blank') expander.js
 
-  span.right
-
   button(onclick='try{ _exp.kill();_exp.init();           }catch(z){}') init
   button(onclick='try{ _exp.kill();                       }catch(z){}') kill
   button(onclick='try{ _exp.kill();_exp.init().restore(); }catch(z){}') init + restore
   br
 
-//./_expander.pug
+///_expander.pug

@@ -1,15 +1,14 @@
 /*jslint  white:false */
-/*global define, window */
+/*global define, window, jQuery */
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var V = '0.1.12';
+  var V = '0.1.13';
   var W = (W && W.window || window);
-  var $ = W.jQuery;
 
   if (!(typeof define === 'function' && define.amd)) {
     console.warn('shim:revealer.js', V);
-    W.Revealer = factory($);
+    W.Revealer = factory(jQuery);
   } else {
     console.info('AMD:revealer.js', V);
     define(['jquery'], factory);
