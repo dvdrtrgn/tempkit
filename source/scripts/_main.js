@@ -32,6 +32,10 @@ define(['jqxtn', 'lodash'], function ($, _) {
   function bind() {
     W.jQuery = $;
 
+    require(['grocer'], function () {
+      console.log('foo in da house');
+    });
+
     require(['modal', 'dialog'], function (Mod, Dia) {
       W._dia = Dia.bind();
     });
