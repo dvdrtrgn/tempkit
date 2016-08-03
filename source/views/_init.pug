@@ -1,0 +1,24 @@
+pre#Init
+  |  function example_init() {
+  |    W._lo = new W.Loader(3e3, /* 3 sec buffer */
+  |      [function () {
+  |        W._mod = W.Modal.init('#pg-54-7 div.modal', {
+  |            force: true
+  |          });
+  |        W._dia = W.Dialog.bind('.external-link');
+  |      }, function () {
+  |        W._exp = new W.Expander(
+  |          '#grid-preview .ex-init',
+  |          '#grid-content .widget:not(:first-child)', {
+  |            align: 'top'
+  |          }
+  |        );
+  |      }, function () {
+  |        W._rev = new W.Revealer(
+  |          '.load_more-button', '#grid-preview .widget', 7
+  |        );
+  |      }]
+  |    );
+  |  }
+
+  //./_init.pug

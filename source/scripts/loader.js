@@ -7,30 +7,9 @@
   var W = (W && W.window || window);
   var $ = W.jQuery;
 
-  function mion_init() {
-    W._lo = new W.Loader(
-      3e3, [function () {
-        W._mod = W.Modal.init('#pg-54-7 div.modal');
-        W._dia = W.Dialog.bind('.external-link');
-      }, function () {
-        W._exp = new W.Expander(
-          '#grid-preview .ex-init',
-          '#grid-content .widget:not(:first-child)', {
-            align: 'top'
-          }
-        );
-      }, function () {
-        W._rev = new W.Revealer(
-          '.load_more-button', '#grid-preview .widget', 7
-        );
-      }]
-    );
-  }
-
   if (!(typeof define === 'function' && define.amd)) {
     console.warn('shim:loader.js', V);
     W.Loader = factory($);
-    return W._dbug || $(W._loader || mion_init);
   } else {
     console.info('AMD:loader.js', V);
     define(['jquery'], factory);

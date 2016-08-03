@@ -8,7 +8,9 @@
     <link href="./fonts/archer.ssm.css" rel="stylesheet" media="all">
     <link href="./fonts/myriad.css" rel="stylesheet" media="all">
     <link href="./fonts/myriad.con.css" rel="stylesheet" media="all">
+
     <link href="./styles/main.css" rel="stylesheet" media="all">
+
     <link href="./styles/expander.css" rel="stylesheet" media="all">
     <link href="./styles/loader.css" rel="stylesheet" media="all">
     <link href="./styles/modal.css" rel="stylesheet" media="all">
@@ -166,6 +168,12 @@
       </div>
     </div>
 
+    <script src="./scripts/dialog.js"></script>
+    <script src="./scripts/expander.js"></script>
+    <script src="./scripts/loader.js"></script>
+    <script src="./scripts/modal.js"></script>
+    <script src="./scripts/revealer.js"></script>
+
     <script>
       var W = (W && W.window || window);
       $.inlineSvgs();
@@ -173,24 +181,17 @@
       $.watchWidth();
       $.watchInputDevice();
 
-      function _loader() {
-        W._lo = new W.Loader(
-          999, [function () {
-            W._mod = W.Modal.init('#pg-54-7 div.modal');
-            W._dia = W.Dialog.bind('.external-link');
-          }, function () {
-            W._exp = new W.Expander();
-          }, function () {
-            W._rev = new W.Revealer('.page .loadmore', '.page .widget', 3);
-          }]
-        );
-      }
+      W._lo = new W.Loader(
+        999, [function () {
+          W._mod = W.Modal.init('#pg-54-7 div.modal');
+          W._dia = W.Dialog.bind('.external-link');
+        }, function () {
+          W._exp = new W.Expander();
+        }, function () {
+          W._rev = new W.Revealer('.page .loadmore', '.page .widget', 3);
+        }]
+      );
     </script>
-    <script src="./scripts/modal.js"></script>
-    <script src="./scripts/dialog.js"></script>
-    <script src="./scripts/expander.js"></script>
-    <script src="./scripts/revealer.js"></script>
-    <script src="./scripts/loader.js"></script>
 
   </body>
 </html>
