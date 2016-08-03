@@ -6,6 +6,9 @@ body {
 }
 ul {
   padding-left: 1em;
+  li a {
+    padding-left: 0.5em;
+  }
 }
 #grid-preview {
   .panel-cell-style > .widget {
@@ -27,6 +30,9 @@ ul {
   margin: 1rem;
   padding: 1rem 2rem;
   vertical-align: top;
+}
+#Init {
+  display: none;
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
