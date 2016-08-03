@@ -1,76 +1,68 @@
 // - + - - + - - + - - + - - + - - + - - + - - + - - + - - + - - + - - + - //
 /* modal.scss */
 
-// scss-lint:disable all
-
 .modal {
-  background-color : rgba(33, 33, 33, 0.9);
-  display          : none;
-  z-index          : 1000;
+  background-color: rgba(33, 33, 33, 0.9);
+  display: none;
+  z-index: 1000;
   /* cover */
-  position         : fixed;
-  left             : 0;
-  top              : 0;
-  width            : 100%;
-  height           : 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
 
   * {
     max-width: 100%;
   }
   &.active {
-    display : block !important;
+    display: block !important;
   }
-  & > div {
-    background-color : white;
-    border-radius    : 3px;
-    box-shadow       : 0 3px 24px -4px black;
-    display          : block;
-    z-index          : 1100;
-    /* center */
-    position         : absolute;
-    margin           : auto;
-    top              : 0;
-    right            : 0;
-    bottom           : 0;
-    left             : 0;
-    width            : 960px;
-    height           : 540px;
-  }
-  & > div a.closer {
-    background-color: #333;
-    border: 2.5px solid #eee;
-    border-radius: 2rem;
-    box-shadow: 1px 2px 3px black;
-    color: #eee;
-    height: 2.5rem;
-    line-height: 0;
+  > div {
+    background-color: white;
+    border-radius: 3px;
+    box-shadow: 0 3px 24px -4px black;
+    display: block;
+    z-index: 1100;
+    /* centify */
     position: absolute;
-    right: -1.25rem;
-    text-decoration: none;
-    top: -1.25rem;
-    width: 2.5rem;
-    z-index: 999999;
-    &:hover {
-      background-color: #ae1e23;
-    }
-    &::before {
-      content: '×';
-      font-size: 1.5rem;
-      font-weight: 600;
-      height: 1.5rem; width: 1.5rem;
-      line-height: 1;
-      margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    width: 960px;
+    height: 540px;
+
+    a.closer {
+      background-color: #333;
+      border: 2.5px solid #eee;
+      border-radius: 2em;
+      box-shadow: 1px 2px 3px black;
+      color: #eee;
+      height: 2.5em;
+      line-height: 0;
       position: absolute;
+      right: -1.25em;
+      text-decoration: none;
+      top: -1.25em;
+      width: 2.5em;
       text-align: center;
-      top: 0; right: 0; bottom: 0; left: 0;
+      z-index: 999999;
+      &:hover {
+        background-color: #ae1e23;
+      }
+      &::before {
+        content: '×';
+        font-size: 1.5em;
+        font-weight: 600;
+        height: 1.5em; width: 1.5em;
+        line-height: 1.5em;
+      }
     }
-  }
-  .logo {
-    height: 55px;
-    width: 55px;
   }
 }
-
+// scss-lint:disable all
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 // Custom
 .modal {
@@ -100,7 +92,7 @@
     margin: 0;
     padding: 2em 0;
     text-align: right;
-    & a {
+    a {
       margin-left: 1.5em;
     }
   }
@@ -109,6 +101,10 @@
     margin: 0 0 2em;
     padding: 2em 0 1em;
     text-align: left;
+    .logo {
+      height: 4em;
+      width: 4em;
+    }
   }
   .dialog .utilitybtn {
     background-color: #5174b8;
