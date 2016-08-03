@@ -3,13 +3,16 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var V = '0.1.3';
+  var V = '0.2.2';
   var W = (W && W.window || window);
   var $ = W.jQuery;
 
   function mion_init() {
     W._lo = new W.Loader(
-      'body', 3e3, [function () {
+      3e3, [function () {
+        W._mod = W.Modal.init('#pg-54-7 div.modal');
+        W._dia = W.Dialog.bind('.external-link');
+      }, function () {
         W._exp = new W.Expander(
           '#grid-preview .ex-init',
           '#grid-content .widget:not(:first-child)', {
@@ -37,18 +40,18 @@
 
   var W = (W && W.window || window);
   var C = (W.C || W.console || {});
-  var Debug = !W._dbug > 0;
+  var Debug = W._dbug > 0;
   var Nom = 'Loader';
 
   // - - - - - - - - - - - - - - - - - -
   // EXTEND
-  $.fn.loader = function (ms, cbs) {
+  $.loader = function (ms, cbs) {
     var api = {
       ms: ms || 1e3,
       cbs: (cbs && cbs.length) ? cbs : [],
     };
     var els = { // use later for defaults
-      me: $(this),
+      me: $('body'),
     };
 
     // - - - - - - - - - - - - - - - - - -
@@ -79,18 +82,18 @@
       _el: Debug ? els : null,
       //
       showing: function () {
-        return els.me.is('.loading');
+        return !els.me.is('.loaded');
       },
       timeout: function (ms) {
         W.setTimeout(api.stop, ms);
         return finish('timeout: ' + ms);
       },
       start: function () {
-        els.me.addClass('loading');
+        els.me.removeClass('loaded').addClass('loading');
         return finish('start');
       },
       stop: function () {
-        els.me.removeClass('loading');
+        els.me.removeClass('loading').addClass('loaded');
         fire();
         return finish('stop');
       },
@@ -112,8 +115,8 @@
   };
 
   // Expose Fake Constructor
-  function Loader(a, b, c) {
-    return $(a || 'body').loader(b, c);
+  function Loader(a, b) {
+    return $.loader(a, b);
   }
   return Loader;
 }));

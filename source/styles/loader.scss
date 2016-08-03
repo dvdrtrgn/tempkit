@@ -1,25 +1,47 @@
 // - + - - + - - + - - + - - + - - + - - + - - + - - + - - + - - + - - + - //
 /* _loader.scss */
 
-body {
-  background: url('../images/stock/loading.gif') 50% 40% no-repeat;
-  &.loading {
-    background: url('../images/stock/loader.gif') 50% 40% no-repeat;
-    background-size: 25%;
-    position: fixed;
-    * {
-      opacity: 0.5;
+html {
+  height: 100%;
+  body {
+    background: url('../images/stock/loading.gif') 50% 40% no-repeat;
+    height: 100%;
+    &.loading {
+      background: url('../images/stock/loader.gif') 50% 40% no-repeat;
+      background-size: 25%;
+      position: fixed;
+      * {
+        opacity: 0.5;
+      }
     }
   }
 }
 
 /* OVERRIDES */
 
-html:not(.debug) {
+html[lang='en-US'] {
+  height: 100%;
   body {
-    background: url('./loading.gif') 50% 40% no-repeat;
-    &.loading {
+    &:not(.loaded) {
       background: url('./loader.gif') 50% 40% no-repeat;
+      background-size: 25%;
+      * {
+        visibility: hidden;
+      }
+    }
+    &.loaded {
+      background: inherit;
+      background-size: inherit;
+    }
+    &.loading {
+      position: initial;
+      * {
+        opacity: initial;
+        visibility: initial;
+      }
+      > * {
+        opacity: 0.2;
+      }
     }
   }
 }

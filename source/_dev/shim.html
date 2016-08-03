@@ -11,12 +11,13 @@
     <link href="./styles/main.css" rel="stylesheet" media="all">
     <link href="./styles/expander.css" rel="stylesheet" media="all">
     <link href="./styles/loader.css" rel="stylesheet" media="all">
+    <link href="./styles/modal.css" rel="stylesheet" media="all">
 
     <script src="./vendors/jquery/jquery.js"></script>
     <script src="./scripts/libs/jq-xtn.js"></script>
 
   </head>
-  <body class="keyboard loading">
+  <body class="loading" id="pg-54-7">
     <div class="page">
       <!--_header.pug-->
       <header>
@@ -29,23 +30,11 @@
         <h1 class="inline">Template</h1>
       </header>
       <!--./_header.pug-->
-      <!--_loader.pug-->
-      <div id="Loader"><strong>Loader</strong>
-        <ul>
-          <li><a href="./styles/loader.css" target="_blank">dev.css</a></li>
-          <li><a href="./scripts/loader.js" target="_blank">dev.js</a></li>
-          <li><a href="./images/stock/loader.gif" target="_blank">spinner</a></li>
-          <li><a href="./images/stock/loading.gif" target="_blank">loading</a></li>
-        </ul>
-      </div>
-      <!--./_test-loader.pug-->
       <!--_expander.pug-->
       <div id="Expander"><strong>Expander</strong>
         <ul>
-          <li><a href="//wellsfargomedia.com/lib/dev/expander.css" target="_blank">live.css</a></li>
-          <li><a href="//wellsfargomedia.com/lib/dev/expander.js" target="_blank"> live.js</a></li>
-          <li><a href="./styles/expander.css" target="_blank">dev.css</a></li>
-          <li><a href="./scripts/expander.js" target="_blank">dev.js</a></li>
+          <li><a href="./styles/expander.css" target="_blank">expander.css</a></li>
+          <li><a href="./scripts/expander.js" target="_blank">expander.js</a></li>
         </ul><span class="right"></span>
         <button onclick="try{ _exp.kill();_exp.init();           }catch(z){}">init</button>
         <button onclick="try{ _exp.kill();                       }catch(z){}">kill</button>
@@ -55,14 +44,42 @@
       <!--_revealer.pug-->
       <div id="Revealer"><strong>Revealer</strong>
         <ul>
-          <li><a href="//wellsfargomedia.com/lib/dev/revealer.js" target="_blank"> live.js</a></li>
-          <li><a href="./scripts/revealer.js" target="_blank">dev.js</a></li>
+          <li><a href="./scripts/revealer.js" target="_blank">revealer.js</a></li>
         </ul>
         <button onclick="try{ _rev.kill();_rev.init().next(1) }catch(z){}">init 1</button>
         <button onclick="try{ _rev.kill();_rev.init().next(2) }catch(z){}">init 2</button>
         <button onclick="try{ _rev.kill();                    }catch(z){}">kill</button><br>
       </div>
       <!--./_test-revealer.pug-->
+      <!--_modal.pug-->
+      <div id="Modal"><strong>Modal</strong>
+        <ul>
+          <li><a href="./styles/modal.css" target="_blank">modal.css</a></li>
+          <li><a href="./scripts/modal.js" target="_blank">modal.js</a></li>
+          <li><a href="./scripts/dialog.js" target="_blank">dialog.js</a></li>
+        </ul>
+        <button class="external-link">test</button><br>
+      </div>
+      <!--./_modal.pug-->
+      <!--_loader.pug-->
+      <div id="Loader"><strong>Loader</strong>
+        <ul>
+          <li><a href="./styles/loader.css" target="_blank">loader.css</a></li>
+          <li><a href="./scripts/loader.js" target="_blank">loader.js</a></li>
+          <li><a href="./images/stock/loader.gif" target="_blank">loader.gif</a></li>
+          <li><a href="./images/stock/loading.gif" target="_blank">loading.gif</a></li>
+        </ul>
+      </div>
+      <!--./_test-loader.pug-->
+      <!--_live.pug-->
+      <div id="Xyz"><strong>Live stuff</strong>
+        <ul>
+          <li>expander<a href="//wellsfargomedia.com/lib/dev/expander.css" target="code">.css</a><a href="//wellsfargomedia.com/lib/dev/expander.js" target="code"> .js</a></li>
+          <li>loader<a href="//wellsfargomedia.com/lib/dev/loader.css" target="code">  .css</a><a href="//wellsfargomedia.com/lib/dev/loader.js" target="code">   .js</a><a href="//wellsfargomedia.com/lib/dev/loader.gif" target="code">  .gif</a><a href="//wellsfargomedia.com/lib/dev/loading.gif" target="code"> /.gif</a></li>
+          <li>revealer<a href="//wellsfargomedia.com/lib/dev/revealer.js" target="code"> .js</a></li>
+        </ul>
+      </div>
+      <!--./_live.pug-->
       <!--_test.pug-->
       <div id="grid-preview">
         <div>
@@ -124,11 +141,29 @@
           </div>
         </div>
       </div>
-      <!--_footer.pug-->
-      <footer>
-        <p>© 2016 Wells Fargo Bank, N.A. All rights reserved. ECG-???????</p>
-      </footer>
-      <!--./_footer.pug-->
+    <!--_footer.pug-->
+    </div>
+    <footer>
+      <p>© 2016 Wells Fargo Bank, N.A. All rights reserved. ECG-???????</p>
+    </footer>
+    <!--./_footer.pug-->
+
+    <div class="modal">
+      <!-- OFFSITE DIALOG -->
+      <div class="dialog">
+        <div class="header"><img class="logo" alt="" src="./images/stock/wf-square.svg"></div>
+        <div class="content">
+          <h2>You are leaving this Wells Fargo website</h2>
+          <p>
+            You are leaving a Wells Fargo site and entering a website that Wells Fargo does not control.
+            Wells Fargo has provided this link for your convenience,
+            but does not endorse and is not responsible for the content,
+            links, privacy policy, or security policy of this website.
+          </p>
+        </div>
+        <div class="footer"><a class="cancel" href="javascript:;">Cancel</a><a class="utilitybtn">Continue</a></div>
+        <!---->
+      </div>
     </div>
 
     <script>
@@ -136,10 +171,14 @@
       $.inlineSvgs();
       $.watchHash();
       $.watchWidth();
+      $.watchInputDevice();
 
       function _loader() {
         W._lo = new W.Loader(
-          'body', 1e3, [function () {
+          999, [function () {
+            W._mod = W.Modal.init('#pg-54-7 div.modal');
+            W._dia = W.Dialog.bind('.external-link');
+          }, function () {
             W._exp = new W.Expander();
           }, function () {
             W._rev = new W.Revealer('.page .loadmore', '.page .widget', 3);
@@ -147,9 +186,11 @@
         );
       }
     </script>
-    <script src="./scripts/loader.js"></script>
+    <script src="./scripts/modal.js"></script>
+    <script src="./scripts/dialog.js"></script>
     <script src="./scripts/expander.js"></script>
     <script src="./scripts/revealer.js"></script>
+    <script src="./scripts/loader.js"></script>
 
   </body>
 </html>
