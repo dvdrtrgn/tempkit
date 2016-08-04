@@ -3,7 +3,7 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var V = '0.1.1';
+  var V = '0.2.0';
   var W = (W && W.window || window);
 
   if (!(typeof define === 'function' && define.amd)) {
@@ -19,10 +19,7 @@
   var W = (W && W.window || window);
   var Nom = 'Grocer';
   var Debug = W._dbug > 0;
-
-  var Host = 'http://demo.wp-api.org/';
-  // 'http://localhost/wordpress';
-  // 'https://blogs.wf.com';
+  var Host = 'http://localhost/wordpress';
 
   function fetch(url, cb) {
     $.ajax(url, {
@@ -85,6 +82,12 @@
   function Grocer(a, b) {
     return goShopping(a, b);
   }
+  $.extend(Grocer, {
+    setHost: function (host) {
+      Host = host;
+      return Grocer;
+    },
+  })
   return Grocer;
 }));
 /*
