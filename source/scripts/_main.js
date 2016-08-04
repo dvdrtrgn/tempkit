@@ -40,7 +40,10 @@ define(['jqxtn', 'lodash'], function ($, _) {
       };
 
       els.pic.attr('src', obj.src);
-      els.link.attr('href', obj.href);
+      els.link.attr({
+        href: obj.href,
+        target: 'blog',
+      });
       els.link.text(obj.title);
       els.blurb.html(obj.para);
     }
@@ -51,7 +54,7 @@ define(['jqxtn', 'lodash'], function ($, _) {
       var index = 0;
 
       $('#Grocs').on('click', function () {
-        grocer('?filter[orderby]=rand&filter[posts_per_page]=2', function (grocs) {
+        grocer('?filter[orderby]=rand&filter[posts_per_page]=4', function (grocs) {
           var cart = carts.eq(index++);
 
           fillCart(cart, grocs);

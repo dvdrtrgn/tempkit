@@ -3,7 +3,7 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var V = '0.0.1';
+  var V = '0.0.2';
   var W = (W && W.window || window);
 
   if (!(typeof define === 'function' && define.amd)) {
@@ -20,7 +20,7 @@
   var Nom = 'Grocer';
   var Debug = W._dbug > 0;
 
-  var Host = 'https://blogs.wf.com';
+  var Host = 'http://localhost/wordpress';// 'https://blogs.wf.com';
 
   function fetch(url, cb) {
     $.ajax(url, {
