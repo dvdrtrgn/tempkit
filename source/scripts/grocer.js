@@ -25,8 +25,8 @@
   function fetch(url, cb) {
     $.ajax(url, {
       type: 'get',
-      datatype: 'json',
-      data: {},
+      datatype: 'jsonp',
+      cache: false,
       error: function (err) {
         console.log('fetch err', err, url);
       },
@@ -59,6 +59,9 @@
 
     dbg('getting grocs...');
     fetchPost(forPost, function (obj) {
+      if ($.isArray(obj)) {
+        obj = obj.pop();
+      }
       basket.href = obj.link;
       basket.para = obj.excerpt.rendered;
       basket.title = obj.title.rendered;
