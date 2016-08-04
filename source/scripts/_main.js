@@ -32,25 +32,6 @@ define(['jqxtn', 'lodash'], function ($, _) {
   function bind() {
     W.jQuery = $;
 
-    function fillCart(ele, obj) {
-      var els = {
-        blurb: ele.find('.entry-content'),
-        link: ele.find('.entry-header .entry-title a'),
-        pic: ele.find('.entry-header .wp-post-image'),
-      };
-
-      els.pic.attr({
-        alt: obj.src,
-        src: obj.src,
-      });
-      els.link.attr({
-        href: obj.href,
-        target: 'blog',
-      });
-      els.link.text(obj.title);
-      els.blurb.html(obj.para);
-    }
-
     require(['grocer'], function (grocer) {
       var store = $('div.external-blog');
       var carts = store.children();
@@ -66,14 +47,14 @@ define(['jqxtn', 'lodash'], function ($, _) {
         grocer.setHost(hosts[0]);
         grocer(filters, function (grocs) {
           var cart = carts.eq(index++ % carts.length);
-          fillCart(cart, grocs);
+          grocer.fillCart(cart, grocs);
         });
       });
       $('#Grocs2').on('click', function () {
         grocer.setHost(hosts[1]);
         grocer(filters, function (grocs) {
           var cart = carts.eq(index++ % carts.length);
-          fillCart(cart, grocs);
+          grocer.fillCart(cart, grocs);
         });
       });
     });

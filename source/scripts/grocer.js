@@ -3,7 +3,7 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var V = '0.2.0';
+  var V = '0.2.1';
   var W = (W && W.window || window);
 
   if (!(typeof define === 'function' && define.amd)) {
@@ -78,6 +78,27 @@
     });
   }
 
+  function fillCart(ele, obj) {
+    var els = {
+      blurb: ele.find('.entry-content'),
+      link: ele.find('.entry-header .entry-title a'),
+      pic: ele.find('.entry-header .wp-post-image'),
+    };
+
+    els.pic.attr({
+      alt: obj.src,
+      src: obj.src,
+    });
+    els.link.attr({
+      href: obj.href,
+      target: 'blog',
+    });
+    els.link.text(obj.title);
+    els.blurb.html(obj.para);
+
+    ele.removeClass('loading');
+  }
+
   // Expose Fake Constructor
   function Grocer(a, b) {
     return goShopping(a, b);
@@ -87,6 +108,7 @@
       Host = host;
       return Grocer;
     },
+    fillCart: fillCart,
   })
   return Grocer;
 }));
