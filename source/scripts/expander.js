@@ -3,7 +3,7 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var V = '0.6.9';
+  var V = '0.7.1';
   var W = (W && W.window || window);
 
   if (!(typeof define === 'function' && define.amd)) {
@@ -89,6 +89,11 @@
     var me = $(this);
     px = undef(px) ? '' : Number(px);
     return me.setHeight(px);
+  };
+  $.fn.killWhitey = function () {
+    var ele = $(this);
+    ele.children().appendTo(ele); // squash spaces
+    return this;
   };
   $.fn.makeTabbable = function () {
     var me = $(this);
@@ -225,17 +230,16 @@
     }
 
     function wrapTargets(i, e) {
-      var ele = $(e),
+      var ele = $(e), // ex-wrap
         div = ele.children(),
         dat = ele.data();
 
       dat[api.key] = i + 1; // remember index
 
-      if (div.length === 1) { // avoid re-wrapping
+      if (div.length === 1) { // skip re-wrapping
       } else {
-        div = $('<div>').append(e.innerHTML);
-        ele.empty().append(div);
-        C.warn(Nom, 'using innerHTML', e);
+        div = ele.find('.ex-init').append(div);
+        C.warn(Nom, 'rewrapping ex-init', e);
       }
 
       div.addClass('ex-target').makeTabbable() //
@@ -290,9 +294,10 @@
         api.inited = true;
         reify(els);
 
-        els.choices.parent() //
-          .addClass('ex-wrap') //
+        els.choices.parent() // whole deal is stupid and fragile
+          .addClass('ex-wrap') // targeting sub-item
           .each(wrapTargets); // todo: ensure parent wrapper
+        els.choices.parent().parent().killWhitey();
 
         els.closer.makeTabbable() //
           .on('click', dismiss) //

@@ -15,8 +15,8 @@ ul {
     display: inline-block;
     background-color: wheat;
     height: 350px;
-    margin: 1%;
-    width: 400px;
+    margin: 0 0.5rem 1rem 0.5rem;
+    width: calc(50% - 1rem);
   }
 }
 #grid-content {
