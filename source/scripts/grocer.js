@@ -3,7 +3,7 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var V = '0.0.2';
+  var V = '0.1.0';
   var W = (W && W.window || window);
 
   if (!(typeof define === 'function' && define.amd)) {
@@ -20,7 +20,9 @@
   var Nom = 'Grocer';
   var Debug = W._dbug > 0;
 
-  var Host = 'http://localhost/wordpress';// 'https://blogs.wf.com';
+  var Host = 'http://demo.wp-api.org/';
+  // 'http://localhost/wordpress';
+  // 'https://blogs.wf.com';
 
   function fetch(url, cb) {
     $.ajax(url, {
@@ -29,6 +31,9 @@
       cache: false,
       error: function (err) {
         console.log('fetch err', err, url);
+        this.success({
+          source_url: 'failed'
+        });
       },
       success: function (obj) {
         if (typeof cb === 'function') {
@@ -49,29 +54,30 @@
   }
 
   function goShopping(forPost, thenDo) {
-    var basket = {};
-
     function dbg() {
       var args = [].slice.call(arguments);
       args = [Nom].concat(args);
       return (Debug ? console.debug.apply(console, args) : '');
     }
 
-    dbg('getting grocs...');
-    fetchPost(forPost, function (obj) {
-      if ($.isArray(obj)) {
-        obj = obj.pop();
-      }
+    function gather(i, obj) {
+      var basket = {};
+
       basket.href = obj.link;
       basket.para = obj.excerpt.rendered;
       basket.title = obj.title.rendered;
-      dbg('post', obj);
 
       fetchPict(obj.featured_media, function (obj) {
         basket.src = obj.source_url;
-        dbg('media', obj);
         thenDo(basket);
+        dbg('post+media', basket);
       });
+    }
+
+    dbg('getting grocs...');
+    fetchPost(forPost, function (arr) {
+      arr = $.isArray(arr) ? arr : [arr]; // enforce array mode
+      $.each(arr, gather);
     });
   }
 
