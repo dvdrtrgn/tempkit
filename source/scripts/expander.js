@@ -3,7 +3,7 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var V = '0.7.0';
+  var V = '0.7.1';
   var W = (W && W.window || window);
 
   if (!(typeof define === 'function' && define.amd)) {
@@ -94,7 +94,7 @@
     var ele = $(this);
     ele.children().appendTo(ele); // squash spaces
     return this;
-  }
+  };
   $.fn.makeTabbable = function () {
     var me = $(this);
     me.attr('tabindex', '0') //
@@ -230,17 +230,16 @@
     }
 
     function wrapTargets(i, e) {
-      var ele = $(e),
+      var ele = $(e), // ex-wrap
         div = ele.children(),
         dat = ele.data();
 
       dat[api.key] = i + 1; // remember index
 
-      if (div.length === 1) { // avoid re-wrapping
+      if (div.length === 1) { // skip re-wrapping
       } else {
-        div = $('<div>').append(e.innerHTML);
-        ele.empty().append(div);
-        C.warn(Nom, 'using innerHTML', e);
+        div = ele.find('.ex-init').append(div);
+        C.warn(Nom, 'rewrapping ex-init', e);
       }
 
       div.addClass('ex-target').makeTabbable() //
