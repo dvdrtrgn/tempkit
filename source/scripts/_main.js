@@ -32,10 +32,29 @@ define(['jqxtn', 'lodash'], function ($, _) {
   function bind() {
     W.jQuery = $;
 
+    function fillCart(ele, obj) {
+      var els = {
+        blurb: ele.find('.entry-content'),
+        link: ele.find('.entry-header .entry-title a'),
+        pic: ele.find('.entry-header .wp-post-image'),
+      };
+
+      els.pic.attr('src', obj.src);
+      els.link.attr('href', obj.href);
+      els.link.text(obj.title);
+      els.blurb.html(obj.para);
+    }
+
     require(['grocer'], function (grocer) {
+      var store = $('div.external-blog');
+      var carts = store.children();
+      var index = 0;
+
       $('#Grocs').on('click', function () {
         grocer(470, function (grocs) {
-          console.info('Here are your groceries:', grocs);
+          var cart = carts.eq(index++);
+
+          fillCart(cart, grocs);
         });
       });
     });

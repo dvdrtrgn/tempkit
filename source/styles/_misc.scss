@@ -22,6 +22,21 @@ ul {
 #grid-content {
   display: none;
 }
+#Blog {
+  article {
+    border: 1px solid pink;
+    padding: 1rem;
+  }
+  header {
+    display: block;
+  }
+  .external-blog {
+    display: flex;
+  }
+  .wp-post-image {
+    width: 100%;
+  }
+}
 
 #Expander, #Grocer, #Loader, #Modal, #Revealer, #Xyz {
   border: 1px solid silver;
