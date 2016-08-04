@@ -3,7 +3,7 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var V = '0.6.9';
+  var V = '0.7.0';
   var W = (W && W.window || window);
 
   if (!(typeof define === 'function' && define.amd)) {
@@ -90,6 +90,11 @@
     px = undef(px) ? '' : Number(px);
     return me.setHeight(px);
   };
+  $.fn.killWhitey = function () {
+    var ele = $(this);
+    ele.children().appendTo(ele); // squash spaces
+    return this;
+  }
   $.fn.makeTabbable = function () {
     var me = $(this);
     me.attr('tabindex', '0') //
@@ -290,9 +295,10 @@
         api.inited = true;
         reify(els);
 
-        els.choices.parent() //
-          .addClass('ex-wrap') //
+        els.choices.parent() // whole deal is stupid and fragile
+          .addClass('ex-wrap') // targeting sub-item
           .each(wrapTargets); // todo: ensure parent wrapper
+        els.choices.parent().parent().killWhitey();
 
         els.closer.makeTabbable() //
           .on('click', dismiss) //
