@@ -3,7 +3,7 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var V = '0.2.1';
+  var V = '0.2.2';
   var W = (W && W.window || window);
 
   if (!(typeof define === 'function' && define.amd)) {

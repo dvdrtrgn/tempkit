@@ -38,13 +38,14 @@ define(['jqxtn', 'lodash'], function ($, _) {
       var index = 0;
       var filters = '?filter[orderby]=rand&filter[posts_per_page]=4';
       var hosts = [
-        'http://demo.wp-api.org/',
         'http://localhost/wordpress',
+        'http://demo.wp-api.org/',
         'https://blogs.wf.com',
       ];
 
       $('#Grocs1').on('click', function () {
         grocer.setHost(hosts[0]);
+        carts.addClass('loading');
         grocer(filters, function (grocs) {
           var cart = carts.eq(index++ % carts.length);
           grocer.fillCart(cart, grocs);
@@ -52,6 +53,7 @@ define(['jqxtn', 'lodash'], function ($, _) {
       });
       $('#Grocs2').on('click', function () {
         grocer.setHost(hosts[1]);
+        carts.addClass('loading');
         grocer(filters, function (grocs) {
           var cart = carts.eq(index++ % carts.length);
           grocer.fillCart(cart, grocs);
