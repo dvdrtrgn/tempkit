@@ -39,7 +39,10 @@ define(['jqxtn', 'lodash'], function ($, _) {
         pic: ele.find('.entry-header .wp-post-image'),
       };
 
-      els.pic.attr('src', obj.src);
+      els.pic.attr({
+        alt: obj.src,
+        src: obj.src,
+      });
       els.link.attr({
         href: obj.href,
         target: 'blog',
@@ -53,10 +56,9 @@ define(['jqxtn', 'lodash'], function ($, _) {
       var carts = store.children();
       var index = 0;
 
-      $('#Grocs').on('click', function () {
+      $('#Grocs1').on('click', function () {
         grocer('?filter[orderby]=rand&filter[posts_per_page]=4', function (grocs) {
           var cart = carts.eq(index++ % carts.length);
-
           fillCart(cart, grocs);
         });
       });
