@@ -55,7 +55,7 @@ define(['jqxtn', 'lodash'], function ($, _) {
 
       $('#Grocs').on('click', function () {
         grocer('?filter[orderby]=rand&filter[posts_per_page]=4', function (grocs) {
-          var cart = carts.eq(index++);
+          var cart = carts.eq(index++ % carts.length);
 
           fillCart(cart, grocs);
         });
