@@ -3,7 +3,7 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var V = '0.2.3';
+  var V = '0.2.4';
   var W = (W && W.window || window);
 
   if (!(typeof define === 'function' && define.amd)) {
@@ -88,6 +88,8 @@
     els.pic.attr({
       alt: obj.src,
       src: obj.src,
+    }).on('load', function () {
+      ele.removeClass('loading');
     });
     els.link.attr({
       href: obj.href,
@@ -95,8 +97,6 @@
     });
     els.link.html(obj.title);
     els.blurb.html(obj.para);
-
-    ele.removeClass('loading');
   }
 
   // Expose Fake Constructor

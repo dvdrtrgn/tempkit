@@ -13,7 +13,8 @@ html {
   }
   .loading {
     background: url('../images/stock/loading.gif') 50% 40% no-repeat;
-    * {
+    background-size: 100px;
+    &, * {
       opacity: 0.5;
     }
   }
