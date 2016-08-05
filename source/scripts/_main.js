@@ -38,8 +38,9 @@ define(['jqxtn', 'lodash'], function ($, _) {
       var index = 0;
       var filters = '?filter[orderby]=rand&filter[posts_per_page]=4';
       var hosts = [
+        'http://rmion.com',
+        'http://demo.wp-api.org',
         'http://localhost/wordpress',
-        'http://demo.wp-api.org/',
         'https://blogs.wf.com',
       ];
 
