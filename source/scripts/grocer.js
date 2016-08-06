@@ -21,7 +21,7 @@
   var Debug = W._dbug > 0;
   var Host = 'http://localhost/wordpress';
 
-  function fetch(url, cb) {
+  function fetch(url, process) {
     $.ajax(url, {
       type: 'get',
       datatype: 'jsonp',
@@ -32,25 +32,25 @@
           source_url: 'failed'
         });
       },
-      success: function (obj) {
-        if (typeof cb === 'function') {
-          cb(obj);
+      success: function (data) {
+        if (typeof process === 'function') {
+          process(data);
         } else {
-          console.log(url, obj);
+          console.log(url, data);
         }
       },
     });
   }
 
-  function fetchPost(num, cb) {
-    fetch(Host + '/wp-json/wp/v2/posts/' + num, cb);
+  function fetchPosts(filter, cb) {
+    fetch(Host + '/wp-json/wp/v2/posts/' + filter, cb);
   }
 
-  function fetchPict(num, cb) {
+  function fetchMedia(num, cb) {
     fetch(Host + '/wp-json/wp/v2/media/' + num, cb);
   }
 
-  function goShopping(forPost, thenDo) {
+  function goShopping(filter, thenDo) {
     function dbg() {
       var args = [].slice.call(arguments);
       args = [Nom].concat(args);
@@ -64,7 +64,7 @@
       basket.para = obj.excerpt.rendered;
       basket.title = obj.title.rendered;
 
-      fetchPict(obj.featured_media, function (obj) {
+      fetchMedia(obj.featured_media, function (obj) {
         basket.src = obj.source_url;
         thenDo(basket);
         dbg('post+media', basket);
@@ -72,7 +72,7 @@
     }
 
     dbg('getting grocs...');
-    fetchPost(forPost, function (arr) {
+    fetchPosts(filter, function (arr) {
       arr = $.isArray(arr) ? arr : [arr]; // enforce array mode
       $.each(arr, gather);
     });
