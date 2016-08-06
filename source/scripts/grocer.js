@@ -3,7 +3,7 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var V = '0.2.4';
+  var V = '0.3.0';
   var W = (W && W.window || window);
 
   if (!(typeof define === 'function' && define.amd)) {
@@ -50,23 +50,23 @@
     fetch(Host + '/wp-json/wp/v2/media/' + num, cb);
   }
 
-  function goShopping(filter, thenDo) {
-    function dbg() {
-      var args = [].slice.call(arguments);
-      args = [Nom].concat(args);
-      return (Debug ? console.debug.apply(console, args) : '');
-    }
+  function goShopping(filter, usePost) {
+    var dbg = function () {
+      dbg.args = [].slice.call(arguments);
+      dbg.args = [Nom].concat(dbg.args);
+      return (Debug ? console.debug.apply(console, dbg.args) : '');
+    };
 
-    function gather(i, obj) {
-      var basket = {};
-
-      basket.href = obj.link;
-      basket.para = obj.excerpt.rendered;
-      basket.title = obj.title.rendered;
-
+    function procPost(i, obj) {
+      var basket = {
+        href: obj.link,
+        para: obj.excerpt.rendered,
+        title: obj.title.rendered,
+        src: null,
+      };
       fetchMedia(obj.featured_media, function (obj) {
         basket.src = obj.source_url;
-        thenDo(basket);
+        usePost(basket);
         dbg('post+media', basket);
       });
     }
@@ -74,11 +74,11 @@
     dbg('getting grocs...');
     fetchPosts(filter, function (arr) {
       arr = $.isArray(arr) ? arr : [arr]; // enforce array mode
-      $.each(arr, gather);
+      $.each(arr, procPost); // each post gets an image sub-request
     });
   }
 
-  function fillCart(ele, obj) {
+  function checkout(ele, obj) {
     var els = {
       blurb: ele.find('.entry-content'),
       link: ele.find('.entry-header .entry-title a'),
@@ -99,16 +99,27 @@
     els.blurb.html(obj.para);
   }
 
+  function fillerUp(filters, bags) {
+    var index = 0;
+
+    bags.addClass('loading');
+    goShopping(filters, function (grocs) {
+      checkout(bags.eq(index++), grocs);
+    });
+  }
+
+  function setHost(host) {
+    Host = (host || 'http://localhost/wordpress');
+  }
+
   // Expose Fake Constructor
-  function Grocer(a, b) {
-    return goShopping(a, b);
+  function Grocer(host) {
+    setHost(host);
+    return Grocer;
   }
   $.extend(Grocer, {
-    setHost: function (host) {
-      Host = host;
-      return Grocer;
-    },
-    fillCart: fillCart,
+    fillerUp: fillerUp,
+    goShopping: goShopping,
   });
   return Grocer;
 }));
