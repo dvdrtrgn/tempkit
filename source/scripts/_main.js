@@ -67,7 +67,7 @@ define(['jqxtn', 'lodash'], function ($, _) {
     });
 
     require(['revealer'], function (revealer) {
-      W._rev = revealer('.page .loadmore', '.page .widget', 3);
+      W._rev = revealer('.page .loadmore', '.page .widget', 2).inc(3);
     });
 
   }

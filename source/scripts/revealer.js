@@ -6,7 +6,7 @@
  */
 (function (factory) {
   'use strict';
-  var V = '0.1.14';
+  var V = '0.1.15';
   var W = (W && W.window || window);
 
   if (!(typeof define === 'function' && define.amd)) {
@@ -112,7 +112,8 @@
         return finish('refresh');
       },
       next: function (num) {
-        reveal(revealed, revealed + api.inc(num));
+        api.inc(num);
+        reveal(revealed, revealed + api.inc());
         return finish('next');
       },
       kill: function () {

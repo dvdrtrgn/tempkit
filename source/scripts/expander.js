@@ -6,7 +6,7 @@
  */
 (function (factory) {
   'use strict';
-  var V = '0.7.1';
+  var V = '0.7.2';
   var W = (W && W.window || window);
 
   if (!(typeof define === 'function' && define.amd)) {
@@ -167,7 +167,7 @@
       if (cf.align === 'top') {
         scrollVal -= 100; // buffer top by a couple fingers
       } else {
-        scrollVal += (revealH + 10); // lift 10px
+        scrollVal += (revealH + 50); // buffer bottom
         scrollVal -= $(W).height();
       }
       els.scrolls.animate({
