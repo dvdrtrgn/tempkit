@@ -1,9 +1,12 @@
-/*jslint  white:false */
+/*jslint white:false */
 /*global define, window, jQuery */
-/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ rev. 2016-08 dvdrtrgn
+ USE: multi use / jq.fn button handler to portion from element collection
+ */
 (function (factory) {
   'use strict';
-  var V = '0.1.13';
+  var V = '0.1.14';
   var W = (W && W.window || window);
 
   if (!(typeof define === 'function' && define.amd)) {
@@ -22,12 +25,14 @@
   var Nom = 'Revealer';
   var Speed = 333;
 
-  function reify(obj) { // reify v3 : replace vals(selectors) with elements
+  // reify v3.1 :
+  function reify(obj) {
+    // replace each prop: (selector >>> query)
     return $.each(obj, function (i, sel) {
       if (typeof sel === 'object') {
-        sel = sel.selector;
+        sel = sel.selector; // refresh original query expando
       }
-      (obj[i] = $(sel)).selector = sel;
+      (obj[i] = $(sel)).selector = sel; // brittle?
     });
   }
 
@@ -150,5 +155,6 @@
   todo: dvdrtrgn
     preserve initial visibility
       els.them.not(sel).show(); // release those no longer selected
+    maybe brittle using reify depends on selector expando
 
  */

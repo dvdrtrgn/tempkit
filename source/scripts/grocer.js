@@ -1,9 +1,12 @@
-/*jslint  white:false */
+/*jslint white:false */
 /*global define, window, jQuery */
-/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ rev. 2016-08 dvdrtrgn
+ USE: immediate use / command object load page of wp post json
+ */
 (function (factory) {
   'use strict';
-  var V = '0.3.0';
+  var V = '0.3.1';
   var W = (W && W.window || window);
 
   if (!(typeof define === 'function' && define.amd)) {
@@ -117,11 +120,12 @@
     setHost(host);
     return Grocer;
   }
-  $.extend(Grocer, {
+
+  return $.extend(Grocer, {
     fillerUp: fillerUp,
     goShopping: goShopping,
   });
-  return Grocer;
+
 }));
 /*
 

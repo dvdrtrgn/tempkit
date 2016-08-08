@@ -1,11 +1,14 @@
-/*jslint  white:false */
+/*jslint white:false */
 /*global define, window */
-/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ rev. 2016-08 dvdrtrgn
+ USE: bootstrap
+ */
 define(['jqxtn', 'lodash'], function ($, _) {
   'use strict';
 
-  var W = (W && W.window || window),
-    C = (W.C || W.console || {});
+  var W = (W && W.window || window);
+  var C = (W.C || W.console || {});
 
   $.inlineSvgs();
   $.watchHash();

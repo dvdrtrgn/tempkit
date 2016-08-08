@@ -1,6 +1,9 @@
-/*jslint  white:false */
+/*jslint white:false */
 /*global define, window, jQuery */
-/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ rev. 2016-08 dvdrtrgn
+ USE: multi use / jq method marries preview grid to full content
+ */
 (function (factory) {
   'use strict';
   var V = '0.7.1';

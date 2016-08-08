@@ -1,4 +1,4 @@
-/*jslint  white:false */
+/*jslint white:false */
 /*global define, window, jQuery, Stow */
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
