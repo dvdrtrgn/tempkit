@@ -6,7 +6,7 @@
  */
 (function (factory) {
   'use strict';
-  var V = '0.3.2';
+  var V = '0.3.3';
   var W = (W && W.window || window);
 
   if (!(typeof define === 'function' && define.amd)) {
@@ -93,8 +93,9 @@
     };
 
     els.pic.attr({
-      alt: obj.src,
+      alt: Debug ? obj.src : '',
       src: obj.src,
+      srcset: '',
     }).on('load', function () {
       ele.removeClass('loading');
     });
@@ -116,19 +117,6 @@
     return Grocer;
   }
 
-  function test(num) {
-    var store = $('div.external-blog').children();
-    var filters = '?filter[orderby]=rand&filter[posts_per_page]=4';
-    var hosts = [
-      'http://rmion.com',
-      'http://demo.wp-api.org',
-      'https://blogs.wf.com',
-      'https://blogswf.staging.wpengine.com'
-    ];
-
-    return (new Grocer(hosts[num]).fillerUp(filters, store));
-  }
-
   // Expose Fake Constructor
   function Grocer(host) {
     setHost(host);
@@ -138,7 +126,18 @@
   return $.extend(Grocer, {
     fillerUp: fillerUp,
     goShopping: goShopping,
-    test: test,
+    test: function (num) {
+      var store = $('div.external-blog').children();
+      var filters = '?filter[orderby]=rand&filter[posts_per_page]=4';
+      var hosts = [
+        'http://rmion.com',
+        'http://demo.wp-api.org',
+        'https://blogs.wf.com',
+        'https://blogswf.staging.wpengine.com'
+      ];
+
+      return (new Grocer(hosts[num]).fillerUp(filters, store));
+    },
   });
 
 }));
