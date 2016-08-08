@@ -32,20 +32,38 @@ define(['jqxtn', 'lodash'], function ($, _) {
   function bind() {
     W.jQuery = $;
 
-    require(['modal', 'dialog'], function (Mod, Dia) {
-      W._dia = Dia.bind();
+    require(['grocer'], function (grocer) {
+      var store = $('div.external-blog');
+      var filters = '?filter[orderby]=rand&filter[posts_per_page]=4';
+      var hosts = [
+        'http://rmion.com',
+        'http://demo.wp-api.org',
+        'https://blogs.wf.com',
+      ];
+
+      $('#Grocs1').on('click', function () {
+        grocer(hosts[0]).fillerUp(filters, store.children());
+      });
+
+      $('#Grocs2').on('click', function () {
+        grocer(hosts[1]).fillerUp(filters, store.children());
+      });
     });
 
-    require(['loader'], function (Lo) {
-      W._lo = new Lo();
+    require(['modal', 'dialog'], function (mod, dialog) {
+      W._dia = dialog.bind();
     });
 
-    require(['expander'], function (Exp) {
-      W._exp = new Exp();
+    require(['loader'], function (loader) {
+      W._lo = loader();
     });
 
-    require(['revealer'], function (Rev) {
-      W._rev = new Rev('.page .loadmore', '.page .widget', 3);
+    require(['expander'], function (expander) {
+      W._exp = expander();
+    });
+
+    require(['revealer'], function (revealer) {
+      W._rev = revealer('.page .loadmore', '.page .widget', 3);
     });
 
   }
