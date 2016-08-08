@@ -42,6 +42,7 @@ define(['jqxtn', 'lodash'], function ($, _) {
         'http://rmion.com',
         'http://demo.wp-api.org',
         'https://blogs.wf.com',
+        'https://blogswf.staging.wpengine.com'
       ];
 
       $('#Grocs1').on('click', function () {
@@ -49,7 +50,7 @@ define(['jqxtn', 'lodash'], function ($, _) {
       });
 
       $('#Grocs2').on('click', function () {
-        grocer(hosts[1]).fillerUp(filters, store.children());
+        grocer(hosts[3]).fillerUp(filters, store.children());
       });
     });
 
