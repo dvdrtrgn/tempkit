@@ -4,7 +4,7 @@
     li
       a(href='./scripts/grocer.js' target='_blank') grocer.js
 
-  button#Grocs1 test1
-  button#Grocs2 test2
+  button(onclick='try{ _groc.test(0) }catch(z){}')   test1
+  button(onclick='try{ _groc.test(3) }catch(z){}')   test2
 
 ///_grocer.pug

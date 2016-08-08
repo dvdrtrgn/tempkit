@@ -6,7 +6,7 @@
  */
 (function (factory) {
   'use strict';
-  var V = '0.3.1';
+  var V = '0.3.2';
   var W = (W && W.window || window);
 
   if (!(typeof define === 'function' && define.amd)) {
@@ -51,6 +51,10 @@
 
   function fetchMedia(num, cb) {
     fetch(Host + '/wp-json/wp/v2/media/' + num, cb);
+  }
+
+  function setHost(host) {
+    Host = (host || 'http://localhost/wordpress');
   }
 
   function goShopping(filter, usePost) {
@@ -109,10 +113,20 @@
     goShopping(filters, function (grocs) {
       checkout(bags.eq(index++), grocs);
     });
+    return Grocer;
   }
 
-  function setHost(host) {
-    Host = (host || 'http://localhost/wordpress');
+  function test(num) {
+    var store = $('div.external-blog').children();
+    var filters = '?filter[orderby]=rand&filter[posts_per_page]=4';
+    var hosts = [
+      'http://rmion.com',
+      'http://demo.wp-api.org',
+      'https://blogs.wf.com',
+      'https://blogswf.staging.wpengine.com'
+    ];
+
+    return (new Grocer(hosts[num]).fillerUp(filters, store));
   }
 
   // Expose Fake Constructor
@@ -124,6 +138,7 @@
   return $.extend(Grocer, {
     fillerUp: fillerUp,
     goShopping: goShopping,
+    test: test,
   });
 
 }));

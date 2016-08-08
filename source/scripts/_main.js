@@ -36,22 +36,7 @@ define(['jqxtn', 'lodash'], function ($, _) {
     W.jQuery = $;
 
     require(['grocer'], function (grocer) {
-      var store = $('div.external-blog');
-      var filters = '?filter[orderby]=rand&filter[posts_per_page]=4';
-      var hosts = [
-        'http://rmion.com',
-        'http://demo.wp-api.org',
-        'https://blogs.wf.com',
-        'https://blogswf.staging.wpengine.com'
-      ];
-
-      $('#Grocs1').on('click', function () {
-        grocer(hosts[0]).fillerUp(filters, store.children());
-      });
-
-      $('#Grocs2').on('click', function () {
-        grocer(hosts[3]).fillerUp(filters, store.children());
-      });
+      W._groc = grocer();
     });
 
     require(['modal', 'dialog'], function (mod, dialog) {
