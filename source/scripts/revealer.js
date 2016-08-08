@@ -6,7 +6,7 @@
  */
 (function (factory) {
   'use strict';
-  var V = '0.1.15';
+  var V = '0.1.16';
   var W = (W && W.window || window);
 
   if (!(typeof define === 'function' && define.amd)) {
@@ -75,7 +75,8 @@
       //--Xsrs
       inc: function (num) {
         if (num) {
-          return (api._inc = num);
+          api._inc = num;
+          return api;
         } else {
           return api._inc;
         }
