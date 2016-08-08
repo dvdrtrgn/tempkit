@@ -20,9 +20,11 @@
   'use strict';
 
   var W = (W && W.window || window);
+  var C = (W.C || W.console || {});
   var Nom = 'Grocer';
   var Debug = W._dbug > 0;
   var Host = 'http://localhost/wordpress';
+  var Grocer;
 
   function fetch(url, process) {
     $.ajax(url, {
@@ -126,10 +128,10 @@
   }
 
   // Expose Fake Constructor
-  function Grocer(host) {
+  Grocer = function (host) {
     setHost(host);
     return Grocer;
-  }
+  };
 
   return $.extend(Grocer, {
     fillerUp: fillerUp,
