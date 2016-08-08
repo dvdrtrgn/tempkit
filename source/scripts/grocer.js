@@ -6,7 +6,7 @@
  */
 (function (factory) {
   'use strict';
-  var V = '0.3.3';
+  var V = '0.3.4';
   var W = (W && W.window || window);
 
   if (!(typeof define === 'function' && define.amd)) {
@@ -64,17 +64,25 @@
       return (Debug ? console.debug.apply(console, dbg.args) : '');
     };
 
-    function procPost(i, obj) {
+    function procPost(i, obj1) {
+      if (obj1.source_url === 'failed') {
+        C.error(Nom, 'no posts');
+        return;
+      }
       var basket = {
-        href: obj.link,
-        para: obj.excerpt.rendered,
-        title: obj.title.rendered,
+        href: obj1.link,
+        para: obj1.excerpt.rendered,
+        title: obj1.title.rendered,
         src: null,
       };
-      fetchMedia(obj.featured_media, function (obj) {
-        basket.src = obj.source_url;
+      fetchMedia(obj1.featured_media, function (obj2) {
+        if (obj2.source_url === 'failed') {
+          basket.src = 'data:image/gif;base64,R0lGODlhBwABAIAAAAAAAAAAACH5BAEAAAAALAAAAAAHAAEAAAIDhA8FADs=';
+        } else {
+          basket.src = obj2.media_details.sizes.medium.source_url;
+        }
         usePost(basket);
-        dbg('post+media', basket);
+        dbg('post+media', basket, obj1, obj2);
       });
     }
 
