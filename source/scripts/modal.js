@@ -6,7 +6,7 @@
  */
 (function (factory) {
   'use strict';
-  var V = '0.1.2';
+  var V = '0.1.3';
   var W = (W && W.window || window);
 
   if (!(typeof define === 'function' && define.amd)) {
@@ -20,11 +20,11 @@
   'use strict';
 
   var Nom = 'Modal';
-  var W = (W && W.window || window),
-    C = (W.C || W.console || {});
+  var W = (W && W.window || window);
+  var C = (W.C || W.console || {});
   var Df, El, self;
   var Act = 'keypress click';
-  var cleanup = $.Callbacks();
+  var Cleaners = $.Callbacks();
 
   function db(num) {
     return W.debug > (num || 1);
@@ -81,7 +81,7 @@
       } else if (data.source.data(Nom)) { // reject
         throw new Error(Nom + ' already');
       }
-      cleanup.add(cleaner);
+      Cleaners.add(cleaner);
       data.target.addCloser();
       /// map selectors to trigger show and callback
       data.source.on(Act, function (evt) {
@@ -120,7 +120,7 @@
     hide: function () {
       /// deactivate container and do whatever cleaning
       El.modal.removeClass('active');
-      cleanup.fire();
+      Cleaners.fire();
       try {
         Df.trigger.focus(); // restore focus
       } catch (err) {

@@ -1,11 +1,14 @@
-/*jslint  white:false */
+/*jslint white:false */
 /*global define, window */
-/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ rev. 2016-08 dvdrtrgn
+ USE: bootstrap
+ */
 define(['jqxtn', 'lodash'], function ($, _) {
   'use strict';
 
-  var W = (W && W.window || window),
-    C = (W.C || W.console || {});
+  var W = (W && W.window || window);
+  var C = (W.C || W.console || {});
 
   $.inlineSvgs();
   $.watchHash();
@@ -33,21 +36,7 @@ define(['jqxtn', 'lodash'], function ($, _) {
     W.jQuery = $;
 
     require(['grocer'], function (grocer) {
-      var store = $('div.external-blog');
-      var filters = '?filter[orderby]=rand&filter[posts_per_page]=4';
-      var hosts = [
-        'http://rmion.com',
-        'http://demo.wp-api.org',
-        'https://blogs.wf.com',
-      ];
-
-      $('#Grocs1').on('click', function () {
-        grocer(hosts[0]).fillerUp(filters, store.children());
-      });
-
-      $('#Grocs2').on('click', function () {
-        grocer(hosts[1]).fillerUp(filters, store.children());
-      });
+      W._groc = grocer();
     });
 
     require(['modal', 'dialog'], function (mod, dialog) {
@@ -63,7 +52,7 @@ define(['jqxtn', 'lodash'], function ($, _) {
     });
 
     require(['revealer'], function (revealer) {
-      W._rev = revealer('.page .loadmore', '.page .widget', 3);
+      W._rev = revealer('.page .loadmore', '.page .widget', 2).inc(3);
     });
 
   }

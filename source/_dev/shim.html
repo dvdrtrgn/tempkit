@@ -24,12 +24,12 @@
       <!--_header.pug-->
       <header>
         <div><img class="svg logo" alt="Wells Fargo" style="margin-right: 2rem; height: 5rem; width: 5rem" src="./images/stock/wf-square.svg">
-          <h1 class="inline">Template | Spring 2016</h1>
+          <h1 class="inline">Tempkit &nbsp;|&nbsp; Summer 2016</h1>
         </div>
       </header>
       <header class="mobile">
         <div><img class="logo svg" alt="Wells Fargo" style="color: #FCC60A; height: 1.5rem" src="./images/stock/wf-oneline.svg"></div>
-        <h1 class="inline">Template</h1>
+        <h1 class="inline">Tempkit</h1>
       </header>
       <!--/_header.pug-->
       <!--_expander.pug-->
@@ -43,6 +43,15 @@
         <button onclick="try{ _exp.kill();_exp.init().restore(); }catch(z){}">init + restore</button><br>
       </div>
       <!--/_expander.pug-->
+      <!--_grocer.pug-->
+      <div id="Grocer"><strong>Grocer</strong>
+        <ul>
+          <li><a href="./scripts/grocer.js" target="_blank">grocer.js</a></li>
+        </ul>
+        <button onclick="try{ _groc.test(0) }catch(z){}">  test1</button>
+        <button onclick="try{ _groc.test(3) }catch(z){}">  test2</button>
+      </div>
+      <!--/_grocer.pug-->
       <!--_revealer.pug-->
       <div id="Revealer"><strong>Revealer</strong>
         <ul>
@@ -77,6 +86,7 @@
       <div id="Xyz"><strong>Live stuff</strong>
         <ul>
           <li>expander<a href="//wellsfargomedia.com/lib/dev/expander.css" target="code">.css</a><a href="//wellsfargomedia.com/lib/dev/expander.js" target="code"> .js</a></li>
+          <li>grocer<a href="//wellsfargomedia.com/lib/dev/grocer.js" target="code">   .js</a></li>
           <li>revealer<a href="//wellsfargomedia.com/lib/dev/revealer.js" target="code"> .js</a></li>
           <li>interstitial<a href="//wellsfargomedia.com/lib/dev/modal.css" target="code">   .css</a><a href="//wellsfargomedia.com/lib/dev/modal.js" target="code">    .js1</a><a href="//wellsfargomedia.com/lib/dev/dialog.js" target="code">   .js2</a></li>
           <li>loader<a href="//wellsfargomedia.com/lib/dev/loader.css" target="code">  .css</a><a href="//wellsfargomedia.com/lib/dev/loader.js" target="code">   .js</a><a href="//wellsfargomedia.com/lib/dev/loader.gif" target="code">  .gif1</a><a href="//wellsfargomedia.com/lib/dev/loading.gif" target="code"> .gif2</a></li>
@@ -87,21 +97,26 @@
       <!--_init.pug-->
       <pre id="Init">
  function example_init() {
-   W._lo = new W.Loader(3e3, /* 3 sec buffer */
+   W._lo = W.Loader(3e3, /* 3 sec buffer */
      [function () {
+       var els = $('div.external-blog').children();
+       var host = 'https://blogs.wf.com';
+       var filters = '?filter[orderby]=rand&amp;filter[posts_per_page]=4';
+       W._groc = W.Grocer(host).fillerUp(filters, els);
+     }, function () {
        W._mod = W.Modal.init('#pg-54-7 div.modal', {
            force: true
          });
        W._dia = W.Dialog.bind('.external-link');
      }, function () {
-       W._exp = new W.Expander(
+       W._exp = W.Expander(
          '#grid-preview .ex-init',
          '#grid-content .widget:not(:first-child)', {
            align: 'top'
          }
        );
      }, function () {
-       W._rev = new W.Revealer(
+       W._rev = W.Revealer(
          '.load_more-button', '#grid-preview .widget', 7
        );
      }]
@@ -109,13 +124,51 @@
  }
  </pre>
       <!--/_init.pug-->
+      <!--_blog.pug-->
+      <div id="Blog">
+        <div class="external-blog">
+          <article id="post-18">
+            <header class="entry-header"><img class="wp-post-image">
+              <div class="wrapper">
+                <h2 class="entry-title"><a></a></h2>
+              </div>
+            </header>
+            <div class="entry-content"></div>
+          </article>
+          <article id="post-17">
+            <header class="entry-header"><img class="wp-post-image">
+              <div class="wrapper">
+                <h2 class="entry-title"><a></a></h2>
+              </div>
+            </header>
+            <div class="entry-content"></div>
+          </article>
+          <article id="post-16">
+            <header class="entry-header"><img class="wp-post-image">
+              <div class="wrapper">
+                <h2 class="entry-title"><a></a></h2>
+              </div>
+            </header>
+            <div class="entry-content"></div>
+          </article>
+          <article id="post-15">
+            <header class="entry-header"><img class="wp-post-image">
+              <div class="wrapper">
+                <h2 class="entry-title"><a></a></h2>
+              </div>
+            </header>
+            <div class="entry-content"></div>
+          </article>
+        </div>
+      </div>
+      <!--/_blog.pug-->
       <!--_test.pug-->
       <div id="grid-preview">
         <div>
           <div>
             <div class="panel-cell-style">
               <div class="widget">
-                <div class="ex-init">a</div>
+                <div>a</div>
               </div>
               <div class="widget">
                 <div class="ex-init">b</div>
@@ -126,15 +179,15 @@
               <div class="widget">
                 <div class="ex-init">d</div>
               </div>
-              <div class="widget" style="width: 800px">
+              <div class="widget" style="width: 100%">
                 <div>dd</div>
               </div>
               <div class="widget">
                 <div class="ex-init">e</div>
+                <p>force use of re-wrap</p>
               </div>
               <div class="widget">
                 <div class="ex-init">e</div>
-                <p>force use of innerHTML</p>
               </div>
             </div>
           </div>
@@ -197,6 +250,7 @@
     </div>
 
     <script src="./scripts/expander.js"></script>
+    <script src="./scripts/grocer.js"></script>
     <script src="./scripts/loader.js"></script>
     <script src="./scripts/revealer.js"></script>
 
@@ -210,14 +264,19 @@
       $.watchWidth();
       $.watchInputDevice();
 
-      W._lo = new W.Loader(
+      W._lo = W.Loader(
         999, [function () {
+          var els = $('div.external-blog').children();
+          var host = 'https://blogswf.staging.wpengine.com';
+          var filters = '?filter[orderby]=rand&amp;filter[posts_per_page]=4';
+          W._groc = W.Grocer(host).fillerUp(filters, els);
+        }, function () {
           W._mod = W.Modal.init('#pg-54-7 div.modal');
           W._dia = W.Dialog.bind('.external-link');
         }, function () {
-          W._exp = new W.Expander();
+          W._exp = W.Expander();
         }, function () {
-          W._rev = new W.Revealer('.page .loadmore', '.page .widget', 3);
+          W._rev = W.Revealer('.page .loadmore', '.page .widget', 2).inc(3);
         }]
       );
     </script>
