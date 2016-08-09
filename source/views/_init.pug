@@ -1,0 +1,31 @@
+pre#Init
+  | 
+  |  function example_init() {
+  |    W._lo = W.Loader(3e3, /* 3 sec buffer */
+  |      [function () {
+  |        var els = $('div.external-blog').children();
+  |        var host = 'https://blogs.wf.com';
+  |        var filters = '?filter[orderby]=rand&amp;filter[posts_per_page]=4';
+  |        W._groc = W.Grocer(host).fillerUp(filters, els);
+  |      }, function () {
+  |        W._mod = W.Modal.init('#pg-54-7 div.modal', {
+  |            force: true
+  |          });
+  |        W._dia = W.Dialog.bind('.external-link');
+  |      }, function () {
+  |        W._exp = W.Expander(
+  |          '#grid-preview .ex-init',
+  |          '#grid-content .widget:not(:first-child)', {
+  |            align: 'top'
+  |          }
+  |        );
+  |      }, function () {
+  |        W._rev = W.Revealer(
+  |          '.load_more-button', '#grid-preview .widget', 7
+  |        );
+  |      }]
+  |    );
+  |  }
+  | 
+
+///_init.pug

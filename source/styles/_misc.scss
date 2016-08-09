@@ -6,27 +6,55 @@ body {
 }
 ul {
   padding-left: 1em;
+  li a {
+    padding-left: 0.5em;
+  }
 }
 #grid-preview {
   .panel-cell-style > .widget {
     display: inline-block;
     background-color: wheat;
     height: 350px;
-    margin: 1%;
-    width: 400px;
+    margin: 0 0.5rem 1rem 0.5rem;
+    overflow: hidden;
+    width: calc(50% - 1rem);
   }
 }
 #grid-content {
   display: none;
 }
+#Blog {
+  margin: auto;
+  width: 99%;
 
-#Expander, #Loader, #Modal, #Revealer, #Xyz {
+  .external-blog {
+    display: flex;
+  }
+}
+.external-blog {
+  article {
+    border: 1px solid pink;
+    padding: 1rem;
+    flex: 1 1;
+  }
+  header {
+    display: block;
+  }
+  .wp-post-image {
+    width: 100%;
+  }
+}
+
+#Expander, #Grocer, #Loader, #Modal, #Revealer, #Xyz {
   border: 1px solid silver;
   border-radius: 3px;
   display: inline-block;
   margin: 1rem;
   padding: 1rem 2rem;
   vertical-align: top;
+}
+#Init {
+  display: none;
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */

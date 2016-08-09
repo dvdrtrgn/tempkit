@@ -4,15 +4,18 @@
 html {
   height: 100%;
   body {
-    background: url('../images/stock/loading.gif') 50% 40% no-repeat;
     height: 100%;
     &.loading {
       background: url('../images/stock/loader.gif') 50% 40% no-repeat;
       background-size: 25%;
       position: fixed;
-      * {
-        opacity: 0.5;
-      }
+    }
+  }
+  .loading {
+    background: url('../images/stock/loading.gif') 50% 40% no-repeat;
+    background-size: 100px;
+    &, * {
+      opacity: 0.5;
     }
   }
 }

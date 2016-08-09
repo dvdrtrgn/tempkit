@@ -1,15 +1,17 @@
-/*jslint  white:false */
-/*global define, window */
-/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/*jslint white:false */
+/*global define, window, jQuery */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ rev. 2016-08 dvdrtrgn
+ USE: multi use / jq method marries preview grid to full content
+ */
 (function (factory) {
   'use strict';
-  var V = '0.6.8';
+  var V = '0.7.2';
   var W = (W && W.window || window);
-  var $ = W.jQuery;
 
   if (!(typeof define === 'function' && define.amd)) {
     console.warn('shim:expander.js', V);
-    W.Expander = factory($, W._);
+    W.Expander = factory(jQuery, W._);
   } else {
     console.info('AMD:expander.js', V);
     define(['jquery', 'lodash'], factory);
@@ -91,6 +93,11 @@
     px = undef(px) ? '' : Number(px);
     return me.setHeight(px);
   };
+  $.fn.killWhitey = function () {
+    var ele = $(this);
+    ele.children().appendTo(ele); // squash spaces
+    return this;
+  };
   $.fn.makeTabbable = function () {
     var me = $(this);
     me.attr('tabindex', '0') //
@@ -160,7 +167,7 @@
       if (cf.align === 'top') {
         scrollVal -= 100; // buffer top by a couple fingers
       } else {
-        scrollVal += (revealH + 10); // lift 10px
+        scrollVal += (revealH + 50); // buffer bottom
         scrollVal -= $(W).height();
       }
       els.scrolls.animate({
@@ -226,17 +233,16 @@
     }
 
     function wrapTargets(i, e) {
-      var ele = $(e),
+      var ele = $(e), // ex-wrap
         div = ele.children(),
         dat = ele.data();
 
       dat[api.key] = i + 1; // remember index
 
-      if (div.length === 1) { // avoid re-wrapping
+      if (div.length === 1) { // skip re-wrapping
       } else {
-        div = $('<div>').append(e.innerHTML);
-        ele.empty().append(div);
-        C.warn(Nom, 'using innerHTML', e);
+        div = ele.find('.ex-init').append(div);
+        C.warn(Nom, 'rewrapping ex-init', e);
       }
 
       div.addClass('ex-target').makeTabbable() //
@@ -291,9 +297,10 @@
         api.inited = true;
         reify(els);
 
-        els.choices.parent() //
-          .addClass('ex-wrap') //
+        els.choices.parent() // whole deal is stupid and fragile
+          .addClass('ex-wrap') // targeting sub-item
           .each(wrapTargets); // todo: ensure parent wrapper
+        els.choices.parent().parent().killWhitey();
 
         els.closer.makeTabbable() //
           .on('click', dismiss) //

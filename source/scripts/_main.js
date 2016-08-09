@@ -1,11 +1,22 @@
-/*jslint  white:false */
-/*global define, window */
-/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-define(['jqxtn', 'lodash'], function ($, _) {
+/*jslint white:false */
+/*global define, window, jQuery */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ rev. 2016-08 dvdrtrgn
+ USE: bootstrap
+ */
+(function (factory) {
   'use strict';
 
-  var W = (W && W.window || window),
-    C = (W.C || W.console || {});
+  if (!(typeof define === 'function' && define.amd)) {
+    window.Main = factory(jQuery);
+  } else {
+    define(['jquery'], factory);
+  }
+}(function ($) {
+  'use strict';
+
+  var W = (W && W.window || window);
+  var C = (W.C || W.console || {});
 
   $.inlineSvgs();
   $.watchHash();
@@ -30,41 +41,53 @@ define(['jqxtn', 'lodash'], function ($, _) {
   // INIT
 
   function bind() {
-    W.jQuery = $;
-
-    require(['modal', 'dialog'], function (Mod, Dia) {
-      W._dia = Dia.bind();
+    require(['grocer'], function (grocer) {
+      W._groc = grocer();
     });
 
-    require(['loader'], function (Lo) {
-      W._lo = new Lo();
+    require(['modal', 'dialog'], function (mod, dialog) {
+      W._dia = dialog.bind();
     });
 
-    require(['expander'], function (Exp) {
-      W._exp = new Exp();
+    require(['loader'], function (loader) {
+      W._lo = loader();
     });
 
-    require(['revealer'], function (Rev) {
-      W._rev = new Rev('.page .loadmore', '.page .widget', 3);
+    require(['expander'], function (expander) {
+      W._exp = expander();
     });
 
+    require(['revealer'], function (revealer) {
+      W._rev = revealer('.page .loadmore', '.page .widget', 2).inc(3);
+    });
+  }
+  function shim() {
+    $('body').append('' +
+      '<script src="./scripts/expander.js"></script>' +
+      '<script src="./scripts/grocer.js"></script>' +
+      '<script src="./scripts/loader.js"></script>' +
+      '<script src="./scripts/revealer.js"></script>' +
+      '<script src="./scripts/modal.js"></script>' +
+      '<script src="./scripts/dialog.js"></script>' +
+      '<script src="./scripts/_shim.js"></script>'
+    );
   }
 
   $.extend(Api, {
     _el: El,
   });
 
-  W.setTimeout(bind, 99);
+  W.setTimeout(W._shim ? shim : bind, 99);
 
-  if (W._dbug > 0) {
+  if (W._dbug > 0) { // Expose
     W[Nom] = Api;
-    C.warn(Nom, 'exposed', Api, _); // Expose
+    C.warn(Nom, 'exposed', Api);
   } else {
-    C.debug(Nom, 'loaded', Api); // Expose
+    C.debug(Nom, 'loaded', Api);
   }
 
   return Api;
-});
+}));
 /*
 
 

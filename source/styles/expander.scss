@@ -57,14 +57,18 @@
   }
 }
 
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 /* OPTIONAL */
 
 .ex-reveal, option.al {
   align-items: center;
-  background-color: #ddd;
+  background-color: #fff;
   display: flex;
   justify-content: center;
   margin-top: 0.5%;
+  .widget {
+    min-height: 10em;
+  }
 }
 .ex-target, option.al {
   background-color: #eee;
@@ -73,6 +77,7 @@
   vertical-align: top;
 
   .ada, :focus::after {
+    // scss-lint:disable ImportantRule
     display: initial !important;
     height: 1px;
     left: -5000px;
@@ -87,6 +92,7 @@
   }
 }
 
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 /* OVERRIDES */
 
 .home {

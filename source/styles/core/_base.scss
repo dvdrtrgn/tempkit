@@ -46,8 +46,10 @@ h1, h2, h3, h4 {
 h1 {
   color: $a-d-red;
   font-family: $serif;
-  font-size: 1.3em;
+  font-size: 1.5em;
   font-weight: 800;
+  margin: 0;
+  vertical-align: bottom;
 }
 h2 {
   color: $a-d-red;
