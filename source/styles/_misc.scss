@@ -16,6 +16,7 @@ ul {
     background-color: wheat;
     height: 350px;
     margin: 0 0.5rem 1rem 0.5rem;
+    overflow: hidden;
     width: calc(50% - 1rem);
   }
 }
@@ -23,15 +24,21 @@ ul {
   display: none;
 }
 #Blog {
+  margin: auto;
+  width: 99%;
+
+  .external-blog {
+    display: flex;
+  }
+}
+.external-blog {
   article {
     border: 1px solid pink;
     padding: 1rem;
+    flex: 1 1;
   }
   header {
     display: block;
-  }
-  .external-blog {
-    display: flex;
   }
   .wp-post-image {
     width: 100%;

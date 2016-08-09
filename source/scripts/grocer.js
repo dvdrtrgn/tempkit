@@ -6,7 +6,7 @@
  */
 (function (factory) {
   'use strict';
-  var V = '0.3.4';
+  var V = '0.3.5';
   var W = (W && W.window || window);
 
   if (!(typeof define === 'function' && define.amd)) {
@@ -137,7 +137,7 @@
     fillerUp: fillerUp,
     goShopping: goShopping,
     test: function (num) {
-      var store = $('div.external-blog').children();
+      var store = $('.external-blog article');
       var filters = '?filter[orderby]=rand&filter[posts_per_page]=4';
       var hosts = [
         'http://rmion.com',
