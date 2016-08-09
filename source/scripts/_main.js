@@ -1,10 +1,18 @@
 /*jslint white:false */
-/*global define, window */
+/*global define, window, jQuery */
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
  rev. 2016-08 dvdrtrgn
  USE: bootstrap
  */
-define(['jqxtn', 'lodash'], function ($, _) {
+(function (factory) {
+  'use strict';
+
+  if (!(typeof define === 'function' && define.amd)) {
+    window.Main = factory(jQuery);
+  } else {
+    define(['jquery'], factory);
+  }
+}(function ($) {
   'use strict';
 
   var W = (W && W.window || window);
@@ -33,8 +41,6 @@ define(['jqxtn', 'lodash'], function ($, _) {
   // INIT
 
   function bind() {
-    W.jQuery = $;
-
     require(['grocer'], function (grocer) {
       W._groc = grocer();
     });
@@ -54,24 +60,34 @@ define(['jqxtn', 'lodash'], function ($, _) {
     require(['revealer'], function (revealer) {
       W._rev = revealer('.page .loadmore', '.page .widget', 2).inc(3);
     });
-
+  }
+  function shim() {
+    $('body').append('' +
+      '<script src="./scripts/expander.js"></script>' +
+      '<script src="./scripts/grocer.js"></script>' +
+      '<script src="./scripts/loader.js"></script>' +
+      '<script src="./scripts/revealer.js"></script>' +
+      '<script src="./scripts/modal.js"></script>' +
+      '<script src="./scripts/dialog.js"></script>' +
+      '<script src="./scripts/_shim.js"></script>'
+    );
   }
 
   $.extend(Api, {
     _el: El,
   });
 
-  W.setTimeout(bind, 99);
+  W.setTimeout(W._shim ? shim : bind, 99);
 
-  if (W._dbug > 0) {
+  if (W._dbug > 0) { // Expose
     W[Nom] = Api;
-    C.warn(Nom, 'exposed', Api, _); // Expose
+    C.warn(Nom, 'exposed', Api);
   } else {
-    C.debug(Nom, 'loaded', Api); // Expose
+    C.debug(Nom, 'loaded', Api);
   }
 
   return Api;
-});
+}));
 /*
 
 
