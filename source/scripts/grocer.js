@@ -119,6 +119,7 @@
 
   function fillerUp(filters, bags) {
     var index = 0;
+    bags = $(bags || '.external-blog article');
 
     bags.addClass('loading');
     goShopping(filters, function (grocs) {
@@ -137,7 +138,6 @@
     fillerUp: fillerUp,
     goShopping: goShopping,
     test: function (num) {
-      var store = $('.external-blog article');
       var filters = '?filter[orderby]=rand&filter[posts_per_page]=4';
       var hosts = [
         'http://rmion.com',
@@ -146,7 +146,7 @@
         'https://blogswf.staging.wpengine.com'
       ];
 
-      return (new Grocer(hosts[num]).fillerUp(filters, store));
+      return (new Grocer(hosts[num]).fillerUp(filters));
     },
   });
 
