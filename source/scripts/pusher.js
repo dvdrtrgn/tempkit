@@ -9,16 +9,14 @@ jQuery.fn.pusher = function (cb) {
   var C = (W.C || W.console || {});
   var $ = jQuery.noConflict();
 
+  var NOM = 'jq-pusher';
+  var VER = '(0.1.1)';
   var HOSTS = [
     '//localhost/wordpress',
     '//ecgsolutions.hosting.wellsfargo.com/marketing/csc',
   ];
-  var VER = '(0.1.0)';
-  var NOM = 'jq-pusher';
 
-  var api = {};
-  var auth;
-  var host;
+  var api, auth, host;
   var form = $(this).closest('form');
   var main = form.find('input:file');
 
@@ -47,14 +45,18 @@ jQuery.fn.pusher = function (cb) {
     });
   }
 
-  function onChange(evt) {
+  function wrapFile() {
     var fdat = new FormData();
-    var file = main[0].files[0];
+    var blob = main[0].files[0];
 
+    fdat.append('file', blob);
+    C.warn(fdat, blob);
+    return fdat;
+  }
+
+  function onChange(evt) {
     evt.preventDefault();
-    fdat.append('file', file);
-
-    sendNow(fdat);
+    sendNow(wrapFile());
   }
 
   function setAuth(str) {
