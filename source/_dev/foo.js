@@ -4,19 +4,24 @@
 var W = (W && W.window || window),
   C = (W.C || W.console || {});
 
-var imageForm = $('#image-form'),
-  fileInput = $('#image-input'),
-  formData = new FormData();
+var HOSTS = [
+  '//localhost/wordpress',
+  '//ecgsolutions.hosting.wellsfargo.com/marketing/csc',
+];
+var Form = $('form');
 
-imageForm.on('submit', function (e) {
-  e.preventDefault();
+$('a.online').hide();
 
-  formData.append('file', fileInput[0].files[0]);
+Form.on('change', function (evt) {
+  var data = new FormData();
+
+  evt.preventDefault();
+  data.append('file', Form.find('input:file')[0].files[0]);
 
   $.ajax({
-    url: 'http://localhost/wordpress/wp-json/wp/v2/media',
+    url: HOSTS[0] + '/wp-json/wp/v2/media',
     method: 'POST',
-    data: formData,
+    data: data,
     crossDomain: true,
     contentType: false,
     processData: false,
@@ -24,10 +29,14 @@ imageForm.on('submit', function (e) {
       xhr.setRequestHeader('Authorization', 'Basic username:password');
     },
     success: function (data) {
-      console.log(data);
+      console.debug(data);
+      $('a.online').attr('href', data.link).show() //
+        .find('span').html('Media ID #' + data.id).end() //
+        .find('img').attr('src', data.source_url).end() //
+      ;
     },
     error: function (error) {
-      console.log(error);
+      C.error(error);
     }
   });
 });
