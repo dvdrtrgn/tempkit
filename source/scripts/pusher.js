@@ -2,53 +2,46 @@
 /*global window, jQuery, FormData */
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-var W = (W && W.window || window);
-var C = (W.C || W.console || {});
-var AUTH = 'Basic YXV0bzpxd2VydHk=';
-var HOSTS = [
-  '//localhost/wordpress',
-  '//ecgsolutions.hosting.wellsfargo.com/marketing/csc',
-];
-var Link = $('a.online').hide();
-var showOff = function (data) {
-  'use strict';
-
-  Link.attr('href', data.link).show() //
-    .find('span').html('Media ID #' + data.id).end() //
-    .find('img').attr('src', data.source_url).end() //
-  ;
-  C.debug(data);
-};
-
-/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-
 jQuery.fn.pusher = function (cb) {
   'use strict';
 
+  var W = (W && W.window || window);
+  var C = (W.C || W.console || {});
+  var $ = jQuery.noConflict();
+
+  var HOSTS = [
+    '//localhost/wordpress',
+    '//ecgsolutions.hosting.wellsfargo.com/marketing/csc',
+  ];
+  var VER = '(0.0.1)';
+  var NOM = 'jq-pusher';
+
   var api = {};
+  var auth;
+  var host;
   var me = $(this).closest('form');
   var main = me.find('input:file');
 
   if (main.length < 1) {
-    return C.error('no file field');
+    return C.error(NOM, 'no file field');
   }
 
   function sendNow(fdat) {
     $.ajax({
-      url: HOSTS[1] + '/wp-json/wp/v2/media',
+      url: host + '/wp-json/wp/v2/media',
       method: 'POST',
       data: fdat,
       crossDomain: true,
       contentType: false,
       processData: false,
       beforeSend: function (xhr) {
-        xhr.setRequestHeader('Authorization', AUTH);
+        xhr.setRequestHeader('Authorization', auth);
       },
       success: function (data) {
-        api.cb(data);
+        api.callback(data);
       },
       error: function (error) {
-        C.error(error);
+        C.error(NOM, error);
       }
     });
   }
@@ -63,20 +56,33 @@ jQuery.fn.pusher = function (cb) {
     sendNow(fdat);
   }
 
+  function setAuth(str) {
+    auth = str || 'Basic YXV0bzpxd2VydHk=';
+    return api;
+  }
+
+  function setHost(str) {
+    host = str || HOSTS[0];
+    return api;
+  }
+
   function bind() {
     main.off('change.pusher') //
     .on('change.pusher', onChange) //
     .data('pusher', api)
     ;
+    return api;
   }
 
   api = {
     callback: cb,
     input: main,
+    setAuth: setAuth,
+    setHost: setHost,
   };
 
-  return bind();
+  C.debug(NOM, VER, 'init');
+  return bind().setAuth().setHost();
 };
 
-Link.pusher(showOff);
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */

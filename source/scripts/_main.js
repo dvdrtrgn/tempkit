@@ -60,9 +60,23 @@
     require(['revealer'], function (revealer) {
       W._rev = revealer('.page .loadmore', '.page .widget', 2).inc(3);
     });
+
+    require(['pusher'], function () {
+      var Link = $('a.online').hide();
+      var showOff = function (data) {
+        Link.attr('href', data.link).show() //
+          .find('span').html('Media ID #' + data.id).end() //
+          .find('img').attr('src', data.source_url).end() //
+        ;
+        C.debug(data);
+      };
+      W._push = Link.pusher(showOff);
+    });
   }
+
   function shim() {
     $('body').append('' +
+      '<script src="./scripts/pusher.js"></script>' +
       '<script src="./scripts/expander.js"></script>' +
       '<script src="./scripts/grocer.js"></script>' +
       '<script src="./scripts/loader.js"></script>' +
