@@ -140,10 +140,12 @@
     test: function (num) {
       var filters = '?filter[orderby]=rand&filter[posts_per_page]=4';
       var hosts = [
-        'http://rmion.com',
-        'http://demo.wp-api.org',
+        'http://localhost/wordpress',
+        'http://ecgsolutions.hosting.wellsfargo.com/marketing/csc',
         'https://blogs.wf.com',
-        'https://blogswf.staging.wpengine.com'
+        'https://blogswf.staging.wpengine.com',
+        // 'http://rmion.com',
+        // 'http://demo.wp-api.org',
       ];
 
       return (new Grocer(hosts[num]).fillerUp(filters));
