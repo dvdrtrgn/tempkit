@@ -4,6 +4,53 @@
 var W = (W && W.window || window),
   C = (W.C || W.console || {});
 
+function makeFieldSerial(obj) {
+  var arr = [];
+  $.each(obj, function (i, e) {
+    arr.push('fields[' + i + ']=' + encodeURIComponent(e));
+  });
+  return arr.join('&');
+}
+
+var obj = {
+  description: "foo foo foo",
+  first_name: "Dvdr",
+  last_name: "Trgn",
+  city: "Mpls",
+  state: "MN",
+  country: "USA",
+  area_of_interest: "hacking",
+  photo: "158",
+  background_color: "#ce3333",
+};
+var serial = makeFieldSerial(obj);
+
+console.log(obj, serial);
+
+// push photo
+//    grab id
+// post wp card
+//    media:  photo id
+//    title:  full name (first last)
+//    status: publish
+// alt the fields with acf api
+
+// state === tags
+// interests === categories
+
+var catLookup = {
+  "1": "General",
+  "3": "Human Services",
+  "4": "Environmental",
+  "5": "Animal Welfare",
+  "6": "Arts &amp; Culture",
+  "7": "Education",
+  "8": "Disease-Related Issues",
+  "10": "Diversity &amp; Inclusion",
+  "11": "Child and Youth Development",
+  "13": "Other",
+};
+
 var jsonresult = {
   "id": 29,
   "date": "2016-08-17T02:53:29",
