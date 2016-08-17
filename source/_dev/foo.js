@@ -19,7 +19,7 @@ Form.on('change', function (evt) {
   data.append('file', Form.find('input:file')[0].files[0]);
 
   $.ajax({
-    url: HOSTS[0] + '/wp-json/wp/v2/media',
+    url: HOSTS[1] + '/wp-json/wp/v2/media',
     method: 'POST',
     data: data,
     crossDomain: true,
