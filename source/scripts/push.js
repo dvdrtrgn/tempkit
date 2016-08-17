@@ -2,15 +2,13 @@
 /*global window, jQuery, FormData */
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-var W = (W && W.window || window),
-  C = (W.C || W.console || {});
-
+var W = (W && W.window || window);
+var C = (W.C || W.console || {});
 var AUTH = 'Basic YXV0bzpxd2VydHk=';
 var HOSTS = [
   '//localhost/wordpress',
   '//ecgsolutions.hosting.wellsfargo.com/marketing/csc',
 ];
-/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 var Link = $('a.online').hide();
 var showOff = function (data) {
   'use strict';
@@ -22,9 +20,18 @@ var showOff = function (data) {
   C.debug(data);
 };
 
-var Push = function ($, cb, form) {
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+jQuery.fn.pusher = function (cb) {
   'use strict';
-  var api;
+
+  var api = {};
+  var me = $(this).closest('form');
+  var main = me.find('input:file');
+
+  if (main.length < 1) {
+    return C.error('no file field');
+  }
 
   function sendNow(fdat) {
     $.ajax({
@@ -48,7 +55,7 @@ var Push = function ($, cb, form) {
 
   function onChange(evt) {
     var fdat = new FormData();
-    var file = api.form.find('input:file')[0].files[0];
+    var file = main[0].files[0];
 
     evt.preventDefault();
     fdat.append('file', file);
@@ -56,25 +63,20 @@ var Push = function ($, cb, form) {
     sendNow(fdat);
   }
 
-  function hookUp(el, fn) {
-    el = $(el);
-    el.off('change.Push');
-    el.on('change.Push', fn);
+  function bind() {
+    main.off('change.pusher') //
+    .on('change.pusher', onChange) //
+    .data('pusher', api)
+    ;
   }
 
   api = {
-    cb: cb,
-    form: $(form || 'form'),
-    handleChange: onChange,
-    handleSend: sendNow,
-    init: function (a, b) {
-      hookUp(a || api.form, b || onChange);
-      return api;
-    },
+    callback: cb,
+    input: main,
   };
 
-  return api.init();
+  return bind();
 };
 
-Push(jQuery, showOff);
+Link.pusher(showOff);
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
