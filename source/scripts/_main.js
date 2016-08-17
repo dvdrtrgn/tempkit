@@ -62,15 +62,9 @@
     });
 
     require(['pusher'], function () {
-      var Link = $('a.online').hide();
-      var showOff = function (data) {
-        Link.attr('href', data.link).show() //
-          .find('span').html('Media ID #' + data.id).end() //
-          .find('img').attr('src', data.source_url).end() //
-        ;
-        C.debug(data);
-      };
-      W._push = Link.pusher(showOff);
+      var picker = $('a.preview').hide();
+
+      W._push = picker.pusher();
     });
   }
 

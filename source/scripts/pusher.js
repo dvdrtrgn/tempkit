@@ -13,14 +13,14 @@ jQuery.fn.pusher = function (cb) {
     '//localhost/wordpress',
     '//ecgsolutions.hosting.wellsfargo.com/marketing/csc',
   ];
-  var VER = '(0.0.1)';
+  var VER = '(0.1.0)';
   var NOM = 'jq-pusher';
 
   var api = {};
   var auth;
   var host;
-  var me = $(this).closest('form');
-  var main = me.find('input:file');
+  var form = $(this).closest('form');
+  var main = form.find('input:file');
 
   if (main.length < 1) {
     return C.error(NOM, 'no file field');
@@ -38,6 +38,7 @@ jQuery.fn.pusher = function (cb) {
         xhr.setRequestHeader('Authorization', auth);
       },
       success: function (data) {
+        C.debug(data);
         api.callback(data);
       },
       error: function (error) {
@@ -68,15 +69,21 @@ jQuery.fn.pusher = function (cb) {
 
   function bind() {
     main.off('change.pusher') //
-    .on('change.pusher', onChange) //
-    .data('pusher', api)
-    ;
+      .on('change.pusher', onChange) //
+      .data('pusher', api);
     return api;
   }
 
+  function preview(data) {
+    form.find('a.preview').attr('href', data.link).show() //
+      .find('span').html('Media ID #' + data.id).end() //
+      .find('img').attr('src', data.source_url).end();
+  }
+
   api = {
-    callback: cb,
+    callback: cb || preview,
     input: main,
+    origin: form,
     setAuth: setAuth,
     setHost: setHost,
   };
