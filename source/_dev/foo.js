@@ -1,8 +1,9 @@
 /*jslint white:false */
 /*global require, window, FormData */
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-var W = (W && W.window || window),
-  C = (W.C || W.console || {});
+var W = (W && W.window || window);
+var C = (W.C || W.console || {});
+var RND = Math.random() * 1e4 | 0;
 
 function makeFieldSerial(obj) {
   var arr = [];
@@ -12,26 +13,26 @@ function makeFieldSerial(obj) {
   return arr.join('&');
 }
 var HOSTS = {
-    loc: '//localhost/wordpress',
-    csc: '//ecgsolutions.hosting.wellsfargo.com/marketing/csc',
-  },
-  APIS = {
-    wp: 'wp-json/wp/v2/card',
-    acf: 'wp-json/acf/v2/card',
-  },
-  tmpO = {
-    description: "foo foo foo",
-    first_name: "Dvdr",
-    last_name: "Trgn",
-    city: "Mpls",
-    state: "MN",
-    country: "USA",
-    area_of_interest: "hacking",
-    photo: "158",
-    background_color: "#ce3333",
-  };
-
-console.log(tmpO, makeFieldSerial(tmpO));
+  loc: '//localhost/wordpress',
+  csc: '//ecgsolutions.hosting.wellsfargo.com/marketing/csc',
+};
+var APIS = {
+  wp: 'wp-json/wp/v2/card',
+  acf: 'wp-json/acf/v2/card',
+};
+var tmpO = {
+  description: "foo foo foo #" + RND,
+  first_name: "Dvdr",
+  last_name: "Trgn",
+  city: "Mpls",
+  state: "MN",
+  country: "USA",
+  area_of_interest: "hacking",
+  photo: "158",
+  background_color: "#ce3333",
+};
+tmpO.title = tmpO.first_name + ' ' + tmpO.last_name;
+tmpO.slug = 'slug-' + RND;
 
 function makeUrl(host, api, id, obj) {
   var tag;
@@ -48,38 +49,20 @@ function makeUrl(host, api, id, obj) {
 var str;
 
 str = makeUrl('csc', 'acf', 191, tmpO);
-console.log(str);
+Poster(str);
 
 str = makeUrl('csc', 'wp', 191);
-console.log(str);
+Poster(str, tmpO);
 
 // push photo
-//    grab id
-// post wp card
+//    id =
+// post wp/card/id
 //    media:  photo id
 //    title:  full name (first last)
 //    status: publish
-// alt the fields with acf api
-
-// state === tags
-// interests === categories
-
-tmpO.title = tmpO.first_name + ' ' + tmpO.last_name;
-
-Poster(str, tmpO);
-
-var catLookup = {
-  "1": "General",
-  "3": "Human Services",
-  "4": "Environmental",
-  "5": "Animal Welfare",
-  "6": "Arts &amp; Culture",
-  "7": "Education",
-  "8": "Disease-Related Issues",
-  "10": "Diversity &amp; Inclusion",
-  "11": "Child and Youth Development",
-  "13": "Other",
-};
+//    id =
+// post acf/card/id card
+//    alt the fields
 
 var jsonresult = {
   "id": 29,
