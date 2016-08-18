@@ -24,27 +24,6 @@ jQuery.fn.pusher = function (cb) {
     return C.error(NOM, 'no file field');
   }
 
-  function sendNow(fdat) {
-    $.ajax({
-      url: host + '/wp-json/wp/v2/media',
-      method: 'POST',
-      data: fdat,
-      crossDomain: true,
-      contentType: false,
-      processData: false,
-      beforeSend: function (xhr) {
-        xhr.setRequestHeader('Authorization', auth);
-      },
-      success: function (data) {
-        C.debug(data);
-        api.callback(data);
-      },
-      error: function (error) {
-        C.error(NOM, error);
-      }
-    });
-  }
-
   function wrapFile() {
     var fdat = new FormData();
     var blob = main[0].files[0];
@@ -55,8 +34,14 @@ jQuery.fn.pusher = function (cb) {
   }
 
   function onChange(evt) {
+    require(['poster'], function (Poster) {
+      Poster({
+        cb: api.callback,
+        obj: wrapFile(),
+        url: host + '/wp-json/wp/v2/media',
+      });
+    })
     evt.preventDefault();
-    sendNow(wrapFile());
   }
 
   function setAuth(str) {

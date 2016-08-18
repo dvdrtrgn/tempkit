@@ -12,8 +12,8 @@ function makeFieldSerial(obj) {
   return arr.join('&');
 }
 var HOSTS = {
-    loc: 'localhost/wordpress',
-    csc: 'ecgsolutions.hosting.wellsfargo.com/marketing/csc',
+    loc: '//localhost/wordpress',
+    csc: '//ecgsolutions.hosting.wellsfargo.com/marketing/csc',
   },
   APIS = {
     wp: 'wp-json/wp/v2/card',
@@ -30,23 +30,28 @@ var HOSTS = {
     photo: "158",
     background_color: "#ce3333",
   };
+
 console.log(tmpO, makeFieldSerial(tmpO));
 
 function makeUrl(host, api, id, obj) {
   var tag;
-  console.log('makeUrl', host, api, obj);
+  console.log('makeUrl', [host, api, id, obj]);
 
   if (obj && api === 'acf') {
     id += '?' + makeFieldSerial(obj);
   }
-  host = HOSTS[host];
   api = APIS[api];
+  host = HOSTS[host];
 
   return [host, api, id].join('/');
 }
+var str;
 
-console.log(makeUrl('csc', 'acf', 191));
+str = makeUrl('csc', 'acf', 191, tmpO);
+console.log(str);
 
+str = makeUrl('csc', 'wp', 191);
+console.log(str);
 
 // push photo
 //    grab id
@@ -59,26 +64,9 @@ console.log(makeUrl('csc', 'acf', 191));
 // state === tags
 // interests === categories
 
-function sendNow(fdat) {
-  $.ajax({
-    url: host + 'wp/v2/media',
-    method: 'POST',
-    data: fdat,
-    crossDomain: true,
-    contentType: false,
-    processData: false,
-    beforeSend: function (xhr) {
-      xhr.setRequestHeader('Authorization', auth);
-    },
-    success: function (data) {
-      C.debug(data);
-      api.callback(data);
-    },
-    error: function (error) {
-      C.error(NOM, error);
-    }
-  });
-}
+tmpO.title = tmpO.first_name + ' ' + tmpO.last_name;
+
+Poster(str, tmpO);
 
 var catLookup = {
   "1": "General",
