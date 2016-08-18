@@ -13,7 +13,7 @@
     console.info('AMD:lookups.js', V);
     define(['jquery'], factory);
   }
-}(function ($) {
+}(function () {
   'use strict';
 
   return {

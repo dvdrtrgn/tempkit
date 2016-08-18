@@ -1,25 +1,10 @@
 /*jslint white:false */
-/*global require, window, FormData */
+/*global require, window, FormData, Poster, Yeller */
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 var W = (W && W.window || window);
 var C = (W.C || W.console || {});
 var RND = Math.random() * 1e4 | 0;
 
-function makeFieldSerial(obj) {
-  var arr = [];
-  $.each(obj, function (i, e) {
-    arr.push('fields[' + i + ']=' + encodeURIComponent(e));
-  });
-  return arr.join('&');
-}
-var HOSTS = {
-  loc: '//localhost/wordpress',
-  csc: '//ecgsolutions.hosting.wellsfargo.com/marketing/csc',
-};
-var APIS = {
-  wp: 'wp-json/wp/v2/card',
-  acf: 'wp-json/acf/v2/card',
-};
 var tmpO = {
   description: "foo foo foo #" + RND,
   first_name: "Dvdr",
@@ -34,25 +19,8 @@ var tmpO = {
 tmpO.title = tmpO.first_name + ' ' + tmpO.last_name;
 tmpO.slug = 'slug-' + RND;
 
-function makeUrl(host, api, id, obj) {
-  var tag;
-  console.log('makeUrl', [host, api, id, obj]);
-
-  if (obj && api === 'acf') {
-    id += '?' + makeFieldSerial(obj);
-  }
-  api = APIS[api];
-  host = HOSTS[host];
-
-  return [host, api, id].join('/');
-}
-var str;
-
-str = makeUrl('csc', 'acf', 191, tmpO);
-Poster(str);
-
-str = makeUrl('csc', 'wp', 191);
-Poster(str, tmpO);
+Poster(Yeller('csc', 'acf', 191, tmpO));
+Poster(Yeller('csc', 'wp', 191), tmpO);
 
 // push photo
 //    id =
