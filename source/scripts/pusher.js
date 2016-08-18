@@ -34,13 +34,13 @@ jQuery.fn.pusher = function (cb) {
   }
 
   function onChange(evt) {
-    require(['poster'], function (Poster) {
-      Poster({
+    require(['poster'], function (poster) {
+      poster({
         cb: api.callback,
         obj: wrapFile(),
         url: host + '/wp-json/wp/v2/media',
       });
-    })
+    });
     evt.preventDefault();
   }
 

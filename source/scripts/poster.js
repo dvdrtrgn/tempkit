@@ -1,5 +1,5 @@
 /*jslint white:false */
-/*global window, define */
+/*global window, define, jQuery */
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
@@ -21,8 +21,7 @@
   var Debug = W._dbug > 0;
 
   function Poster(url, obj, auth, cb) {
-    var nom = 'Poster',
-      cf, blob;
+    var cf, nom = 'Poster';
 
     cf = $.extend({
       url: url,
@@ -36,8 +35,8 @@
       C.debug(nom, ['config', cf]);
     }
     $.ajax({
-      url: cf.url,
       method: 'POST',
+      url: cf.url,
       data: cf.obj,
       crossDomain: true,
       contentType: cf.blob ? false : 'application/x-www-form-urlencoded; charset=UTF-8',
