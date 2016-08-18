@@ -11,21 +11,42 @@ function makeFieldSerial(obj) {
   });
   return arr.join('&');
 }
+var HOSTS = {
+    loc: 'localhost/wordpress',
+    csc: 'ecgsolutions.hosting.wellsfargo.com/marketing/csc',
+  },
+  APIS = {
+    wp: 'wp-json/wp/v2/card',
+    acf: 'wp-json/acf/v2/card',
+  },
+  tmpO = {
+    description: "foo foo foo",
+    first_name: "Dvdr",
+    last_name: "Trgn",
+    city: "Mpls",
+    state: "MN",
+    country: "USA",
+    area_of_interest: "hacking",
+    photo: "158",
+    background_color: "#ce3333",
+  };
+console.log(tmpO, makeFieldSerial(tmpO));
 
-var obj = {
-  description: "foo foo foo",
-  first_name: "Dvdr",
-  last_name: "Trgn",
-  city: "Mpls",
-  state: "MN",
-  country: "USA",
-  area_of_interest: "hacking",
-  photo: "158",
-  background_color: "#ce3333",
-};
-var serial = makeFieldSerial(obj);
+function makeUrl(host, api, id, obj) {
+  var tag;
+  console.log('makeUrl', host, api, obj);
 
-console.log(obj, serial);
+  if (obj && api === 'acf') {
+    id += '?' + makeFieldSerial(obj);
+  }
+  host = HOSTS[host];
+  api = APIS[api];
+
+  return [host, api, id].join('/');
+}
+
+console.log(makeUrl('csc', 'acf', 191));
+
 
 // push photo
 //    grab id
@@ -37,6 +58,27 @@ console.log(obj, serial);
 
 // state === tags
 // interests === categories
+
+function sendNow(fdat) {
+  $.ajax({
+    url: host + 'wp/v2/media',
+    method: 'POST',
+    data: fdat,
+    crossDomain: true,
+    contentType: false,
+    processData: false,
+    beforeSend: function (xhr) {
+      xhr.setRequestHeader('Authorization', auth);
+    },
+    success: function (data) {
+      C.debug(data);
+      api.callback(data);
+    },
+    error: function (error) {
+      C.error(NOM, error);
+    }
+  });
+}
 
 var catLookup = {
   "1": "General",
