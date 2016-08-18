@@ -1,33 +1,24 @@
 /*jslint white:false */
-/*global window, define, jQuery */
+/*global window, define, jQuery, Looker */
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var V = '0.0.1';
+  var V = '0.0.2';
   var W = (W && W.window || window);
 
   if (!(typeof define === 'function' && define.amd)) {
     console.warn('shim:yeller.js', V);
-    W.Yeller = factory(jQuery);
+    W.Yeller = factory(jQuery, Looker);
   } else {
     console.info('AMD:yeller.js', V);
-    define(['jquery'], factory);
+    define(['jquery', 'looker'], factory);
   }
-}(function ($) {
+}(function ($, Looker) {
   'use strict';
 
   var W = (W && W.window || window);
   var C = (W.C || W.console || {});
   // var Debug = W._dbug > 0;
-
-  var HOSTS = {
-    loc: '//localhost/wordpress',
-    csc: '//ecgsolutions.hosting.wellsfargo.com/marketing/csc',
-  };
-  var APIS = {
-    wp: 'wp-json/wp/v2/card',
-    acf: 'wp-json/acf/v2/card',
-  };
 
   function makeFieldSerial(obj) {
     var arr = [];
@@ -43,8 +34,8 @@
     if (obj && api === 'acf') {
       id += '?' + makeFieldSerial(obj);
     }
-    api = APIS[api];
-    host = HOSTS[host];
+    api = Looker.apis[api];
+    host = Looker.hosts[host];
 
     return [host, api, id].join('/');
   }

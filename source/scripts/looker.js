@@ -3,22 +3,29 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var V = '0.0.1';
+  var V = '0.0.2';
   var W = (W && W.window || window);
 
   if (!(typeof define === 'function' && define.amd)) {
-    console.warn('shim:lookups.js', V);
-    W.Lookups = factory(jQuery);
+    console.warn('shim:looker.js', V);
+    W.Looker = factory(jQuery);
   } else {
-    console.info('AMD:lookups.js', V);
+    console.info('AMD:looker.js', V);
     define(['jquery'], factory);
   }
 }(function () {
   'use strict';
 
   return {
-    // interests
-    cat: {
+    hosts: {
+      loc: '//localhost/wordpress',
+      csc: '//ecgsolutions.hosting.wellsfargo.com/marketing/csc',
+    },
+    apis: {
+      wp: 'wp-json/wp/v2/card',
+      acf: 'wp-json/acf/v2/card',
+    },
+    cats: { // interests
       'General': 1,
       'Human': 3,
       'Environmental': 4,
@@ -30,8 +37,7 @@
       'Child': 11,
       'Other': 13,
     },
-    // state
-    tag: {
+    tags: { // state
       'MN': 14,
       'NC': 15,
     },
