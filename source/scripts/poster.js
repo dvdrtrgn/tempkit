@@ -3,7 +3,7 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var V = '0.0.1';
+  var V = '0.0.2';
   var W = (W && W.window || window);
 
   if (!(typeof define === 'function' && define.amd)) {
@@ -18,6 +18,7 @@
 
   var W = (W && W.window || window);
   var C = (W.C || W.console || {});
+  var Debug = W._dbug > 0;
 
   function Poster(url, obj, auth, cb) {
     var nom = 'Poster',
@@ -30,20 +31,24 @@
       cb: cb || $.noop,
     }, $.isPlainObject(url) && url);
 
-    blob = (typeof cf.obj === 'object') && !$.isPlainObject(cf.obj);
-
+    cf.blob = (typeof cf.obj === 'object') && !$.isPlainObject(cf.obj);
+    if (Debug) {
+      C.debug(nom, ['config', cf]);
+    }
     $.ajax({
       url: cf.url,
       method: 'POST',
       data: cf.obj,
       crossDomain: true,
-      contentType: blob ? false : 'application/x-www-form-urlencoded; charset=UTF-8',
-      processData: !blob,
+      contentType: cf.blob ? false : 'application/x-www-form-urlencoded; charset=UTF-8',
+      processData: cf.blob ? false : true,
       beforeSend: function (xhr) {
         xhr.setRequestHeader('Authorization', cf.auth);
       },
       success: function (data) {
-        C.debug(nom, data, cf);
+        if (Debug) {
+          C.debug(nom, ['data', data]);
+        }
         cf.cb(data);
       },
       error: function (error) {
