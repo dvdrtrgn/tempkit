@@ -19,8 +19,33 @@ var tmpO = {
 tmpO.title = tmpO.first_name + ' ' + tmpO.last_name;
 tmpO.slug = 'slug-' + RND;
 
-Poster(Yeller('csc', 'acf', 191, tmpO));
-Poster(Yeller('csc', 'wp', 191), tmpO);
+// Poster(Yeller('csc', 'acf', 191, tmpO));
+// Poster(Yeller('csc', 'wp', 191), tmpO);
+
+$.fn.hasValue = function () {
+  var me = $(this),
+      ok = me.val();
+  return !(ok === '0' || ok === '');
+};
+
+$.fn.hasZip = function () {
+  var me = $(this),
+      ok = me.val();
+  return Boolean(ok && ok.match(/^\d{5}$/));
+};
+
+$('#select1').on('blur', function () {
+  console.log(
+    $(this).hasValue(),
+      this);
+});
+
+$('#input1').on('blur', function () {
+  console.log(
+    $(this).hasZip(),
+      this);
+});
+
 
 // push photo
 //    id =
