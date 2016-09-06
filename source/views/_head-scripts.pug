@@ -1,0 +1,10 @@
+script(src='./vendors/jquery/jquery.js')
+script(src='./scripts/libs/jq-xtn.js')
+
+script
+  | var z = ['<script data-main="./config" src="./', '.js"><\/script>'];
+  | window._shim = (location.hash.toLowerCase() === '#shim');
+  | z = z[0] + (window._shim ? 'scripts/_main' : 'vendors/require.js/require') + z[1];
+  | document.write(z);
+
+///_head-scripts.pug

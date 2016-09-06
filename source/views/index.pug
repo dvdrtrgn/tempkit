@@ -7,25 +7,13 @@ html
 
     title Template
 
-    link(href='./fonts/archer.ssm.css', rel='stylesheet', media='all')
-    link(href='./fonts/myriad.css', rel='stylesheet', media='all')
-    link(href='./fonts/myriad.con.css', rel='stylesheet', media='all')
+    include ./_head-styles.pug
 
-    link(href='./styles/main.css', rel='stylesheet', media='all')
     link(href='./styles/expander.css', rel='stylesheet', media='all')
-    link(href='./styles/loader.css', rel='stylesheet', media='all')
-    link(href='./styles/modal.css', rel='stylesheet', media='all')
 
-    script(src='./vendors/jquery/jquery.js')
-    script(src='./scripts/libs/jq-xtn.js')
+    include ./_head-scripts.pug
 
-    script
-      | var z = ['<script data-main="./config" src="./', '.js"><\/script>'];
-      | window._shim = (location.hash.toLowerCase() === '#shim');
-      | z = z[0] + (window._shim ? 'scripts/_main' : 'vendors/require.js/require') + z[1];
-      | document.write(z);
-
-  body.loading#pg-54-7
+  body.loading
 
     .page
       include ./_header.pug
@@ -37,55 +25,15 @@ html
       include ./_loader.pug
 
       include ./_live.pug
-      include ./_init.pug
+      include ./_sample-inits.pug
       include ./_pusher.pug
 
       include ./_blog.pug
-      include ./_test.pug
+      include ./_grid-preview.pug
     ///page
 
-    #grid-content
-      div
-        div
-          div.widget
-            p foo1
-          div.widget
-            p bar1
-            p bar1
-            p bar1
-            p bar1
-            p bar1
-            p bar1
-            p bar1
-          div.widget
-            p baz1
-          div.widget
-            p foo2
-          div.widget
-            p bar2
-          div.widget
-            p baz2
+    include ./_grid-content.pug
 
-    //_footer.pug
     include ./_footer.pug
 
-    div.modal
-      // OFFSITE DIALOG 
-      div.dialog
-
-        div.header
-          img.logo(alt='' src='./images/stock/wf-square.svg')
-
-        div.content
-          h2 You are leaving this Wells Fargo website
-          p
-            | You are leaving a Wells Fargo site and entering a website that Wells Fargo does not control.
-            | Wells Fargo has provided this link for your convenience,
-            | but does not endorse and is not responsible for the content,
-            | links, privacy policy, or security policy of this website.
-
-        div.footer
-          a.cancel(href='javascript:;') Cancel
-          a.utilitybtn Continue
-
-      ///modal
+    include ./__modal.pug

@@ -22,7 +22,7 @@ $(function () {
       W._groc = W.Grocer(host).fillerUp(filters, els);
       W._push = $('a.preview').pusher();
     }, function () {
-      W._mod = W.Modal.init('#pg-54-7 div.modal');
+      W._mod = W.Modal.init('body div.modal');
       W._dia = W.Dialog.bind('.external-link');
     }, function () {
       W._exp = W.Expander();
