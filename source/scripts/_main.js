@@ -10,7 +10,7 @@
   if (!(typeof define === 'function' && define.amd)) {
     window.Main = factory(jQuery);
   } else {
-    define(['jquery'], factory);
+    define(['jqxtn'], factory);
   }
 }(function ($) {
   'use strict';
@@ -61,16 +61,10 @@
       W._rev = revealer('.page .loadmore', '.page .widget', 2).inc(3);
     });
 
-    require(['libs/jq-pusher'], function () {
-      var picker = $('a.preview').hide();
-
-      W._push = picker.pusher();
-    });
   }
 
   function shim() {
     $('body').append('' +
-      '<script src="./scripts/pusher.js"></script>' +
       '<script src="./scripts/expander.js"></script>' +
       '<script src="./scripts/grocer.js"></script>' +
       '<script src="./scripts/loader.js"></script>' +

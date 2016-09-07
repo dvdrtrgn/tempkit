@@ -52,7 +52,7 @@ require.config({
 
     require(['libs/jq-pusher'], function () {
       var picker = $('a.preview').hide();
-
+      picker.closest('form').show();
       W._push = picker.pusher();
     });
   }
@@ -61,7 +61,7 @@ require.config({
     _el: El,
   });
 
-  W.setTimeout(W._shim ? shim : bind, 99);
+  W.setTimeout(bind, 99);
 
   if (W._dbug > 0) { // Expose
     W[Nom] = Api;

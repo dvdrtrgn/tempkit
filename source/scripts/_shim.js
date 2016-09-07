@@ -20,7 +20,6 @@ $(function () {
       var host = 'https://blogswf.staging.wpengine.com';
       var filters = '?filter[orderby]=rand&amp;filter[posts_per_page]=4';
       W._groc = W.Grocer(host).fillerUp(filters, els);
-      W._push = $('a.preview').pusher();
     }, function () {
       W._mod = W.Modal.init('body div.modal');
       W._dia = W.Dialog.bind('.external-link');
