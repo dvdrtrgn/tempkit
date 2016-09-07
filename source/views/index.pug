@@ -23,8 +23,8 @@ html
   body.loading
 
     .page
-      include ./_header.pug
-      include ./_footer.pug
+      include ./_body-header.pug
+      include ./_body-footer.pug
 
       // MODS
       include ./_mod-expander.pug
@@ -32,16 +32,16 @@ html
       include ./_mod-revealer.pug
       include ./_mod-modal.pug
       include ./_mod-loader.pug
-      include ./_mod-pusher.pug
       // mods
-      include ./_live.pug
+      include ./_live-mods.pug
       include ./_sample-inits.pug
+      include ./_mod-pusher.pug
 
       // DEMO
-      include ./_blog.pug
+      include ./_sample-blog.pug
       include ./_grid-preview.pug
     ///page
 
     include ./_grid-content.pug
 
-    include ./__modal.pug
+    include ./_sample-modal.pug
