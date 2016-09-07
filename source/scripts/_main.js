@@ -61,7 +61,7 @@
       W._rev = revealer('.page .loadmore', '.page .widget', 2).inc(3);
     });
 
-    require(['pusher'], function () {
+    require(['libs/jq-pusher'], function () {
       var picker = $('a.preview').hide();
 
       W._push = picker.pusher();

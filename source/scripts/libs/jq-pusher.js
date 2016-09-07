@@ -10,7 +10,7 @@ jQuery.fn.pusher = function (cb) {
   var $ = jQuery.noConflict();
 
   var NOM = 'jq-pusher';
-  var VER = '(0.1.1)';
+  var VER = '(0.1.2)';
   var HOSTS = [
     '//localhost/wordpress',
     '//ecgsolutions.hosting.wellsfargo.com/marketing/csc',
@@ -33,8 +33,8 @@ jQuery.fn.pusher = function (cb) {
     return fdat;
   }
 
-  function onChange(evt) {
-    require(['poster'], function (poster) {
+  function doPost(evt) {
+    require(['libs/dt-poster'], function (poster) {
       poster({
         cb: api.callback,
         obj: wrapFile(),
@@ -56,7 +56,7 @@ jQuery.fn.pusher = function (cb) {
 
   function bind() {
     main.off('change.pusher') //
-      .on('change.pusher', onChange) //
+      .on('change.pusher', doPost) //
       .data('pusher', api);
     return api;
   }
