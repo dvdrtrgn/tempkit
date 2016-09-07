@@ -9,7 +9,8 @@ html
 
     include ./_head-styles.pug
 
-    script(data-main='./scripts/_main-push' src='./vendors/require.js/require.js')
+    script _main = '_main-push';
+    include ./_head-script.pug
 
   body
 

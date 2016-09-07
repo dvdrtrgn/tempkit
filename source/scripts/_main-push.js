@@ -4,19 +4,19 @@
  rev. 2016-08 dvdrtrgn
  USE: bootstrap
  */
-require.config({
-  baseUrl: 'scripts',
-  paths: {
-    jquery: '../vendors/jquery/jquery',
-    jqxtn: './libs/jq-xtn',
-  },
-});
 (function (factory) {
   'use strict';
   if (!(typeof define === 'function' && define.amd)) {
     console.warn('shim:_main-push.js');
     window.Main = factory(jQuery);
   } else {
+    require.config({
+      baseUrl: 'scripts',
+      paths: {
+        jquery: '../vendors/jquery/jquery',
+        jqxtn: './libs/jq-xtn',
+      },
+    });
     console.info('AMD:_main-push.js');
     define(['jqxtn'], factory);
   }
