@@ -10,6 +10,7 @@
     console.warn('shim:_main-push.js');
     window.Main = factory(jQuery);
   } else {
+    console.info('AMD:_main-push.js');
     require.config({
       baseUrl: 'scripts',
       paths: {
@@ -17,7 +18,6 @@
         jqxtn: './libs/jq-xtn',
       },
     });
-    console.info('AMD:_main-push.js');
     define(['jqxtn'], factory);
   }
 }(function ($) {
@@ -57,11 +57,21 @@
     });
   }
 
+  function shim() {
+    C.error('this will not work');
+    $('body').append('' +
+      '<script src="./scripts/libs/jq-pusher.js"></script>'
+    );
+    var picker = $('a.preview').hide();
+    picker.closest('form').show();
+    W._push = picker.pusher();
+  }
+
   $.extend(Api, {
     _el: El,
   });
 
-  W.setTimeout(bind, 99);
+  W.setTimeout(W._shim ? shim : bind, 99);
 
   if (W._dbug > 0) { // Expose
     W[Nom] = Api;
