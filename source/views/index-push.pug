@@ -9,11 +9,9 @@ html
 
     include ./_head-styles.pug
 
-    link(href='./styles/expander.css', rel='stylesheet', media='all')
+    script(data-main='./scripts/_main-push' src='./vendors/require.js/require.js')
 
-    include ./_head-scripts.pug
-
-  body.loading
+  body
 
     .page
       include ./_header.pug

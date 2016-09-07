@@ -8,10 +8,14 @@ html
     title Template
 
     include ./_head-styles.pug
-
     link(href='./styles/expander.css', rel='stylesheet', media='all')
 
     include ./_head-scripts.pug
+    script
+      | var z = ['<script data-main="./config" src="./', '.js"><\/script>'];
+      | window._shim = (location.hash.toLowerCase() === '#shim');
+      | z = z[0] + (window._shim ? 'scripts/_main' : 'vendors/require.js/require') + z[1];
+      | document.write(z);
 
   body.loading
 
