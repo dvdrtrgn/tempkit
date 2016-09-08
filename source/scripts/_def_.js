@@ -25,21 +25,11 @@ if (window._dbug) {
 /*
 
   _def_('jQuery', {
-    baseUrl: 'scripts',
-    paths: {
-      jquery: '../vendors/jquery/jquery',
-      jqxtn: './libs/jq-xtn',
-    },
+    rev: '(0.0.0)',
     sig: function () {
-      'use strict';
       return _amd_ ? ['jquery'] : [jQuery];
     },
-    vers: '(0.0.0)',
   }, function ($) {
-    var W = (W && W.window || window);
-    var C = (W.C || W.console || {});
-    var Nom = 'jQuery';
-    C.debug([Nom, 'loaded', $]);
     return $;
   });
 

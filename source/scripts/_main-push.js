@@ -1,26 +1,26 @@
 /*jslint white:false */
-/*global define, window, jQuery */
+/*global _def_, window */
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
- rev. 2016-08 dvdrtrgn
  USE: bootstrap
  */
-(function (factory) {
-  'use strict';
-  if (!(typeof define === 'function' && define.amd)) {
-    console.warn('shim:_main-push.js');
-    window.Main = factory(jQuery);
-  } else {
-    console.info('AMD:_main-push.js');
-    require.config({
-      baseUrl: 'scripts',
-      paths: {
-        jquery: '../vendors/jquery/jquery',
-        jqxtn: './libs/jq-xtn',
-      },
-    });
-    define(['jqxtn'], factory);
-  }
-}(function ($) {
+_def_('Main', {
+  nom: 'MainPush',
+  rev: '(0.0.1) 2016-09',
+  dev: 'turgd01',
+  sig: function () {
+    'use strict';
+    if (window._amd_) {
+      return ['jqxtn'];
+    } else {
+      return [window.jQuery];
+    }
+  },
+  baseUrl: 'scripts',
+  paths: {
+    jquery: '../vendors/jquery/jquery',
+    jqxtn: './libs/jq-xtn',
+  },
+}, function ($) {
   'use strict';
 
   var W = (W && W.window || window);
@@ -44,15 +44,14 @@
   // - - - - - - - - - - - - - - - - - -
   // RUNTIME
 
-
-  // - - - - - - - - - - - - - - - - - -
-  // INIT
-
   function test() {
     var picker = $('a.preview').hide();
     picker.closest('form').show();
     W._push = picker.pusher();
   }
+
+  // - - - - - - - - - - - - - - - - - -
+  // INIT
 
   function bind() {
     require(['libs/jq-pusher'], test);
@@ -81,7 +80,7 @@
   }
 
   return Api;
-}));
+});
 /*
 
 
