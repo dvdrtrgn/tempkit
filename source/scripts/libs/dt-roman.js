@@ -17,7 +17,7 @@
       baseUrl: 'scripts',
       paths: {},
     });
-    define(['jqxtn'], factory);
+    define([], factory);
   }
 }(function () {
   'use strict';

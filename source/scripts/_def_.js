@@ -4,7 +4,7 @@
  rev. 2016-09 dvdrtrgn
  USE: dependency config factory
  */
-function _def_(Nom, cf, fn) {
+var _def_ = function (Nom, cf, fn) {
   'use strict';
   window._amd_ = (typeof define === 'function' && define.amd);
   if (!(cf && fn)) {
@@ -18,7 +18,7 @@ function _def_(Nom, cf, fn) {
     console.warn('_def_shim', cf.nom, cf);
     window[Nom] = fn.apply('', cf.sig());
   }
-}
+};
 if (window._dbug) {
   console.log('_def_', [_def_]);
 }

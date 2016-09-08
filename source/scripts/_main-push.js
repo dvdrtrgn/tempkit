@@ -12,7 +12,7 @@ _def_('Main', {
     if (window._amd_) {
       return ['jqxtn'];
     } else {
-      return [window.jQuery];
+      return [jQuery];
     }
   },
   baseUrl: 'scripts',
@@ -26,10 +26,6 @@ _def_('Main', {
   var W = (W && W.window || window);
   var C = (W.C || W.console || {});
 
-  $.inlineSvgs();
-  $.watchHash();
-  $.watchWidth();
-  $.watchInputDevice();
   // - - - - - - - - - - - - - - - - - -
   // ASSIGN
 
