@@ -11,11 +11,11 @@ var _def_ = function (Nom, cf, fn) {
     throw Error('missing factory params/config');
   }
   if (window._amd_) {
-    console.info('_def_AMD', cf.nom, cf);
+    console.info('_def_AMD', cf);
     require.config(cf);
     define(cf.sig(), fn);
   } else {
-    console.warn('_def_shim', cf.nom, cf);
+    console.warn('_def_shim', Nom, cf);
     window[Nom] = fn.apply('', cf.sig());
   }
 };

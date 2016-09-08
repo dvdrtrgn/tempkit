@@ -1,25 +1,21 @@
 /*jslint white:false */
-/*global define, window */
+/*global _def_, window */
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
- rev. 2016-09 dvdrtrgn
  USE: convert arabic to roman numerals
  */
-(function (factory) {
-  'use strict';
-  var V = '0.0.1';
-
-  if (!(typeof define === 'function' && define.amd)) {
-    console.warn('shim:libs/dt-roman.js', V);
-    window.Roman = factory();
-  } else {
-    console.info('AMD:libs/dt-roman.js', V);
-    require.config({
-      baseUrl: 'scripts',
-      paths: {},
-    });
-    define([], factory);
-  }
-}(function () {
+_def_('Roman', {
+  nom: 'libs/dt-roman',
+  rev: '(0.0.1) 2016-09',
+  dev: 'dvdrtrgn',
+  sig: function () {
+    'use strict';
+    if (window._amd_) {
+      return [];
+    } else {
+      return [];
+    }
+  },
+}, function () {
   'use strict';
 
   var W = (W && W.window || window);
@@ -100,11 +96,11 @@
     W[Nom] = Api;
     C.warn(Nom, 'exposed', Api);
   } else {
-    C.debug(Nom, 'loaded', Api);
+    //C.debug(Nom, 'loaded', Api);
   }
 
   return Api;
-}));
+});
 /*
 
 
