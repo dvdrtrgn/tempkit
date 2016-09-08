@@ -48,23 +48,23 @@
   // - - - - - - - - - - - - - - - - - -
   // INIT
 
-  function bind() {
+  function test() {
+    var picker = $('a.preview').hide();
+    picker.closest('form').show();
+    W._push = picker.pusher();
+  }
 
-    require(['libs/jq-pusher'], function () {
-      var picker = $('a.preview').hide();
-      picker.closest('form').show();
-      W._push = picker.pusher();
-    });
+  function bind() {
+    require(['libs/jq-pusher'], test);
   }
 
   function shim() {
     C.error('this will not work');
     $('body').append('' +
-      '<script src="./scripts/libs/jq-pusher.js"></script>'
+      '<script src="./scripts/libs/jq-pusher.js"></script>',
+      '<script src="./scripts/libs/dt-poster.js"></script>'
     );
-    var picker = $('a.preview').hide();
-    picker.closest('form').show();
-    W._push = picker.pusher();
+    test();
   }
 
   $.extend(Api, {
