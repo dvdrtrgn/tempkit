@@ -27,6 +27,17 @@
     });
   };
 
+  $.fn.scriptify = function (arr) {
+    if (!arr || !arr[0]) {
+      throw 'scriptify what!';
+    }
+    var tagL = '<script src="./scripts/';
+    var tagR = '"></script>\n';
+    var js = tagL + arr.join(tagR + tagL) + tagR;
+
+    return $(this).append('<!-- scriptify -->\n' + js);
+  };
+
   // - - - - - - - - - - - - - - - - - -
   // PUBSUBS
   $.pubsubs = $({});

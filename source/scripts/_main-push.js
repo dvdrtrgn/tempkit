@@ -58,10 +58,12 @@ _def_('Main', {
 
   function shim() {
     C.error('this will not work');
-    $('body').append('' +
-      '<script src="./scripts/libs/jq-pusher.js"></script>',
-      '<script src="./scripts/libs/dt-poster.js"></script>'
-    );
+
+    $('head').scriptify([
+      'libs/jq-pusher.js',
+      'libs/dt-poster.js',
+    ]);
+
     test();
   }
 
