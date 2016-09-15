@@ -40,10 +40,10 @@ _def_('Main', {
   // - - - - - - - - - - - - - - - - - -
   // RUNTIME
 
-  function test() {
-    var picker = $('a.preview').hide();
-    picker.closest('form').show();
-    W._push = picker.pusher();
+  function test(R) {
+    $('li.roman a').on ('click', function () {
+      C.debug('Arabic 999 = Roman', R.convert(999));
+    });
   }
 
   // - - - - - - - - - - - - - - - - - -
@@ -54,19 +54,17 @@ _def_('Main', {
     if (W._shim) {
       return shim();
     }
-    require(['libs/dt-roman'], function (R) {
-      C.debug(999, R.convert(999));
-    });
+    require(['libs/dt-roman'], test);
   }
 
   function shim() {
     C.error('this will not work');
 
     $('head').scriptify([
-      'libs/dt-roman',
+      'libs/dt-roman.js',
     ]);
 
-    test();
+    test(Roman);
   }
 
   $.extend(Api, {
