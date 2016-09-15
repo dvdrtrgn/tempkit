@@ -26,10 +26,6 @@
   var W = (W && W.window || window);
   var C = (W.C || W.console || {});
 
-  $.inlineSvgs();
-  $.watchHash();
-  $.watchWidth();
-  $.watchInputDevice();
   // - - - - - - - - - - - - - - - - - -
   // ASSIGN
 
@@ -49,6 +45,15 @@
   // INIT
 
   function bind() {
+    $.inlineSvgs();
+    $.watchHash();
+    $.watchWidth();
+    $.watchInputDevice();
+
+    if (W._shim) {
+      return shim();
+    }
+
     require(['grocer'], function (grocer) {
       W._groc = grocer();
     });
@@ -98,7 +103,7 @@
     _el: El,
   });
 
-  W.setTimeout(W._shim ? shim : bind, 99);
+  W.setTimeout(bind, 99);
 
   if (W._dbug > 0) { // Expose
     W[Nom] = Api;

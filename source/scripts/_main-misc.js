@@ -50,6 +50,10 @@ _def_('Main', {
   // INIT
 
   function bind() {
+    $.inlineSvgs();
+    if (W._shim) {
+      return shim();
+    }
     require(['libs/dt-roman'], function (R) {
       C.debug(999, R.convert(999));
     });
@@ -69,7 +73,7 @@ _def_('Main', {
     _el: El,
   });
 
-  W.setTimeout(W._shim ? shim : bind, 99);
+  W.setTimeout(bind, 99);
 
   if (W._dbug > 0) { // Expose
     W[Nom] = Api;
