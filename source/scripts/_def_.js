@@ -12,9 +12,6 @@ var _def_ = function (Nom, cf, fn) {
   if (!(cf && fn)) {
     throw Error('missing factory params/config');
   }
-  if (!(cf && fn)) {
-    throw Error('missing factory params/config');
-  }
   if (window._amd_) {
     console.info('AMD', nom, cf);
     require.config(cf);

@@ -5,7 +5,7 @@
  */
 _def_('Main', {
   nom: '_main-push',
-  rev: '(0.0.1) 2016-09',
+  rev: '(0.0.2) 2016-09',
   dev: 'turgd01',
   sig: function () {
     'use strict';
@@ -42,7 +42,8 @@ _def_('Main', {
 
   function test(R) {
     $('li.roman a').on ('click', function () {
-      C.debug('Arabic 999 = Roman', R.convert(999));
+      var num = Math.round(Math.random() * 5000);
+      C.debug('Arabic ' + num + ' = Roman', R.convert(num));
     });
   }
 
