@@ -50,14 +50,16 @@ _def_('Main', {
   // INIT
 
   function bind() {
-    require(['libs/jq-pusher'], test);
+    require(['libs/dt-roman'], function (R) {
+      C.debug(999, R.convert(999));
+    });
   }
 
   function shim() {
+    C.error('this will not work');
 
     $('head').scriptify([
-      'libs/jq-pusher.js',
-      'libs/dt-poster.js',
+      'libs/dt-roman',
     ]);
 
     test();
