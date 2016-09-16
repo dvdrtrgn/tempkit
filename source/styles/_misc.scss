@@ -33,7 +33,8 @@ ul {
 }
 .external-blog {
   article {
-    border: 1px solid pink;
+    //border: 1px solid pink;
+    box-shadow: inset 0px 1px 10px -1px gray;
     padding: 1rem;
     flex: 1 1;
   }
