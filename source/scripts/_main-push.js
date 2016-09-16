@@ -49,14 +49,6 @@ _def_('Main', {
   // - - - - - - - - - - - - - - - - - -
   // INIT
 
-  function bind() {
-    $.inlineSvgs();
-    if (W._shim) {
-      return shim();
-    }
-    require(['libs/jq-pusher'], test);
-  }
-
   function shim() {
 
     $('head').scriptify([
@@ -65,6 +57,14 @@ _def_('Main', {
     ]);
 
     test();
+  }
+
+  function bind() {
+    $.inlineSvgs();
+    if (W._shim) {
+      return shim();
+    }
+    require(['libs/jq-pusher'], test);
   }
 
   $.extend(Api, {

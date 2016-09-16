@@ -41,6 +41,34 @@
   // RUNTIME
 
 
+  function shim() {
+    $('body').append('' +
+      '<script src="./scripts/expander.js"></script>' +
+      '<script src="./scripts/grocer.js"></script>' +
+      '<script src="./scripts/loader.js"></script>' +
+      '<script src="./scripts/revealer.js"></script>' +
+      '<script src="./scripts/modal.js"></script>' +
+      '<script src="./scripts/dialog.js"></script>'
+    );
+    W._lo = W.Loader(
+      999, [function () {
+        var els = $('div.external-blog').children();
+        var host = 'https://blogswf.staging.wpengine.com';
+        var filters = '?filter[orderby]=rand&amp;filter[posts_per_page]=4';
+        W._groc = W.Grocer(host).fillerUp(filters, els);
+      }, function () {
+        W._mod = W.Modal.init('body div.modal');
+        W._dia = W.Dialog.bind('.external-link');
+      }, function () {
+        W._exp = W.Expander();
+      }, function () {
+        W._rev = W.Revealer('.page .loadmore', '.page .widget', 2).inc(3);
+      }]
+    );
+
+    W.document.title += ' SHIM';
+  }
+
   // - - - - - - - - - - - - - - - - - -
   // INIT
 
@@ -69,34 +97,6 @@
     require(['revealer'], function (revealer) {
       W._rev = revealer('.page .loadmore', '.page .widget', 2).inc(3);
     });
-  }
-
-  function shim() {
-    $('body').append('' +
-      '<script src="./scripts/expander.js"></script>' +
-      '<script src="./scripts/grocer.js"></script>' +
-      '<script src="./scripts/loader.js"></script>' +
-      '<script src="./scripts/revealer.js"></script>' +
-      '<script src="./scripts/modal.js"></script>' +
-      '<script src="./scripts/dialog.js"></script>'
-    );
-    W._lo = W.Loader(
-      999, [function () {
-        var els = $('div.external-blog').children();
-        var host = 'https://blogswf.staging.wpengine.com';
-        var filters = '?filter[orderby]=rand&amp;filter[posts_per_page]=4';
-        W._groc = W.Grocer(host).fillerUp(filters, els);
-      }, function () {
-        W._mod = W.Modal.init('body div.modal');
-        W._dia = W.Dialog.bind('.external-link');
-      }, function () {
-        W._exp = W.Expander();
-      }, function () {
-        W._rev = W.Revealer('.page .loadmore', '.page .widget', 2).inc(3);
-      }]
-    );
-
-    W.document.title += ' SHIM';
   }
 
   $.extend(Api, {

@@ -50,14 +50,6 @@ _def_('Main', {
   // - - - - - - - - - - - - - - - - - -
   // INIT
 
-  function bind() {
-    $.inlineSvgs();
-    if (W._shim) {
-      return shim();
-    }
-    require(['libs/dt-roman'], test);
-  }
-
   function shim() {
     C.error('this will not work');
 
@@ -65,7 +57,15 @@ _def_('Main', {
       'libs/dt-roman.js',
     ]);
 
-    test(Roman);
+    test(W.Roman);
+  }
+
+  function bind() {
+    $.inlineSvgs();
+    if (W._shim) {
+      return shim();
+    }
+    require(['libs/dt-roman'], test);
   }
 
   $.extend(Api, {
