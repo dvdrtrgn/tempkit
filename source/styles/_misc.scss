@@ -4,6 +4,9 @@
 body {
   color: $darker;
 }
+details {
+  cursor: pointer;
+}
 ul {
   padding-left: 1em;
   li a {
