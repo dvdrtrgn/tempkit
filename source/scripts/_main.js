@@ -28,56 +28,6 @@
 
   // - - - - - - - - - - - - - - - - - -
   // ASSIGN
-  function autoRevExp(rev) {
-    var idx, sea, sid, tgt, util;
-
-    util = {
-      parseSearch: function () {
-        var obj = {};
-        var qry = location.search.slice(1).split('&');
-
-        qry.forEach(function (seg) {
-          seg = seg.split('=');
-          if (seg[0]) {
-            obj[seg[0]] = seg[1];
-          }
-        });
-        return obj;
-      },
-      revealUpto: function (obj, sho) {
-        var cnt = obj.showing();
-        var tot = obj.total();
-
-        sho = (sho ? sho : tot) - cnt;
-        if (sho) {
-          obj.next(sho);
-        }
-        return sho;
-      },
-      expandSoon: function (ele) {
-        setTimeout(function () {
-          $(ele).find('.ex-target').click();
-        }, 500);
-      },
-    };
-
-    sea = util.parseSearch();
-    sid = '#' + sea.id;
-    tgt = $(sid)[0];
-    idx = Number(sid.split('-').pop()) + 1;
-
-    if (idx) {
-      util.revealUpto(rev, idx);
-      util.expandSoon(tgt);
-    }
-  }
-
-  function wip(glob) {
-    setTimeout(function () {
-      autoRevExp(glob);
-    }, 3333);
-  }
-
 
   var Nom = 'Main',
     Api = {
@@ -90,13 +40,13 @@
   // - - - - - - - - - - - - - - - - - -
   // RUNTIME
 
-
   function shim() {
     $('body').append('' +
       '<script src="./scripts/expander.js"></script>' +
       '<script src="./scripts/grocer.js"></script>' +
       '<script src="./scripts/loader.js"></script>' +
       '<script src="./scripts/revealer.js"></script>' +
+      '<script src="./scripts/revexp.js"></script>' +
       '<script src="./scripts/modal.js"></script>' +
       '<script src="./scripts/dialog.js"></script>'
     );
@@ -113,7 +63,9 @@
         W._exp = W.Expander();
       }, function () {
         W._rev = W.Revealer('.page .loadmore', '.page .widget', 2).inc(3);
-        wip(W._rev);
+        setTimeout(function () {
+          W.autoRevExp(W._rev);
+        }, 3333);
       }]
     );
 
@@ -147,7 +99,6 @@
     });
     require(['revealer'], function (revealer) {
       W._rev = revealer('.page .loadmore', '.page .widget', 2).inc(3);
-      wip(W._rev);
     });
 
   }
