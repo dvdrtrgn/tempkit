@@ -7,7 +7,7 @@ USE: targets id=* from the query string for reveal and expand
 */
 (function (factory) {
   'use strict';
-  var V = '0.0.3';
+  var V = '0.0.4';
   var W = (W && W.window || window);
 
   if (!(typeof define === 'function' && define.amd)) {
@@ -26,33 +26,36 @@ USE: targets id=* from the query string for reveal and expand
   // - - - - - - - - - - - - - - - - - -
 
   return function (rev) {
-    rev = rev || W._rev;
     var idx, qid, util;
 
+    if (!rev) {
+      rev = W._rev; // if not passed in look to global
+      C.warn('autoreveal', 'no Reveal passed, trying global space');
+    }
+
     util = {
-      parseSearch: function () {
+      parseSearch: function () { // turn search string into object
         var obj = {};
         var qry = W.location.search.slice(1).split('&');
 
         qry.forEach(function (seg) {
           seg = seg.split('=');
-          if (seg[0]) {
+          if (seg[0]) { // must have key (optional val)
             obj[seg[0]] = seg[1];
           }
         });
         return obj;
       },
-      revealUpto: function (obj, sho) {
+      revealUpto: function (obj, num) { // use Reveal instance and show N items
         var cnt = obj.showing();
         var tot = obj.total();
 
-        sho = (sho ? sho : tot) - cnt;
-        if (sho) {
-          obj.next(sho);
+        num = (num ? num : tot) - cnt; // without a count, show all
+        if (num) {
+          obj.next(num);
         }
-        return sho;
       },
-      expandSoon: function (ele) {
+      expandSoon: function (ele) { // wait for reveals (half-second)
         setTimeout(function () {
           $(ele).find('.ex-target').click();
         }, 500);
@@ -64,7 +67,7 @@ USE: targets id=* from the query string for reveal and expand
 
     if (idx) {
       util.revealUpto(rev, idx);
-      util.expandSoon(qid); // wait for reveals
+      util.expandSoon(qid);
     }
   };
 }));
