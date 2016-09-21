@@ -28,6 +28,48 @@
 
   // - - - - - - - - - - - - - - - - - -
   // ASSIGN
+  function parseSearch() {
+    var o = {};
+    var qry = location.search.slice(1).split('&');
+
+    qry.forEach(function (e) {
+      e = e.split('=');
+      if (e[0]) {
+        o[e[0]] = e[1];
+      }
+    });
+
+    C.warn('parseSearch', o);
+    return o;
+  }
+
+  function calcToShow(obj, sho) {
+    var cnt = obj.showing();
+    var tot = obj.total();
+
+    sho = (sho ? sho : tot) - cnt;
+    obj.next(sho);
+
+    C.warn('calcToShow', sho);
+    return sho;
+  }
+
+  function calcIndex(sel) {
+    var el = $('#' + sel)[0];
+
+    C.warn('calcIndex', el);
+    return el;
+  }
+
+  function wip(glob) {
+    var qry = parseSearch();
+    var ele = calcIndex(qry.id);
+    if (!ele) return;
+
+    var idx = qry.id.split('-').pop();
+    calcToShow(glob, idx);
+  }
+
 
   var Nom = 'Main',
     Api = {
@@ -96,7 +138,9 @@
     });
     require(['revealer'], function (revealer) {
       W._rev = revealer('.page .loadmore', '.page .widget', 2).inc(3);
+      wip(W._rev);
     });
+
   }
 
   $.extend(Api, {
