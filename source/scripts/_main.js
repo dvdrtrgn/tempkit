@@ -28,46 +28,54 @@
 
   // - - - - - - - - - - - - - - - - - -
   // ASSIGN
-  function parseSearch() {
-    var o = {};
-    var qry = location.search.slice(1).split('&');
+  function autoRevExp(rev) {
+    var idx, sea, sid, tgt, util;
 
-    qry.forEach(function (e) {
-      e = e.split('=');
-      if (e[0]) {
-        o[e[0]] = e[1];
-      }
-    });
+    util = {
+      parseSearch: function () {
+        var obj = {};
+        var qry = location.search.slice(1).split('&');
 
-    C.warn('parseSearch', o);
-    return o;
-  }
+        qry.forEach(function (seg) {
+          seg = seg.split('=');
+          if (seg[0]) {
+            obj[seg[0]] = seg[1];
+          }
+        });
+        return obj;
+      },
+      revealUpto: function (obj, sho) {
+        var cnt = obj.showing();
+        var tot = obj.total();
 
-  function calcToShow(obj, sho) {
-    var cnt = obj.showing();
-    var tot = obj.total();
+        sho = (sho ? sho : tot) - cnt;
+        if (sho) {
+          obj.next(sho);
+        }
+        return sho;
+      },
+      expandSoon: function (ele) {
+        setTimeout(function () {
+          $(ele).find('.ex-target').click();
+        }, 500);
+      },
+    };
 
-    sho = (sho ? sho : tot) - cnt;
-    obj.next(sho);
+    sea = util.parseSearch();
+    sid = '#' + sea.id;
+    tgt = $(sid)[0];
+    idx = Number(sid.split('-').pop()) + 1;
 
-    C.warn('calcToShow', sho);
-    return sho;
-  }
-
-  function calcIndex(sel) {
-    var el = $('#' + sel)[0];
-
-    C.warn('calcIndex', el);
-    return el;
+    if (idx) {
+      util.revealUpto(rev, idx);
+      util.expandSoon(tgt);
+    }
   }
 
   function wip(glob) {
-    var qry = parseSearch();
-    var ele = calcIndex(qry.id);
-    if (!ele) return;
-
-    var idx = qry.id.split('-').pop();
-    calcToShow(glob, idx);
+    setTimeout(function () {
+      autoRevExp(glob);
+    }, 3333);
   }
 
 
@@ -93,7 +101,7 @@
       '<script src="./scripts/dialog.js"></script>'
     );
     W._lo = W.Loader(
-      999, [function () {
+      333, [function () {
         var els = $('div.external-blog').children();
         var host = 'https://blogswf.staging.wpengine.com';
         var filters = '?filter[orderby]=rand&amp;filter[posts_per_page]=4';
@@ -105,6 +113,7 @@
         W._exp = W.Expander();
       }, function () {
         W._rev = W.Revealer('.page .loadmore', '.page .widget', 2).inc(3);
+        wip(W._rev);
       }]
     );
 
