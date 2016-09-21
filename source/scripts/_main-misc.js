@@ -4,7 +4,7 @@
  USE: bootstrap
  */
 _def_('Main', {
-  nom: '_main-push',
+  nom: '_main-misc',
   rev: '(0.0.2) 2016-09',
   dev: 'turgd01',
   sig: function () {

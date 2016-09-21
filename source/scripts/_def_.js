@@ -6,18 +6,22 @@
  */
 var _def_ = function (Nom, cf, fn) {
   'use strict';
-  var nom = '_def_';
+  var _Nom = '_def_';
 
   window._amd_ = (typeof define === 'function' && define.amd);
   if (!(cf && fn)) {
     throw Error('missing factory params/config');
   }
+  cf.sig = cf.sig || function () { // default to jquery only
+    return _amd_ ? ['jquery'] : [jQuery];
+  };
+
   if (window._amd_) {
-    console.info('AMD', nom, cf);
+    console.info('AMD', _Nom, cf);
     require.config(cf);
     define(cf.sig(), fn);
   } else {
-    console.warn('shim', nom, Nom, cf);
+    console.warn('!!!', _Nom, Nom, cf);
     window[Nom] = fn.apply('', cf.sig());
   }
 };
@@ -26,13 +30,6 @@ if (window._dbug) {
 }
 /*
 
-  _def_('jQuery', {
-    rev: '(0.0.0)',
-    sig: function () {
-      return _amd_ ? ['jquery'] : [jQuery];
-    },
-  }, function ($) {
-    return $;
-  });
+
 
  */
