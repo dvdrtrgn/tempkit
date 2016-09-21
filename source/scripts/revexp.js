@@ -4,7 +4,7 @@
 _def_('autoRevExp', {
   nom: 'revexp',
   doc: 'targets id=* from the query string for reveal and expand',
-  rev: '(0.0.1) 2016-09',
+  rev: '(0.0.2) 2016-09',
   dev: 'turgd01',
   sig: function () {
     'use strict';
@@ -24,7 +24,7 @@ _def_('autoRevExp', {
 
   return function autoRevExp(rev) {
     rev = rev || W._rev;
-    var idx, sea, sid, tgt, util;
+    var idx, sea, sid, util;
 
     util = {
       parseSearch: function () {
@@ -46,7 +46,7 @@ _def_('autoRevExp', {
         sho = (sho ? sho : tot) - cnt;
         if (sho) {
           obj.next(sho);
-        } else C.log('nuthin');
+        } else C.warn('revealUpto ???');
         return sho;
       },
       expandSoon: function (ele) {
@@ -56,14 +56,13 @@ _def_('autoRevExp', {
       },
     };
 
-    sea = util.parseSearch();
+    sea = util.parseSearch(); // get id from query
     sid = '#' + sea.id;
-    tgt = $(sid)[0];
-    idx = Number(sid.split('-').pop()) + 1;
+    idx = Number(sid.split('-').pop()) + 1; // take number from selector
 
     if (idx) {
       util.revealUpto(rev, idx);
-      util.expandSoon(tgt);
+      util.expandSoon(sid); // wait for reveals
     }
   };
 });

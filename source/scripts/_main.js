@@ -55,7 +55,7 @@
         var els = $('div.external-blog').children();
         var host = 'https://blogswf.staging.wpengine.com';
         var filters = '?filter[orderby]=rand&amp;filter[posts_per_page]=4';
-        W._groc = W.Grocer(host).fillerUp(filters, els);
+        W._groc = W.Grocer(host); //.fillerUp(filters, els);
       }, function () {
         W._mod = W.Modal.init('body div.modal');
         W._dia = W.Dialog.bind('.external-link');
@@ -65,7 +65,7 @@
         W._rev = W.Revealer('.page .loadmore', '.page .widget', 2).inc(3);
         setTimeout(function () {
           W.autoRevExp(W._rev);
-        }, 3333);
+        }, 2222);
       }]
     );
 
@@ -97,8 +97,11 @@
     require(['expander'], function (expander) {
       W._exp = expander();
     });
-    require(['revealer'], function (revealer) {
+    require(['revealer', 'revexp'], function (revealer, autoRevExp) {
       W._rev = revealer('.page .loadmore', '.page .widget', 2).inc(3);
+      setTimeout(function () {
+        autoRevExp(W._rev);
+      }, 2222);
     });
 
   }
