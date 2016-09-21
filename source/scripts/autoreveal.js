@@ -1,13 +1,23 @@
 /*jslint white:false */
-/*global _def_, window */
-/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-_def_('autoRevExp', {
-  nom: 'revexp',
-  doc: 'targets id=* from the query string for reveal and expand',
-  rev: '(0.0.2) 2016-09',
-  dev: 'turgd01',
-  sig: '',
-}, function ($) {
+/*global define, window */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+USE: targets id=* from the query string for reveal and expand
+
+*/
+(function (factory) {
+  'use strict';
+  var V = '0.0.3';
+  var W = (W && W.window || window);
+
+  if (!(typeof define === 'function' && define.amd)) {
+    console.warn('shim:autoreveal.js', V);
+    W.autoreveal = factory(jQuery);
+  } else {
+    console.info('AMD:autoreveal.js', V);
+    define(['jquery'], factory);
+  }
+}(function ($) {
   'use strict';
 
   var W = (W && W.window || window);
@@ -15,7 +25,7 @@ _def_('autoRevExp', {
 
   // - - - - - - - - - - - - - - - - - -
 
-  return function autoRevExp(rev) {
+  return function (rev) {
     rev = rev || W._rev;
     var idx, qid, util;
 
@@ -57,7 +67,7 @@ _def_('autoRevExp', {
       util.expandSoon(qid); // wait for reveals
     }
   };
-});
+}));
 /*
 
 

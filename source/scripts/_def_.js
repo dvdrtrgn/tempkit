@@ -13,7 +13,7 @@ var _def_ = function (Nom, cf, fn) {
     throw Error('missing factory params/config');
   }
   cf.sig = cf.sig || function () { // default to jquery only
-    return _amd_ ? ['jquery'] : [jQuery];
+    return window._amd_ ? ['jquery'] : [jQuery];
   };
 
   if (window._amd_) {

@@ -46,7 +46,7 @@
       '<script src="./scripts/grocer.js"></script>' +
       '<script src="./scripts/loader.js"></script>' +
       '<script src="./scripts/revealer.js"></script>' +
-      '<script src="./scripts/revexp.js"></script>' +
+      '<script src="./scripts/autoreveal.js"></script>' +
       '<script src="./scripts/modal.js"></script>' +
       '<script src="./scripts/dialog.js"></script>'
     );
@@ -62,7 +62,7 @@
       }, function () {
         W._rev = W.Revealer('.page .loadmore', '.page .widget', 2).inc(3);
         setTimeout(function () {
-          W.autoRevExp(W._rev);
+          W.autoreveal(W._rev);
         }, 2222);
       }]
     );
@@ -95,10 +95,10 @@
     require(['expander'], function (expander) {
       W._exp = expander();
     });
-    require(['revealer', 'revexp'], function (revealer, autoRevExp) {
+    require(['revealer', 'autoreveal'], function (revealer, autoreveal) {
       W._rev = revealer('.page .loadmore', '.page .widget', 2).inc(3);
       setTimeout(function () {
-        autoRevExp(W._rev);
+        autoreveal(W._rev);
       }, 2222);
     });
 
