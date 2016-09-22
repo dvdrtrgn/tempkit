@@ -7,7 +7,7 @@ USE: targets id=* from the query string for reveal and expand
 */
 (function (factory) {
   'use strict';
-  var V = '0.0.4';
+  var V = '0.1.0';
   var W = (W && W.window || window);
 
   if (!(typeof define === 'function' && define.amd)) {
@@ -25,11 +25,11 @@ USE: targets id=* from the query string for reveal and expand
 
   // - - - - - - - - - - - - - - - - - -
 
-  return function (rev) {
-    var idx, qid, util;
+  return function (Reveal) {
+    var qty, qel, util;
 
-    if (!rev) {
-      rev = W._rev; // if not passed in look to global
+    if (!Reveal) {
+      Reveal = W._rev; // if not passed in look to global Reveal instance
       C.warn('autoreveal', 'no Reveal passed, trying global space');
     }
 
@@ -46,28 +46,38 @@ USE: targets id=* from the query string for reveal and expand
         });
         return obj;
       },
-      revealUpto: function (obj, num) { // use Reveal instance and show N items
-        var cnt = obj.showing();
-        var tot = obj.total();
+      getNextMultiple: function (base, step) { // first higher multiple
+        var high = base;
+        if (step) {
+          high = Math.ceil(base / step) * step;
+        }
+        return high;
+      },
+      revealPast: function (Rev, num) { // assume Reveal instance
+        var tot = Rev.total();
+        var step = Rev.inc();
+        var shown = Rev.showing();
 
-        num = (num ? num : tot) - cnt; // without a count, show all
-        if (num) {
-          obj.next(num);
+        if (num > shown) {
+          var top = util.getNextMultiple(num, step);
+
+          num = (num ? top : tot) - shown; // without a count, show all
+          Rev.next(num);
         }
       },
-      expandSoon: function (ele) { // wait for reveals (half-second)
+      expandSoon: function (ele) { // wait for reveals a moment
         setTimeout(function () {
           $(ele).find('.ex-target').click();
         }, 500);
       },
     };
 
-    qid = '#' + util.parseSearch().id; // get id from query
-    idx = Number(qid.split('-').pop()) + 1; // take number from selector
+    qel = $('#' + util.parseSearch().id); // query for target element
+    qty = Number(qel.data('ExpanderIndex')) + 1; // turn index into quantity
 
-    if (idx) {
-      util.revealUpto(rev, idx);
-      util.expandSoon(qid);
+    if (qty) {
+      util.revealPast(Reveal, qty);
+      util.expandSoon(qel);
     }
   };
 }));

@@ -60,7 +60,7 @@
       }, function () {
         W._exp = W.Expander();
       }, function () {
-        W._rev = W.Revealer('.page .loadmore', '.page .widget', 2).inc(3);
+        W._rev = W.Revealer('.page .loadmore', '.page .widget', 2).inc(4);
         setTimeout(function () {
           W.autoreveal(W._rev);
         }, 2222);
@@ -96,7 +96,7 @@
       W._exp = expander();
     });
     require(['revealer', 'autoreveal'], function (revealer, autoreveal) {
-      W._rev = revealer('.page .loadmore', '.page .widget', 2).inc(3);
+      W._rev = revealer('.page .loadmore', '.page .widget', 2).inc(4);
       setTimeout(function () {
         autoreveal(W._rev);
       }, 2222);
