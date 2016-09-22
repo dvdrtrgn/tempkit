@@ -61,8 +61,10 @@
         W._exp = W.Expander();
       }, function () {
         W._rev = W.Revealer('.page .loadmore', '.page .widget', 2).inc(4);
+        W._lo.start();
         setTimeout(function () {
           W.autoreveal(W._rev);
+          W._lo.stop();
         }, 2222);
       }]
     );
@@ -97,8 +99,10 @@
     });
     require(['revealer', 'autoreveal'], function (revealer, autoreveal) {
       W._rev = revealer('.page .loadmore', '.page .widget', 2).inc(4);
+      W._lo.start();
       setTimeout(function () {
         autoreveal(W._rev);
+        W._lo.stop();
       }, 2222);
     });
 
