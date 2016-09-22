@@ -1,9 +1,11 @@
 /*jslint white:false */
-/*global define, window */
+/*global define, window, _dbug:true */
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
  rev. 2016-09 dvdrtrgn
  USE: dependency config factory
  */
+_dbug = Number(new Date('2016/11/01') > new Date());
+
 var _def_ = function (Nom, cf, fn) {
   'use strict';
   var _Nom = '_def_';

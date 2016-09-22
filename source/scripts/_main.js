@@ -26,6 +26,20 @@
   var W = (W && W.window || window);
   var C = (W.C || W.console || {});
 
+  // ESTABLISH BASELINES
+
+  try {
+    if (~navigator.userAgent.indexOf('rident')) { // IE
+      W._dbug -= 1;
+      $('html').addClass('msie');
+    } else if (W.location.hostname === 'localhost') {
+      W._dbug += 1;
+      $('html').addClass('debug');
+    }
+  } catch (err) {
+    C.error('config', err);
+  }
+
   // - - - - - - - - - - - - - - - - - -
   // ASSIGN
 
