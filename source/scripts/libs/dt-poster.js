@@ -1,9 +1,14 @@
 /*jslint white:false */
 /*global window, define, jQuery */
-/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+- does basic auth
+- posts to wp rest api
+- handles img blob as FormData
+
+*/
 (function (factory) {
   'use strict';
-  var V = '0.0.3';
+  var V = '0.0.4';
   var W = (W && W.window || window);
 
   if (!(typeof define === 'function' && define.amd)) {
@@ -20,6 +25,14 @@
   var C = (W.C || W.console || {});
   var Debug = W._dbug > 0 ? W._dbug : '';
 
+  function isBlob(cf) {
+    var iso = typeof cf.obj === 'object';
+    return iso && !$.isPlainObject(cf.obj);
+  }
+  function isConfig(url) {
+    return $.isPlainObject(url) && url;
+  }
+
   function Poster(url, obj, auth, cb) {
     var cf, nom = 'Poster';
 
@@ -28,9 +41,9 @@
       obj: obj,
       auth: auth || 'Basic YXV0bzpxd2VydHk=',
       cb: cb || $.noop,
-    }, $.isPlainObject(url) && url);
+    }, isConfig(url)); // passed a config object?
 
-    cf.blob = (typeof cf.obj === 'object') && !$.isPlainObject(cf.obj);
+    cf.blob = isBlob(cf);
 
     if (Debug) {
       C.debug(nom, 'config', cf);
