@@ -3,14 +3,14 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  var V = '0.0.2';
+  var V = '0.0.3';
   var W = (W && W.window || window);
 
   if (!(typeof define === 'function' && define.amd)) {
-    console.warn('shim:libs/dt-poster.js', V);
+    console.warn('shim:poster.js', V);
     W.Poster = factory(jQuery);
   } else {
-    console.info('AMD:libs/dt-poster.js', V);
+    console.info('AMD:poster.js', V);
     define(['jquery'], factory);
   }
 }(function ($) {
@@ -18,7 +18,7 @@
 
   var W = (W && W.window || window);
   var C = (W.C || W.console || {});
-  var Debug = W._dbug > 0;
+  var Debug = W._dbug > 0 ? W._dbug : '';
 
   function Poster(url, obj, auth, cb) {
     var cf, nom = 'Poster';
@@ -31,9 +31,11 @@
     }, $.isPlainObject(url) && url);
 
     cf.blob = (typeof cf.obj === 'object') && !$.isPlainObject(cf.obj);
+
     if (Debug) {
-      C.debug(nom, ['config', cf]);
+      C.debug(nom, 'config', cf);
     }
+
     $.ajax({
       method: 'POST',
       url: cf.url,
@@ -51,7 +53,9 @@
         cf.cb(data);
       },
       error: function (error) {
-        C.error([nom, error.responseText, error]);
+        if (Debug > 1) {
+          C.warn(nom, error.responseText, [error]);
+        }
       },
     });
   }
