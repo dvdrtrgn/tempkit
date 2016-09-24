@@ -1,12 +1,9 @@
 /*jslint white:false */
 /*global window, define, jQuery, Looker */
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-
-
-
 (function (factory) {
   'use strict';
-  var V = '0.0.2';
+  var V = '0.0.3';
   var W = (W && W.window || window);
 
   if (!(typeof define === 'function' && define.amd)) {
@@ -21,7 +18,8 @@
 
   var W = (W && W.window || window);
   var C = (W.C || W.console || {});
-  // var Debug = W._dbug > 0;
+  var Nom = 'Yeller';
+  var Debug = W._dbug > 0 ? W._dbug : '';
 
   function makeFieldSerial(obj) {
     var arr = [];
@@ -32,8 +30,9 @@
   }
 
   function makeUrl(host, api, id, obj) {
-    C.log('makeUrl', [host, api, id, obj]);
-
+    if (Debug) {
+      C.debug(Nom, 'makeUrl', [host, api, id, obj]);
+    }
     if (obj && api === 'acf') {
       id += '?' + makeFieldSerial(obj);
     }
