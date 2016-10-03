@@ -39,7 +39,8 @@
     "minimist": "*",
     "pug": "*",
     "require-dir": "*",
-    "run-sequence": "*"
+    "run-sequence": "*",
+    "tape": "^4.6.2"
   },
   "scripts": {
     "build": "gulp build && gulp serve",
