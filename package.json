@@ -19,6 +19,8 @@
     "url": "https://github.com/dvdrtrgn/REPOSITORY.git"
   },
   "devDependencies": {
+    "babel-preset-es2015": "^6.16.0",
+    "babelify": "^7.3.0",
     "browser-sync": "*",
     "del": "*",
     "gulp": "*",
@@ -44,6 +46,9 @@
   },
   "scripts": {
     "build": "gulp build && gulp serve",
-    "clean": "gulp clean && gulp build && gulp serve"
+    "clean": "gulp clean && gulp build && gulp serve",
+    "test1": "node test.js; echo done",
+    "test2": "babel-node test.js | faucet; echo done",
+    "test3": "browserify -t babelify test.js | browser-run -p 2222 | faucet"
   }
 }
