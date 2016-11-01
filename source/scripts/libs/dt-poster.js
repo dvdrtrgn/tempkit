@@ -7,10 +7,10 @@
   var W = (W && W.window || window);
 
   if (!(typeof define === 'function' && define.amd)) {
-    console.warn('shim:poster.js', V);
+    console.warn('shim:libs/dt-poster.js', V);
     W.Poster = factory(jQuery);
   } else {
-    console.info('AMD:poster.js', V);
+    console.info('AMD:libs/dt-poster.js', V);
     define(['jquery'], factory);
   }
 }(function ($) {

@@ -8,10 +8,8 @@ html
     title Template
 
     include ./_head-styles.pug
-    link(href='./styles/expander.css', rel='stylesheet', media='all')
 
-    script _main = '_main';
-    include ./_head-script.pug
+    link(href='./styles/expander.css', rel='stylesheet', media='all')
 
   body.loading
 
@@ -21,20 +19,9 @@ html
 
       // MODS
       include ./mods/_expander.pug
-      include ./mods/_grocer.pug
-      include ./mods/_revealer.pug
-      include ./mods/_modal.pug
-      include ./mods/_loader.pug
-      // mods
-      include ./_live-mods.pug
-      include ./_sample-inits.pug
-      include ./mods/_pusher.pug
 
       // DEMO
-      include ./_sample-blog.pug
       include ./_grid-preview.pug
     ///page
 
     include ./_grid-content.pug
-
-    include ./_sample-modal.pug
