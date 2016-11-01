@@ -6,7 +6,7 @@
  */
 (function (factory) {
   'use strict';
-  var V = '0.3.5';
+  var V = '0.3.6';
   var W = (W && W.window || window);
 
   if (!(typeof define === 'function' && define.amd)) {
@@ -78,13 +78,15 @@
         src: null,
       };
       fetchMedia(obj1.featured_media, function (obj2) {
+        var sz;
         if (obj2.source_url === 'failed') {
           basket.src = 'data:image/gif;base64,R0lGODlhBwABAIAAAAAAAAAAACH5BAEAAAAALAAAAAAHAAEAAAIDhA8FADs=';
         } else {
-          basket.src = obj2.media_details.sizes.medium.source_url;
+          sz = obj2.media_details.sizes;
+          basket.src = (sz.medium || sz.thumbnail || sz.full).source_url; // spray and pray
         }
         usePost(basket);
-        dbg('post+media', basket, obj1, obj2);
+        dbg('post+media', obj1, obj2, basket);
       });
     }
 
@@ -140,10 +142,12 @@
     test: function (num) {
       var filters = '?filter[orderby]=rand&filter[posts_per_page]=4';
       var hosts = [
-        'http://rmion.com',
-        'http://demo.wp-api.org',
+        'http://localhost/wordpress',
+        'http://ecgsolutions.hosting.wellsfargo.com/marketing/csc',
         'https://blogs.wf.com',
-        'https://blogswf.staging.wpengine.com'
+        'https://blogswf.staging.wpengine.com',
+        // 'http://rmion.com',
+        // 'http://demo.wp-api.org',
       ];
 
       return (new Grocer(hosts[num]).fillerUp(filters));
