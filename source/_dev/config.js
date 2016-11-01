@@ -28,7 +28,7 @@ require.config({
   },
 });
 
-require(['jquery'], function () {
+require(['jqxtn'], function ($) {
   var loc = W.location.hostname === 'localhost';
 
   // ESTABLISH BASELINES
@@ -48,11 +48,9 @@ require(['jquery'], function () {
   /// CUSTOMIZED INIT
   W.location.hash = W.location.hash || 'Page1';
 
-  require(['jqxtn'], function ($) {
-    require(['_main'], function () {
+  require(['_main'], function () {
 
-      //$('body').removeClass('loading');
-    });
+    //$('body').removeClass('loading');
   });
 
 });

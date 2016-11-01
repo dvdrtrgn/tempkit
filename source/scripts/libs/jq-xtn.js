@@ -3,17 +3,18 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 (function (factory) {
   'use strict';
-  if (typeof define === 'function' && define.amd) {
-    //console.log('AMD:jq-xtn');
-    define(['jquery'], factory);
+  if (!(typeof define === 'function' && define.amd)) {
+    console.warn('shim:libs/jq-xtn.js');
+    factory(jQuery);
   } else {
-    console.warn('jq-xtn.js shim', [factory(jQuery)]);
+    console.info('AMD:libs/jq-xtn.js');
+    define(['jquery'], factory);
   }
 }(function ($) {
   'use strict';
 
-  var W = (W && W.window || window),
-    C = (W.C || W.console || {});
+  var W = (W && W.window || window);
+  var C = (W.C || W.console || {});
 
   // - - - - - - - - - - - - - - - - - -
   // AUTOMATE
@@ -24,6 +25,17 @@
       }
       (obj[i] = $(sel)).selector = sel;
     });
+  };
+
+  $.fn.scriptify = function (arr) {
+    if (!arr || !arr[0]) {
+      throw 'scriptify what!';
+    }
+    var tagL = '<script src="./scripts/';
+    var tagR = '"></script>\n';
+    var js = tagL + arr.join(tagR + tagL) + tagR;
+
+    return $(this).append('<!-- scriptify -->\n' + js);
   };
 
   // - - - - - - - - - - - - - - - - - -

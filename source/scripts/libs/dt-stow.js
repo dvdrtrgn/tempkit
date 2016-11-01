@@ -12,8 +12,8 @@
 }(function () {
   'use strict';
 
-  var Nom = 'Stow',
-    Api = {};
+  var Nom = 'Stow';
+  var Api = {};
 
   function stringIt(obj) {
     return JSON.stringify(obj) || '""';

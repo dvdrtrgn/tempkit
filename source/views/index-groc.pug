@@ -1,0 +1,28 @@
+doctype html
+html
+  head
+    meta(charset='UTF-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+
+    title Template
+
+    include ./_head-styles.pug
+
+    link(href='./styles/expander.css', rel='stylesheet', media='all')
+
+  body.loading
+
+    .page
+      include ./_body-outside.pug
+
+      // MODS
+      include ./mods/_grocer.pug
+
+      // DEMO
+      include ./samples/_blog.pug
+
+      p relies on wordpress backends
+    ///page
+
+    include ./samples/_grid-content.pug

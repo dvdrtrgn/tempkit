@@ -8,7 +8,7 @@
 // Dependencies
 var gulp  = require('gulp');
 var watch = require('gulp-watch');
-var bs    = require("browser-sync").create();
+var bs    = require('browser-sync').create();
 
 // Task
 gulp.task('serve', function() {
