@@ -9,7 +9,7 @@ html
 
     include ./_head-styles.pug
 
-    script _main = '_main-push';
+    script _main = '_main-misc';
     include ./_head-script.pug
 
   body
@@ -17,10 +17,9 @@ html
     .page
       include ./_body-outside.pug
 
-      // MODS
-      include ./mods/_pusher.pug
+      // MODS...
+      include ./mods/_misc.pug
 
-      p relies on wordpress backends
-    ///page
+      ///page
 
     include ./samples/_grid-content.pug

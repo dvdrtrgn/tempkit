@@ -4,8 +4,8 @@
  USE: bootstrap
  */
 _def_('Main', {
-  nom: '_main-push',
-  rev: '(0.0.1) 2016-09',
+  nom: '_main-misc',
+  rev: '(0.0.2) 2016-09',
   dev: 'turgd01',
   sig: function () {
     'use strict';
@@ -40,23 +40,24 @@ _def_('Main', {
   // - - - - - - - - - - - - - - - - - -
   // RUNTIME
 
-  function test() {
-    var picker = $('a.preview').hide();
-    picker.closest('form').show();
-    W._push = picker.pusher();
+  function test(R) {
+    $('li.roman a').on ('click', function () {
+      var num = Math.round(Math.random() * 5000);
+      C.debug('Arabic ' + num + ' = Roman', R.convert(num));
+    });
   }
 
   // - - - - - - - - - - - - - - - - - -
   // INIT
 
   function shim() {
+    C.error('this will not work');
 
     $('head').scriptify([
-      'libs/jq-pusher.js',
-      'libs/dt-poster.js',
+      'libs/dt-roman.js',
     ]);
 
-    test();
+    test(W.Roman);
   }
 
   function bind() {
@@ -64,7 +65,7 @@ _def_('Main', {
     if (W._shim) {
       return shim();
     }
-    require(['libs/jq-pusher'], test);
+    require(['libs/dt-roman'], test);
   }
 
   $.extend(Api, {

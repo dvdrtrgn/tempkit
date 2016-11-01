@@ -4,13 +4,16 @@
 body {
   color: $darker;
 }
+details {
+  cursor: pointer;
+}
 ul {
   padding-left: 1em;
   li a {
     padding-left: 0.5em;
   }
 }
-#grid-preview {
+#Grid-preview {
   .panel-cell-style > .widget {
     display: inline-block;
     background-color: wheat;
@@ -20,7 +23,7 @@ ul {
     width: calc(50% - 1rem);
   }
 }
-#grid-content {
+#Grid-content {
   display: none;
 }
 #Blog {
@@ -33,7 +36,8 @@ ul {
 }
 .external-blog {
   article {
-    border: 1px solid pink;
+    border: 1px solid white;
+    box-shadow: inset 0px 1px 10px -1px gray;
     padding: 1rem;
     flex: 1 1;
   }

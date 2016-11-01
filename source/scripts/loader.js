@@ -6,7 +6,7 @@
  */
 (function (factory) {
   'use strict';
-  var V = '0.3.2';
+  var V = '0.3.3';
   var W = (W && W.window || window);
 
   if (!(typeof define === 'function' && define.amd)) {
@@ -36,6 +36,7 @@
     // - - - - - - - - - - - - - - - - - -
     // PRIVATE
     function fire() {
+      api.stop();
       $.each(api.cbs, function (i, cb) {
         if (typeof cb !== 'function') {
           return;
@@ -64,7 +65,7 @@
         return !me.is('.loaded');
       },
       timeout: function (ms) {
-        W.setTimeout(api.stop, ms);
+        W.setTimeout(fire, ms);
         return finish('timeout: ' + ms);
       },
       start: function () {
@@ -73,7 +74,6 @@
       },
       stop: function () {
         me.removeClass('loading').addClass('loaded');
-        fire();
         return finish('stop');
       },
       //

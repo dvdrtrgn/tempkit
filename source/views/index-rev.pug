@@ -13,14 +13,13 @@ html
   body.loading
 
     .page
-      include ./_body-header.pug
-      include ./_body-footer.pug
+      include ./_body-outside.pug
 
       // MODS
       include ./mods/_revealer.pug
 
       // DEMO
-      include ./_grid-preview.pug
+      include ./samples/_grid-preview.pug
     ///page
 
-    include ./_grid-content.pug
+    include ./samples/_grid-content.pug

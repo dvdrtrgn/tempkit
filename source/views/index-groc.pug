@@ -14,16 +14,15 @@ html
   body.loading
 
     .page
-      include ./_body-header.pug
-      include ./_body-footer.pug
+      include ./_body-outside.pug
 
       // MODS
       include ./mods/_grocer.pug
 
       // DEMO
-      include ./_sample-blog.pug
+      include ./samples/_blog.pug
 
       p relies on wordpress backends
     ///page
 
-    include ./_grid-content.pug
+    include ./samples/_grid-content.pug

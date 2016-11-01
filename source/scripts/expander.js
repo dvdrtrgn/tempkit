@@ -340,8 +340,8 @@
   // Expose Fake Constructor
   function Expander(a, b) {
     var args = [].slice.call(arguments);
-    args[0] = a || '#grid-preview .ex-init';
-    args[1] = b || '#grid-content .widget';
+    args[0] = a || '#Grid-preview .ex-init';
+    args[1] = b || '#Grid-content .widget';
     return $.expander.apply(null, args);
   }
   return Expander;

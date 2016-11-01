@@ -25,7 +25,7 @@
       wp: 'wp-json/wp/v2/card',
       acf: 'wp-json/acf/v2/card',
     },
-    cats: { // interests
+    cats: {// interests
       'General': 1,
       'Human': 3,
       'Environmental': 4,
@@ -33,11 +33,13 @@
       'Arts': 6,
       'Education': 7,
       'Disease': 8,
+      'Religious': 9,
       'Diversity': 10,
       'Child': 11,
+      'Workforce': 12,
       'Other': 13,
     },
-    tags: { // state
+    tags: {// state
       'MN': 14,
       'NC': 15,
     },
