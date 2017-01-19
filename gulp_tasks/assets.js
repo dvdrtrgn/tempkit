@@ -50,7 +50,7 @@ gulp.task('fonts', function() {
 
 // Images
 gulp.task('images', function () {
-  return gulp.src('./source/images/**/*')
+  return gulp.src(['./source/images/**/*', '!./source/images/**/*.psd'])
     .pipe(changed('./build/images'))
     //.pipe(imagemin({
     //  optimizationLevel: 3,

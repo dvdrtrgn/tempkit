@@ -43,6 +43,6 @@
   },
   "scripts": {
     "build": "gulp build && gulp serve",
-    "clean": "gulp clean && gulp build && gulp serve"
+    "clean": "gulp clean && gulp build"
   }
 }
