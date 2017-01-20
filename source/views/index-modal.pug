@@ -1,0 +1,23 @@
+doctype html
+html
+  head
+    include ./include/_head-meta.pug
+
+    title Demo Modal
+
+    include ./include/_head-styles.pug
+
+    script _main = '_main-modal';
+    include ./include/_head-script.pug
+
+  body
+
+    .page
+      include ./include/_body-outside.pug
+
+      // MODS...
+      include ./mods/_modal.pug
+
+      ///page
+
+    include ./samples/_modal.pug
