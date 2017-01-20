@@ -5,27 +5,27 @@ html
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
     meta(name='viewport', content='width=device-width, initial-scale=1')
 
-    title Template
+    title Demo Template
 
-    include ./_head-styles.pug
+    include ./include/_head-styles.pug
     link(href='./styles/expander.css', rel='stylesheet', media='all')
 
     script _main = '_main';
-    include ./_head-script.pug
+    include ./include/_head-script.pug
 
   body.loading
 
     .page
-      include ./_body-outside.pug
+      include ./include/_body-outside.pug
 
       // MODS
       ul
         li: a(href='index-all.html') All
-        li: a(href='index-exp.html') Expander
-        li: a(href='index-groc.html') Grocer
-        li: a(href='index-rev.html') Revealer
+        li: a(href='index-expander.html') Expander
+        li: a(href='index-grocer.html') Grocer
+        li: a(href='index-revealer.html') Revealer
         li: a(href='index-loader.html') Loader
-        li: a(href='index-push.html') Pusher
+        li: a(href='index-pusher.html') Pusher
       include ./mods/_modal.pug
       include ./mods/_misc.pug
       include ./mods/_live.pug

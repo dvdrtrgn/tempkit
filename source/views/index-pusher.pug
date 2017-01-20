@@ -5,21 +5,22 @@ html
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
     meta(name='viewport', content='width=device-width, initial-scale=1')
 
-    title Template
+    title Demo Pusher
 
-    include ./_head-styles.pug
-    link(href='./styles/expander.css', rel='stylesheet', media='all')
+    include ./include/_head-styles.pug
+
+    script _main = '_main-push';
+    include ./include/_head-script.pug
 
   body
 
     .page
-      include ./_body-outside.pug
+      include ./include/_body-outside.pug
 
       // MODS
-      include ./mods/_revealer.pug
+      include ./mods/_pusher.pug
 
-      // DEMO
-      include ./samples/_grid-preview.pug
+      p relies on wordpress backends
     ///page
 
     include ./samples/_grid-content.pug
