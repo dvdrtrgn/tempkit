@@ -66,6 +66,9 @@ _def_('Main', {
       return shim();
     }
     require(['libs/dt-roman'], test);
+    require(['loader'], function (loader) {
+      setTimeout(loader().stop, 3333);
+    });
   }
 
   $.extend(Api, {
