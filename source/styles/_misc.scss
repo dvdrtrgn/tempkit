@@ -4,6 +4,18 @@
 body {
   color: $darker;
 }
+.exit-link:after {
+  content: '‡';
+  color: red;
+  font-size: 66%;
+  vertical-align: super;
+}
+.exit-link-notice {
+  color: red;
+  display: none;
+  font-size: 80%;
+}
+
 details {
   cursor: pointer;
 }
