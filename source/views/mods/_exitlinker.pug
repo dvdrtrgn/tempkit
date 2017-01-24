@@ -1,0 +1,14 @@
+#ExitLinker.boxy
+  strong Exit Linker
+  ul
+    li <a href='./scripts/exitlinker.js' target='_blank'>exitlinker.js</a>
+    li some <a href='https://wf.com/link'>wf.com</a> link
+    li some <a href='https://wellsfargo.com/link'>wellsfargo.com</a> link
+    li some <a href='https://wellsfargomedia.com/link'>wellsfargomedia.com</a> link
+    li some <a href='https://some.external.site.com/link'>some.external.site.com</a> link
+
+  button(onclick='try{ $.exitlinker();      }catch(z){}') scan
+  button(onclick='try{ $.exitlinker.kill(); }catch(z){}') kill
+  br
+
+  ///mods/_exitlinker.pug
