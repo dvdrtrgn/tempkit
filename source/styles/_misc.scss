@@ -4,17 +4,6 @@
 body {
   color: $darker;
 }
-.exit-link:after {
-  content: '‡';
-  color: red;
-  font-size: 66%;
-  vertical-align: super;
-}
-.exit-link-notice {
-  color: red;
-  display: none;
-  font-size: 80%;
-}
 
 details {
   cursor: pointer;
@@ -61,6 +50,10 @@ ul {
   }
 }
 
+.hide {
+  display: none;
+}
+
 .boxy {
   border: 1px solid silver;
   border-radius: 3px;
@@ -69,6 +62,7 @@ ul {
   padding: 1rem 2rem;
   vertical-align: top;
 }
+
 #Init {
   display: none;
 }
