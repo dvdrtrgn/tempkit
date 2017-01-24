@@ -2,18 +2,33 @@
   'use strict';
   var whitelist = ['wellsfargo.com', 'wellsfargomedia.com', 'wf.com'];
 
-  $(function () {
-    var links = $('a[href*="//"]');
+  function addStyles(css) {
+    var style = $('<style type=text/css>');
+    style.text(css.replace(/([;{])\s(\w)/g, '$1\n  $2')); // pretty indent
+    $('head').append(style);
+  }
 
-    whitelist.forEach(function (e) {
-      links = links.not('[href*="' + e + '"]');
+  $.exitlinker = function () {
+    var links = $('a[href*="//"]');
+    var notice = $('.exit-link-notice').hide();
+
+    whitelist.forEach(function (domain) {
+      links = links.not('[href*="' + domain + '"]');
     });
 
     if (links.length) {
-      $('.exit-link-notice').show();
-      links.addClass('exit-link');
-      links.attr('target', '_blank');
+      links.not('.exit-link')
+      .attr('target', '_blank')
+      .append('<sup title="Not a Wells Fargo website">‡</sup>')
+      .addClass('exit-link');
+      notice.show();
     }
-  });
+  };
 
+  $(function () {
+    var css = '.exit-link-notice { color: red; font-size: 85%; }\n' +
+      '.exit-link sup { color: red; display: inline-block; cursor: help; }';
+    $($.exitlinker);
+    addStyles(css);
+  });
 }(jQuery));
