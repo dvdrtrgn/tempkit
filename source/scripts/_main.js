@@ -99,6 +99,7 @@
       return shim();
     }
 
+    require(['exitlinker']);
     require(['grocer'], function (grocer) {
       W._groc = grocer();
     });

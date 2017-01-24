@@ -26,8 +26,8 @@
   };
 
   $(function () {
-    var css = '.exit-link-notice { color: red; font-size: 85%; }\n' +
-      '.exit-link sup { color: red; display: inline-block; cursor: help; }';
+    var css = '.exit-link-notice { font-size: 90%; }\n' +
+      '.exit-link sup { display: inline-block; cursor: help; }';
     //$($.exitlinker);
     addStyles(css);
   });
