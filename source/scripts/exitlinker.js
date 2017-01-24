@@ -8,27 +8,43 @@
     $('head').append(style);
   }
 
-  $.exitlinker = function () {
+  function findLinks() {
     var links = $('a[href*="//"]');
-    var notice = $('.exit-link-notice').hide();
-
     whitelist.forEach(function (domain) {
       links = links.not('[href*="' + domain + '"]');
     });
+    return links;
+  }
+
+  function killLinks() {
+    findLinks().replaceWith('💩');
+  }
+
+  function markLinks(links) {
+    links.not('.exit-link').addClass('exit-link').attr('target', '_blank')
+      .append('<sup title="Not a Wells Fargo website">‡</sup>');
+  }
+
+  function scanLinks() {
+    var links = findLinks();
+    var notice = $('.exit-link-notice').hide();
 
     if (links.length) {
-      links.not('.exit-link')
-      .attr('target', '_blank')
-      .append('<sup title="Not a Wells Fargo website">‡</sup>')
-      .addClass('exit-link');
+      markLinks(links);
       notice.show();
     }
-  };
+  }
 
-  $(function () {
+  $.exitlinker = function exitlinker() {
+    scanLinks();
+  };
+  $.exitlinker.kill = killLinks;
+  $.exitlinker.list = findLinks;
+  $.exitlinker.scan = scanLinks;
+
+  $(function inject() {
     var css = '.exit-link-notice { font-size: 90%; }\n' +
       '.exit-link sup { display: inline-block; cursor: help; }';
-    //$($.exitlinker);
-    addStyles(css);
+    addStyles(css); // $($.exitlinker);
   });
 }(jQuery));

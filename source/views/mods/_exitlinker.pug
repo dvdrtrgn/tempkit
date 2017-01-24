@@ -7,7 +7,8 @@
     li some <a href='https://wellsfargomedia.com/link'>wellsfargomedia.com</a> link
     li some <a href='https://some.external.site.com/link'>some.external.site.com</a> link
 
-  button(onclick='try{ $.exitlinker(); }catch(z){}') scan
+  button(onclick='try{ $.exitlinker();      }catch(z){}') scan
+  button(onclick='try{ $.exitlinker.kill(); }catch(z){}') kill
   br
 
   ///mods/_exitlinker.pug
