@@ -3,22 +3,22 @@ html
   head
     include ./include/_head-meta.pug
 
-    title Demo Misc
+    title Demo Pusher
 
     include ./include/_head-styles.pug
 
-    script _main = '_main-misc';
+    script _main = '_main-push';
     include ./include/_head-script.pug
 
-  body.loading
+  body
 
     .page
       include ./include/_body-outside.pug
 
-      // MODS...
-      include ./mods/_misc.pug
-      include ./mods/_exitlinker.pug
+      // MODS
+      include ./mods/_pusher.pug
 
-      ///page
+      p relies on wordpress backends
+    ///page
 
     include ./samples/_grid-content.pug

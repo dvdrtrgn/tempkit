@@ -10,6 +10,8 @@ var gulp        = require('gulp');
 var minimist    = require('minimist');
 var runSequence = require('run-sequence');
 var changed     = require('gulp-changed');
+//var copy        = require('gulp-copy');
+//var imagemin    = require('gulp-imagemin');
 
 // Build options
 var options = minimist(process.argv.slice(2), {
@@ -48,8 +50,13 @@ gulp.task('fonts', function() {
 
 // Images
 gulp.task('images', function () {
-  return gulp.src('./source/images/**/*')
+  return gulp.src(['./source/images/**/*', '!./source/images/**/*.psd'])
     .pipe(changed('./build/images'))
+    //.pipe(imagemin({
+    //  optimizationLevel: 3,
+    //  progressive: true,
+    //  svgoPlugins: [{ removeViewBox: false }]
+    //}))
     .pipe(gulp.dest('./build/images'));
 
 });

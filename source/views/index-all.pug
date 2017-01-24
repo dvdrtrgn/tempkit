@@ -1,0 +1,38 @@
+doctype html
+html
+  head
+    include ./include/_head-meta.pug
+
+    title Demo All
+
+    include ./include/_head-styles.pug
+    link(href='./styles/expander.css', rel='stylesheet', media='all')
+
+    script _main = '_main';
+    include ./include/_head-script.pug
+
+  body.loading
+
+    .page
+      include ./include/_body-outside.pug
+
+      // MODS
+      include ./mods/_exitlinker.pug
+      include ./mods/_expander.pug
+      include ./mods/_grocer.pug
+      include ./mods/_revealer.pug
+      include ./mods/_interstitial.pug
+      include ./mods/_loader.pug
+      include ./mods/_pusher.pug
+      include ./mods/_misc.pug
+      include ./mods/_live.pug
+      include ./samples/_inits.pug
+
+      // DEMO
+      include ./samples/_blog.pug
+      include ./samples/_grid-preview.pug
+
+      ///page
+
+    include ./samples/_grid-content.pug
+    include ./samples/_modal.pug

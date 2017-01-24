@@ -4,12 +4,13 @@
 body {
   color: $darker;
 }
+
 details {
   cursor: pointer;
 }
 ul {
   padding-left: 1em;
-  li a {
+  #Live & li a {
     padding-left: 0.5em;
   }
 }
@@ -49,6 +50,10 @@ ul {
   }
 }
 
+.hide {
+  display: none;
+}
+
 .boxy {
   border: 1px solid silver;
   border-radius: 3px;
@@ -57,6 +62,7 @@ ul {
   padding: 1rem 2rem;
   vertical-align: top;
 }
+
 #Init {
   display: none;
 }

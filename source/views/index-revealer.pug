@@ -1,19 +1,17 @@
 doctype html
 html
   head
-    meta(charset='UTF-8')
-    meta(http-equiv='X-UA-Compatible', content='IE=edge')
-    meta(name='viewport', content='width=device-width, initial-scale=1')
+    include ./include/_head-meta.pug
 
-    title Template
+    title Demo Revealer
 
-    include ./_head-styles.pug
+    include ./include/_head-styles.pug
     link(href='./styles/expander.css', rel='stylesheet', media='all')
 
-  body.loading
+  body
 
     .page
-      include ./_body-outside.pug
+      include ./include/_body-outside.pug
 
       // MODS
       include ./mods/_revealer.pug

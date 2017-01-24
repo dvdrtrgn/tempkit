@@ -1,0 +1,20 @@
+script(src='./scripts/_def_.js')
+
+script.
+  _main = './scripts/' + _main || '_main';
+  _shim = (location.hash.toLowerCase() === '#shim');
+  if (_shim) {
+    document.write('<script src="./vendors/jquery/jquery.js"><\/script>');
+    document.write('<script src="./scripts/libs/jq-xtn.js"><\/script>');
+  }
+  _init = [('<script data-main="' + _main + '" src="'), '[1]', '.js"><\/script>'];
+  _init[1] = (_shim ? _main : 'vendors/require.js/require');
+  document.write(_init.join(''));
+
+script.
+  function shimmy() {
+    location.hash = location.hash ? '' : 'shim';
+    location.reload();
+  }
+
+///_head-script.pug

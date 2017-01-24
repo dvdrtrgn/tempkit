@@ -1,7 +1,7 @@
 /*jslint white:false */
 /*global _def_, window */
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
- USE: bootstrap
+ USE: bootstrap modules
  */
 _def_('Main', {
   nom: '_main-misc',
@@ -65,7 +65,11 @@ _def_('Main', {
     if (W._shim) {
       return shim();
     }
-    require(['libs/dt-roman'], test);
+    require(['loader'], function (loader) {
+      require(['libs/dt-roman'], test);
+      require(['exitlinker']);
+      setTimeout(loader().stop, 3333);
+    });
   }
 
   $.extend(Api, {

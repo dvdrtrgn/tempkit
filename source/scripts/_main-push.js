@@ -1,7 +1,7 @@
 /*jslint white:false */
 /*global _def_, window */
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
- USE: bootstrap
+ USE: bootstrap modules
  */
 _def_('Main', {
   nom: '_main-push',
