@@ -78,7 +78,7 @@
       return shim();
     }
 
-    require(['modal', 'dialog'], function (mod, dialog) {
+    require(['modal', 'dialog', 'exitlinker'], function (mod, dialog) {
       W._dia = dialog.bind();
     });
 
