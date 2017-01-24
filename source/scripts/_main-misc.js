@@ -65,9 +65,9 @@ _def_('Main', {
     if (W._shim) {
       return shim();
     }
-    require(['libs/dt-roman'], test);
-    require(['exitlinker'], test);
     require(['loader'], function (loader) {
+      require(['libs/dt-roman'], test);
+      require(['exitlinker']);
       setTimeout(loader().stop, 3333);
     });
   }
