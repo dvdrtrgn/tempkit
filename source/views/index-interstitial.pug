@@ -3,21 +3,21 @@ html
   head
     include ./include/_head-meta.pug
 
-    title Demo Misc
+    title Demo Modal
 
     include ./include/_head-styles.pug
 
-    script _main = '_main-misc';
+    script _main = '_main-modal';
     include ./include/_head-script.pug
 
-  body.loading
+  body
 
     .page
       include ./include/_body-outside.pug
 
       // MODS...
-      include ./mods/_misc.pug
+      include ./mods/_interstitial.pug
 
       ///page
 
-    include ./samples/_grid-content.pug
+    include ./samples/_modal.pug
