@@ -28,7 +28,7 @@
   $(function () {
     var css = '.exit-link-notice { color: red; font-size: 85%; }\n' +
       '.exit-link sup { color: red; display: inline-block; cursor: help; }';
-    $($.exitlinker);
+    //$($.exitlinker);
     addStyles(css);
   });
 }(jQuery));

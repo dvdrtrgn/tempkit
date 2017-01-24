@@ -1,4 +1,4 @@
-#Revealer.boxy
+#ExitLinker.boxy
   strong Exit Linker
   ul
     li: a(href='./scripts/exitlinker.js' target='_blank') exitlinker.js
@@ -6,6 +6,8 @@
     li: a(href='https://wellsfargo.com/link') https://wellsfargo.com/link
     li: a(href='https://wellsfargomedia.com/link') https://wellsfargomedia.com/link
     li: a(href='https://some.external.site.com/link') https://some.external.site.com/link
+
+  button(onclick='try{ $.exitlinker(); }catch(z){}') scan
   br
 
   ///mods/_exitlinker.pug
